@@ -215,11 +215,11 @@ If a response contains more than one result it is served as a collection of reso
 
 Collections take two chunking parameters: *offset* and *limit*. Offset defaults to 0 and limit defaults to 50, if a larger value for limit is passed its set to 50.
 If a collection contains more than 50 resources and you want to retrieve all of them:
-1. Start with an offset of 0
-2. Request a collection chunk from the offset
-3. If you receive results:
-	1. Increment the offset by number of resources returned
-	2. Repeat from step 2
+  # Start with an offset of 0
+  # Request a collection chunk from the offset
+  # If you receive results:
+  	# Increment the offset by number of resources returned
+  	# Repeat from step 2
 
 == Client forward compatibility ==
 
@@ -837,7 +837,7 @@ Deletes the given comment.
 This is only allowed to the comment's creator or the associated track's owner.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/comments/1' -X DELETE
+$ curl -u joey:hairspray 'http://soundcloud.com/api/comments/1' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
@@ -854,7 +854,7 @@ Type: Asset
 Retrieves a list of the logged in user's assets.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/assets'
+$ curl -u joey:hairspray 'http://soundcloud.com/api/assets'
 
 < HTTP/1.1 200 OK
 
@@ -881,7 +881,7 @@ Parameters:
   - *asset`[`filedata`]`*, form-multipart-encoded-file
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/assets' -F asset[filedata]=@final_countdown.wav
+$ curl -u joey:hairspray 'http://soundcloud.com/api/assets' -F asset[filedata]=@final_countdown.wav
 
 < HTTP/1.1 201 Created
 < Location: http://soundcloud.com/api/assets/1
@@ -895,12 +895,3 @@ $ curl -u joey:hairspray 'http://soundcloud.com/api/assets/1' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
-
-
-
-
-
-
-
-
-
