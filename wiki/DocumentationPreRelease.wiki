@@ -229,16 +229,16 @@ The API may change when new features are introduced. Existing resource types mig
 
 === api/users ===
 
-||*Resource*									                ||  *Method*          ||
-||/api/users/									                ||  GET               ||
-||/api/users/{user_id}						            ||  GET, PUT          ||
-||/api/users/{user_id}/tracks					        ||  GET               ||
-||/api/users/{user_id}/comments				        ||  GET               ||
-||/api/users/{user_id}/contacts				        ||  GET               ||
-||/api/users/{user_id}/contacts/{contact_id}	||  GET, PUT, DELETE  ||
-||/api/users/{user_id}/comments				        ||  GET               ||
-||/api/users/{user_id}/favorites				      ||  GET               ||
-||/api/users/{user_id}/favorites/{track_id}   ||  GET, PUT, DELETE  ||
+||  *Resource*									                ||  *Method*          ||
+||  /api/users/									                ||  GET               ||
+||  /api/users/{user_id}						            ||  GET, PUT          ||
+||  /api/users/{user_id}/tracks					        ||  GET               ||
+||  /api/users/{user_id}/comments				        ||  GET               ||
+||  /api/users/{user_id}/contacts				        ||  GET               ||
+||  /api/users/{user_id}/contacts/{contact_id}	||  GET, PUT, DELETE  ||
+||  /api/users/{user_id}/comments				        ||  GET               ||
+||  /api/users/{user_id}/favorites				      ||  GET               ||
+||  /api/users/{user_id}/favorites/{track_id}   ||  GET, PUT, DELETE  ||
 
 For each resource /api/users/{user_id}`*` there is a resource /api/me`*`.
 Using these resources gives the logged in user as the given user.
