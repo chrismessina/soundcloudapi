@@ -97,4 +97,4 @@ $ curl -u joey:hairspray 'http://soundcloud.com/api/tracks/12/permissions' -X PU
 '
 }}}
 
-Now MC Hammer and Vanilla Ice have access to your new track "Superstitous" and can listen to it.
+Now MC Hammer and Vanilla Ice have access to your new track "Superstitious" and can listen to it.
