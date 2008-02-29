@@ -50,7 +50,6 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         key = '%s&' % consumer_secret
         key += token_secret
         raw = '&'.join(sig)
-        import pdb; pdb.set_trace()
         # hmac object
         hashed = hmac.new(key, raw, hashlib.sha1)
         # calculate the digest base 64
