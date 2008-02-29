@@ -44,6 +44,8 @@ $ curl 'http://sandbox.soundcloud.com/api/tracks'
 </tracks>
 }}}
 
+To get all request and response headers do the cURL request in verbose mode using the -v flag.
+
 == Authentication ==
 
 Anyone can read Users, public Tracks and Comments on public Tracks. Other resources are protected and need authentication.
