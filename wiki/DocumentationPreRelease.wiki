@@ -9,6 +9,8 @@ The API is built with the design principles of REST in mind, exposing resources 
 
 If you have questions, comments or suggestions they are very welcome. Join the discussion on our mailing list or, if you wish to keep it private, send an email to api@plazes.com.
 
+We've put up a [SimpleUseCase simple use case] if you want to see what the API is capable of.
+
 === Getting started ===
 
 Examples throughout this document will mainly be illustrated using [http://curl.haxx.se cURL]. We start by requesting the tracks that are publicly accessible:
@@ -341,7 +343,7 @@ $ curl -u joey:hairspray 'http://soundcloud.com/api/me/tracks'
 Requesting the tracks resource of another user:
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/user/2/tracks'
+$ curl -u joey:hairspray 'http://soundcloud.com/api/users/2/tracks'
 
 < HTTP/1.1 200 OK
 
@@ -371,7 +373,7 @@ Type: Collection of Users
 The given user's contacts.
 
 {{{
-$ curl 'http://soundcloud.com/api/user/2/contacts'
+$ curl 'http://soundcloud.com/api/users/2/contacts'
 
 < HTTP/1.1 200 OK
 
@@ -379,29 +381,12 @@ $ curl 'http://soundcloud.com/api/user/2/contacts'
 <users>
 	<user>
 		<id type="integer">3</id>
-		<username>Vanilla Ice</username>
+		<username>vice</username>
 		...
 	</user>
 	<user>
 		<id type="integer">4</id>
-		<username>MC Hammer</username>
-		...
-	</user>
-</users>
-}}}
-
-The resource is searchable by passing the query to the resource. It then lists a subset matching the search query.
-
-{{{
-$ curl 'http://soundcloud.com/api/user/2/contacts?q=vanilla'
-
-< HTTP/1.1 200 OK
-
-<?xml version="1.0" encoding="UTF-8"?>
-<users>
-	<user>
-		<id type="integer">3</id>
-		<username>Vanilla Ice</username>
+		<username>mchammer</username>
 		...
 	</user>
 </users>
@@ -412,7 +397,7 @@ $ curl 'http://soundcloud.com/api/user/2/contacts?q=vanilla'
 Adds the user with the id contact_id to the given user's list of contacts. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/21' -X PUT
+$ curl -u joey:hairspray 'http://soundcloud.com/api/users/1/contacts/21' -X PUT
 
 < HTTP/1.1 201 Created
 }}}
@@ -422,7 +407,7 @@ $ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/21' -X PUT
 Removes the user with the id contact_id from the given user's list of contacts. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/21' -X DELETE
+$ curl -u joey:hairspray 'http://soundcloud.com/api/users/1/contacts/21' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
@@ -434,7 +419,7 @@ Type: Collection of Users
 The given user's fans.
 
 {{{
-$ curl 'http://soundcloud.com/api/user/2/contacts/'
+$ curl 'http://soundcloud.com/api/users/2/fans/'
 
 < HTTP/1.1 200 OK
 }}}
@@ -446,7 +431,7 @@ Type: Collection of Tracks
 The given user's favorited tracks.
 
 {{{
-$ curl 'http://soundcloud.com/api/user/1/favorites/'
+$ curl 'http://soundcloud.com/api/users/1/favorites/'
 
 < HTTP/1.1 200 OK
 
@@ -467,7 +452,7 @@ $ curl 'http://soundcloud.com/api/user/1/favorites/'
 Adds the given track to the given user's list of favorites. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/3' -X PUT
+$ curl -u joey:hairspray 'http://soundcloud.com/api/me/favorites/3' -X PUT
 
 < HTTP/1.1 201 Created
 }}}
@@ -477,7 +462,7 @@ $ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/3' -X PUT
 Adds the given track to the given user's list of favorites. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://soundcloud.com/api/user/1/contacts/3' -X DELETE
+$ curl -u joey:hairspray 'http://soundcloud.com/api/users/1/favorites/3' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
