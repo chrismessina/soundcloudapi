@@ -1,0 +1,100 @@
+#labels Featured
+= API use case =
+
+If you've read the [DocumentationPreRelease documentation] but need more guidance on how to make something with the API, here is a short upload and sharing example.
+
+This is how to do it:
+
+  # Create a private track, this contains information about the track.
+  # Upload an asset,  this is the actual audio file.
+  # Connect the asset to the track.
+  # List your contacts
+  # Give your contacts access to the track
+
+== Setup ==
+
+You need a SoundCloud user account to be able to upload files. If you want to use the sandbox you need a developer account on that server.
+
+== Here we go ==
+
+=== Create a track ===
+
+Create a track with title and description.
+
+{{{
+$ curl -u joey:hairspray 'http://soundcloud.com/api/tracks' -X POST -H 'Content-Type: application/xml'  -d '
+<track>
+	<title>Superstitious</title>
+	<description>A song about people.</description>
+</track>
+'
+
+< HTTP/1.1 201 Created
+< Location: http://soundcloud.com/api/tracks/12
+}}}
+
+The track's canonical resource is given in the Location response header and in this case it is "http://soundcloud.com/api/tracks/12".
+
+The track's id is 12.
+
+=== Upload an asset ===
+
+Upload the audio file.
+
+{{{
+$ curl -u joey:hairspray 'http://soundcloud.com/api/assets' -F asset[filedata]=@superstitious.wav
+
+< HTTP/1.1 201 Created
+< Location: http://soundcloud.com/api/assets/123
+}}}
+
+The asset's canonical resource is given in the Location response header and in this case it is "http://soundcloud.com/api/assets/123".
+
+The track's id is 123.
+
+=== Connect the asset to the track ===
+
+Use the track's id and the asset's id to connect them.
+
+{{{
+$ curl -u joey:hairspray 'http://soundcloud.com/api/tracks/12/assets/123' -X PUT
+
+< HTTP/1.1 201 Created
+}}}
+
+=== List your contacts ===
+
+{{{
+$ curl -u joey:hairspray 'http://soundcloud.com/api/me/contacts'
+
+< HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+	<user>
+		<id type="integer">3</id>
+		<username>vice</username>
+		...
+	</user>
+	<user>
+		<id type="integer">4</id>
+		<username>mchammer</username>
+		...
+	</user>
+</users>
+}}}
+
+There are two contacts, their user ids are 3 and 4.
+
+=== Give your contacts access to the track ===
+
+{{{
+$ curl -u joey:hairspray 'http://soundcloud.com/api/tracks/12/permissions' -X PUT -H 'Content-Type: application/xml' -d '
+<permissions>
+	<user-id>3</user-id>
+	<user-id>4</user-id>
+</permissions>
+'
+}}}
+
+Now MC Hammer and Vanilla Ice have access to your new track "Superstitous" and can listen to it.
