@@ -1,8 +1,20 @@
 #labels Featured
-Here we'll put in a bunch of API ideas that we've been thinking about while developing SoundCloud and the API for it. Here are a few quick ones:
+Here we'll put in a bunch of API ideas that we've been thinking about while developing SoundCloud and the API for it. Of course, feel free to edit, add, comment.. Here are a few quick ones:
 
-  * An uploader app that let's you drag'n'drop any sound file to push it to the cloud.
+= Desktop Applications =
+  * An uploader app that let's you drag'n'drop any sound file to push it to the cloud & set decide who has access to it.
   * A file system plugin (fuse?) that lets you mount your SoundCloud account and add files to it by dragging and dropping.
-  * A little radio cloud that sits on your desktop (or maybe it's a dashboard widget) and plays music from your dashboard and the hotlist. I could show comments popping up while music is being played.
+  * A little radio cloud that sits on your desktop (or maybe it's a dashboard widget) and plays music from your dashboard and the hotlist. It could show comments popping up while music is being played.
   * A plugin for an audio editor to be able to "bounce-to-web" and share with friends straight from within the editor.
+
+= Web apps / mash-ups =
+  * "The world music map". A nice world map visualization where you can zoom in and listen to music that was created in that part of the world or tracks are are listened to a lot in this region.
+  * Audio visualizer that users the timed comments for textual-based artistic visualization at the right point in the track.
+
+= iPhone =
+
   * Iphone app. Jiggy could be nice to play around with for that. While on wifi the app could sync the latest tracks on your dashboard for playback on the go.
+  * Player app that synchs heard/unheard marker & playcounts & allows one-tap favoriting and commenting.
+  * Native app for sampling audio and posting to SC
+  * Add-ons to pocket guitar, iAno etc to let you record audio and post to SC
+  * Webapp for adding priviliges to a soundcloud user or email address on a private track (e.g. I'm at a concert where I meet an interesting producer and can directly give him/her access to a private track of mine)
