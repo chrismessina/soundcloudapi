@@ -28,26 +28,33 @@ from scapi.util import escape
 
 class OAuthSignatureMethod_HMAC_SHA1(object):
 
+    FORBIDDEN = ['realm', 'oauth_signature']
+
     def get_name(self):
         return 'HMAC-SHA1'
 
-    def build_signature(self, request, parameters, consumer_secret, token_secret):
+    def build_signature(self, request, parameters, consumer_secret, token_secret, oauth_parameters):
+        temp = {}
+        temp.update(oauth_parameters)
+        for p in self.FORBIDDEN:
+            if p in temp:
+                del temp[p]
+        if parameters is not None:
+            temp.update(parameters)
         sig = (
             escape(self.get_normalized_http_method(request)),
             escape(self.get_normalized_http_url(request)),
-            escape(self.get_normalized_parameters(parameters)),
+            escape(self.get_normalized_parameters(temp)),
         )
-
+        
         key = '%s&' % consumer_secret
         key += token_secret
         raw = '&'.join(sig)
-
+        import pdb; pdb.set_trace()
         # hmac object
         hashed = hmac.new(key, raw, hashlib.sha1)
-
         # calculate the digest base 64
-        # w/o dquotes
-        signature = base64.b64encode(hashed.digest())[1:-1]
+        signature = escape(base64.b64encode(hashed.digest()))
         return signature
 
     def get_normalized_http_method(self, request):
@@ -70,6 +77,8 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
             pass
         key_values = []
         for key, values in params.iteritems():
+            if isinstance(values, file):
+                continue
             if isinstance(values, (int, long, float)):
                 values = str(values)
             if isinstance(values, basestring):
@@ -98,11 +107,11 @@ class OAuthAuthenticator(object):
             'oauth_version': self.OAUTH_API_VERSION,
             'oauth_token' : self._token,
             'oauth_signature_method' : self._signature_method.get_name(),
-            'oauth_signature' : self._signature_method.build_signature(req, parameters, self._consumer_secret, self._secret),
             #'realm' : "http://soundcloud.com",
             }
+        oauth_parameters['oauth_signature'] = self._signature_method.build_signature(req, parameters, self._consumer_secret, self._secret, oauth_parameters)
         def to_header(d):
-            return ",".join('%s="%s"' % (key, value) for key, value in oauth_parameters.items())
+            return ",".join('%s="%s"' % (key, value) for key, value in sorted(oauth_parameters.items()))
 
         req.add_header("Authorization", "OAuth  %s" % to_header(oauth_parameters))
 

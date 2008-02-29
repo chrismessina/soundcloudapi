@@ -387,7 +387,7 @@ class Scope(object):
                     #for item in res[part]:
                     for item in res:
                         items.append(cls(item, self, stack))
-                    if res:
+                    if len(res) == SoundCloudAPI.LIST_LIMIT:
                         items.extend(continue_list_fetching())
                     return items
                 else:
