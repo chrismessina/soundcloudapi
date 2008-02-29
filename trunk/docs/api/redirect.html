@@ -1,0 +1,38 @@
+<html><head><title>Epydoc Redirect Page</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+var pages = ["scapi.authentication.OAuthSignatureMethod_HMAC_SHA1-c", "scapi.MultipartPostHandler'.MultipartPostHandler-c", "scapi.authentication.BasicAuthenticator-c", "scapi.authentication.OAuthAuthenticator-c", "urllib2.HTTPPasswordMgrWithDefaultRealm-c", "scapi.MultipartPostHandler'.Callable-c", "urllib2.AbstractDigestAuthHandler-c", "urllib2.AbstractBasicAuthHandler-c", "urllib2.HTTPDefaultErrorHandler-c", "urllib2.ProxyDigestAuthHandler-c", "urllib2.HTTPDigestAuthHandler-c", "urllib2.ProxyBasicAuthHandler-c", "scapi.InvalidMethodException-c", "urllib2.HTTPBasicAuthHandler-c", "scapi.MultipartPostHandler'-m", "scapi.json._StringGenerator-c", "urllib.ContentTooShortError-c", "urllib2.AbstractHTTPHandler-c", "urllib2.HTTPCookieProcessor-c", "urllib2.HTTPRedirectHandler-c", "urllib2.HTTPErrorProcessor-c", "scapi.NoResultFromRequest-c", "scapi.json.WriteException-c", "scapi.json.ReadException-c", "scapi.SCRedirectHandler-c", "urllib2.CacheFTPHandler-c", "urllib2.HTTPPasswordMgr-c", "urllib2.OpenerDirector-c", "urllib2.UnknownHandler-c", "scapi.json.JsonReader-c", "scapi.json.JsonWriter-c", "urllib.FancyURLopener-c", "urllib2.GopherHandler-c", "scapi.authentication-m", "posix.statvfs_result-c", "urllib2.HTTPSHandler-c", "urllib2.ProxyHandler-c", "mimetypes.MimeTypes-c", "scapi.SoundCloudAPI-c", "urllib.addclosehook-c", "urllib2.BaseHandler-c", "urllib2.FileHandler-c", "urllib2.GopherError-c", "urllib2.HTTPHandler-c", "exceptions.OSError-c", "urllib2.FTPHandler-c", "mimetools.Message-c", "posix.stat_result-c", "urllib.addinfourl-c", "urllib.ftpwrapper-c", "urllib2.HTTPError-c", "urllib.URLopener-c", "urllib2.URLError-c", "urllib2.Request-c", "scapi.RESTBase-c", "urllib.addbase-c", "urllib.addinfo-c", "scapi.Comment-c", "scapi.config-m", "os._Environ-c", "scapi.Asset-c", "scapi.Scope-c", "scapi.Track-c", "scapi.json-m", "scapi.util-m", "scapi.User-c", "mimetools-m", "mimetypes-m", "posixpath-m", "urllib2-m", "urllib-m", "scapi-m", "stat-m", "os-m"];
+var dottedName = get_anchor();
+if (dottedName) {
+    var target = redirect_url(dottedName);
+    if (target) window.location.replace(target);
+}
+// -->
+</script>
+
+<h3>Epydoc Auto-redirect page</h3>
+
+<p>When javascript is enabled, this page will redirect URLs of
+the form <tt>redirect.html#<i>dotted.name</i></tt> to the
+documentation for the object with the given fully-qualified
+dotted name.</p>
+<p><a id="message"> &nbsp; </a></p>
+
+<script type="text/javascript">
+<!--
+if (dottedName) {
+    var msg = document.getElementById("message");
+    msg.innerHTML = "No documentation found for <tt>"+
+                    dottedName+"</tt>";
+}
+// -->
+</script>
+
+</body>
+</html>

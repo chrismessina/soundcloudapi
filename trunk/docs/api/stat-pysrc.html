@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>stat</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="scapi-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;stat
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="stat-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="stat-module.html">Module stat</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">"""Constants/functions for interpreting results of os.stat() and os.lstat().</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">Suggested usage: from stat import *</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># XXX Strictly spoken, this module may have to be adapted for each POSIX</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># implementation; in practice, however, the numeric constants used by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># stat() are almost universal (even for stat() emulations on non-UNIX</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># systems like MS-DOS).</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Indices for stat struct members in tuple returned by os.stat()</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable stat.ST_MODE=stat-module.html#ST_MODE"><a title="stat.ST_MODE" class="py-name" href="#" onclick="return doclink('link-0', 'ST_MODE', 'link-0');">ST_MODE</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable stat.ST_INO=stat-module.html#ST_INO"><a title="stat.ST_INO" class="py-name" href="#" onclick="return doclink('link-1', 'ST_INO', 'link-1');">ST_INO</a></tt>   <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable stat.ST_DEV=stat-module.html#ST_DEV"><a title="stat.ST_DEV" class="py-name" href="#" onclick="return doclink('link-2', 'ST_DEV', 'link-2');">ST_DEV</a></tt>   <tt class="py-op">=</tt> <tt class="py-number">2</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable stat.ST_NLINK=stat-module.html#ST_NLINK"><a title="stat.ST_NLINK" class="py-name" href="#" onclick="return doclink('link-3', 'ST_NLINK', 'link-3');">ST_NLINK</a></tt> <tt class="py-op">=</tt> <tt class="py-number">3</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable stat.ST_UID=stat-module.html#ST_UID"><a title="stat.ST_UID" class="py-name" href="#" onclick="return doclink('link-4', 'ST_UID', 'link-4');">ST_UID</a></tt>   <tt class="py-op">=</tt> <tt class="py-number">4</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable stat.ST_GID=stat-module.html#ST_GID"><a title="stat.ST_GID" class="py-name" href="#" onclick="return doclink('link-5', 'ST_GID', 'link-5');">ST_GID</a></tt>   <tt class="py-op">=</tt> <tt class="py-number">5</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable stat.ST_SIZE=stat-module.html#ST_SIZE"><a title="stat.ST_SIZE" class="py-name" href="#" onclick="return doclink('link-6', 'ST_SIZE', 'link-6');">ST_SIZE</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">6</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable stat.ST_ATIME=stat-module.html#ST_ATIME"><a title="stat.ST_ATIME" class="py-name" href="#" onclick="return doclink('link-7', 'ST_ATIME', 'link-7');">ST_ATIME</a></tt> <tt class="py-op">=</tt> <tt class="py-number">7</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable stat.ST_MTIME=stat-module.html#ST_MTIME"><a title="stat.ST_MTIME" class="py-name" href="#" onclick="return doclink('link-8', 'ST_MTIME', 'link-8');">ST_MTIME</a></tt> <tt class="py-op">=</tt> <tt class="py-number">8</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable stat.ST_CTIME=stat-module.html#ST_CTIME"><a title="stat.ST_CTIME" class="py-name" href="#" onclick="return doclink('link-9', 'ST_CTIME', 'link-9');">ST_CTIME</a></tt> <tt class="py-op">=</tt> <tt class="py-number">9</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-comment"># Extract bits from the mode</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="S_IMODE"></a><div id="S_IMODE-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="S_IMODE-toggle" onclick="return toggle('S_IMODE');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_IMODE">S_IMODE</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_IMODE-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_IMODE-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">mode</tt> <tt class="py-op">&amp;</tt> <tt class="py-number">07777</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="S_IFMT"></a><div id="S_IFMT-def"><a name="L29"></a><tt class="py-lineno">29</tt> <a class="py-toggle" href="#" id="S_IFMT-toggle" onclick="return toggle('S_IFMT');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_IFMT">S_IFMT</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_IFMT-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_IFMT-expanded"><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">mode</tt> <tt class="py-op">&amp;</tt> <tt class="py-number">0170000</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-comment"># Constants used as S_IFMT() for various file types</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># (not all are implemented on all systems)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable stat.S_IFDIR=stat-module.html#S_IFDIR"><a title="stat.S_IFDIR" class="py-name" href="#" onclick="return doclink('link-10', 'S_IFDIR', 'link-10');">S_IFDIR</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0040000</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable stat.S_IFCHR=stat-module.html#S_IFCHR"><a title="stat.S_IFCHR" class="py-name" href="#" onclick="return doclink('link-11', 'S_IFCHR', 'link-11');">S_IFCHR</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0020000</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt id="link-12" class="py-name" targets="Variable stat.S_IFBLK=stat-module.html#S_IFBLK"><a title="stat.S_IFBLK" class="py-name" href="#" onclick="return doclink('link-12', 'S_IFBLK', 'link-12');">S_IFBLK</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0060000</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable stat.S_IFREG=stat-module.html#S_IFREG"><a title="stat.S_IFREG" class="py-name" href="#" onclick="return doclink('link-13', 'S_IFREG', 'link-13');">S_IFREG</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0100000</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt id="link-14" class="py-name" targets="Variable stat.S_IFIFO=stat-module.html#S_IFIFO"><a title="stat.S_IFIFO" class="py-name" href="#" onclick="return doclink('link-14', 'S_IFIFO', 'link-14');">S_IFIFO</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0010000</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt id="link-15" class="py-name" targets="Variable stat.S_IFLNK=stat-module.html#S_IFLNK"><a title="stat.S_IFLNK" class="py-name" href="#" onclick="return doclink('link-15', 'S_IFLNK', 'link-15');">S_IFLNK</a></tt>  <tt class="py-op">=</tt> <tt class="py-number">0120000</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable stat.S_IFSOCK=stat-module.html#S_IFSOCK"><a title="stat.S_IFSOCK" class="py-name" href="#" onclick="return doclink('link-16', 'S_IFSOCK', 'link-16');">S_IFSOCK</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0140000</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-comment"># Functions to test for each file type</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="S_ISDIR"></a><div id="S_ISDIR-def"><a name="L45"></a><tt class="py-lineno">45</tt> <a class="py-toggle" href="#" id="S_ISDIR-toggle" onclick="return toggle('S_ISDIR');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISDIR">S_ISDIR</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISDIR-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISDIR-expanded"><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-17" class="py-name"><a title="stat.S_IFDIR" class="py-name" href="#" onclick="return doclink('link-17', 'S_IFDIR', 'link-10');">S_IFDIR</a></tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"> </tt>
+<a name="S_ISCHR"></a><div id="S_ISCHR-def"><a name="L48"></a><tt class="py-lineno">48</tt> <a class="py-toggle" href="#" id="S_ISCHR-toggle" onclick="return toggle('S_ISCHR');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISCHR">S_ISCHR</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISCHR-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISCHR-expanded"><a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-18" class="py-name"><a title="stat.S_IFCHR" class="py-name" href="#" onclick="return doclink('link-18', 'S_IFCHR', 'link-11');">S_IFCHR</a></tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="S_ISBLK"></a><div id="S_ISBLK-def"><a name="L51"></a><tt class="py-lineno">51</tt> <a class="py-toggle" href="#" id="S_ISBLK-toggle" onclick="return toggle('S_ISBLK');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISBLK">S_ISBLK</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISBLK-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISBLK-expanded"><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-19" class="py-name"><a title="stat.S_IFBLK" class="py-name" href="#" onclick="return doclink('link-19', 'S_IFBLK', 'link-12');">S_IFBLK</a></tt> </tt>
+</div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="S_ISREG"></a><div id="S_ISREG-def"><a name="L54"></a><tt class="py-lineno">54</tt> <a class="py-toggle" href="#" id="S_ISREG-toggle" onclick="return toggle('S_ISREG');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISREG">S_ISREG</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISREG-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISREG-expanded"><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-20" class="py-name"><a title="stat.S_IFREG" class="py-name" href="#" onclick="return doclink('link-20', 'S_IFREG', 'link-13');">S_IFREG</a></tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"> </tt>
+<a name="S_ISFIFO"></a><div id="S_ISFIFO-def"><a name="L57"></a><tt class="py-lineno">57</tt> <a class="py-toggle" href="#" id="S_ISFIFO-toggle" onclick="return toggle('S_ISFIFO');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISFIFO">S_ISFIFO</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISFIFO-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISFIFO-expanded"><a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-21" class="py-name"><a title="stat.S_IFIFO" class="py-name" href="#" onclick="return doclink('link-21', 'S_IFIFO', 'link-14');">S_IFIFO</a></tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="S_ISLNK"></a><div id="S_ISLNK-def"><a name="L60"></a><tt class="py-lineno">60</tt> <a class="py-toggle" href="#" id="S_ISLNK-toggle" onclick="return toggle('S_ISLNK');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISLNK">S_ISLNK</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISLNK-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISLNK-expanded"><a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-22" class="py-name"><a title="stat.S_IFLNK" class="py-name" href="#" onclick="return doclink('link-22', 'S_IFLNK', 'link-15');">S_IFLNK</a></tt> </tt>
+</div><a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="S_ISSOCK"></a><div id="S_ISSOCK-def"><a name="L63"></a><tt class="py-lineno">63</tt> <a class="py-toggle" href="#" id="S_ISSOCK-toggle" onclick="return toggle('S_ISSOCK');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="stat-module.html#S_ISSOCK">S_ISSOCK</a><tt class="py-op">(</tt><tt class="py-param">mode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="S_ISSOCK-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="S_ISSOCK-expanded"><a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">S_IFMT</tt><tt class="py-op">(</tt><tt class="py-name">mode</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-23" class="py-name"><a title="stat.S_IFSOCK" class="py-name" href="#" onclick="return doclink('link-23', 'S_IFSOCK', 'link-16');">S_IFSOCK</a></tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"><tt class="py-comment"># Names for permission bits</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable stat.S_ISUID=stat-module.html#S_ISUID"><a title="stat.S_ISUID" class="py-name" href="#" onclick="return doclink('link-24', 'S_ISUID', 'link-24');">S_ISUID</a></tt> <tt class="py-op">=</tt> <tt class="py-number">04000</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"><tt id="link-25" class="py-name" targets="Variable stat.S_ISGID=stat-module.html#S_ISGID"><a title="stat.S_ISGID" class="py-name" href="#" onclick="return doclink('link-25', 'S_ISGID', 'link-25');">S_ISGID</a></tt> <tt class="py-op">=</tt> <tt class="py-number">02000</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"><tt id="link-26" class="py-name" targets="Variable stat.S_ENFMT=stat-module.html#S_ENFMT"><a title="stat.S_ENFMT" class="py-name" href="#" onclick="return doclink('link-26', 'S_ENFMT', 'link-26');">S_ENFMT</a></tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="stat.S_ISGID" class="py-name" href="#" onclick="return doclink('link-27', 'S_ISGID', 'link-25');">S_ISGID</a></tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"><tt id="link-28" class="py-name" targets="Variable stat.S_ISVTX=stat-module.html#S_ISVTX"><a title="stat.S_ISVTX" class="py-name" href="#" onclick="return doclink('link-28', 'S_ISVTX', 'link-28');">S_ISVTX</a></tt> <tt class="py-op">=</tt> <tt class="py-number">01000</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line"><tt id="link-29" class="py-name" targets="Variable stat.S_IREAD=stat-module.html#S_IREAD"><a title="stat.S_IREAD" class="py-name" href="#" onclick="return doclink('link-29', 'S_IREAD', 'link-29');">S_IREAD</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00400</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"><tt id="link-30" class="py-name" targets="Variable stat.S_IWRITE=stat-module.html#S_IWRITE"><a title="stat.S_IWRITE" class="py-name" href="#" onclick="return doclink('link-30', 'S_IWRITE', 'link-30');">S_IWRITE</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00200</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"><tt id="link-31" class="py-name" targets="Variable stat.S_IEXEC=stat-module.html#S_IEXEC"><a title="stat.S_IEXEC" class="py-name" href="#" onclick="return doclink('link-31', 'S_IEXEC', 'link-31');">S_IEXEC</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00100</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"><tt id="link-32" class="py-name" targets="Variable stat.S_IRWXU=stat-module.html#S_IRWXU"><a title="stat.S_IRWXU" class="py-name" href="#" onclick="return doclink('link-32', 'S_IRWXU', 'link-32');">S_IRWXU</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00700</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"><tt id="link-33" class="py-name" targets="Variable stat.S_IRUSR=stat-module.html#S_IRUSR"><a title="stat.S_IRUSR" class="py-name" href="#" onclick="return doclink('link-33', 'S_IRUSR', 'link-33');">S_IRUSR</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00400</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"><tt id="link-34" class="py-name" targets="Variable stat.S_IWUSR=stat-module.html#S_IWUSR"><a title="stat.S_IWUSR" class="py-name" href="#" onclick="return doclink('link-34', 'S_IWUSR', 'link-34');">S_IWUSR</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00200</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"><tt id="link-35" class="py-name" targets="Variable stat.S_IXUSR=stat-module.html#S_IXUSR"><a title="stat.S_IXUSR" class="py-name" href="#" onclick="return doclink('link-35', 'S_IXUSR', 'link-35');">S_IXUSR</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00100</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"><tt id="link-36" class="py-name" targets="Variable stat.S_IRWXG=stat-module.html#S_IRWXG"><a title="stat.S_IRWXG" class="py-name" href="#" onclick="return doclink('link-36', 'S_IRWXG', 'link-36');">S_IRWXG</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00070</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"><tt id="link-37" class="py-name" targets="Variable stat.S_IRGRP=stat-module.html#S_IRGRP"><a title="stat.S_IRGRP" class="py-name" href="#" onclick="return doclink('link-37', 'S_IRGRP', 'link-37');">S_IRGRP</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00040</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"><tt id="link-38" class="py-name" targets="Variable stat.S_IWGRP=stat-module.html#S_IWGRP"><a title="stat.S_IWGRP" class="py-name" href="#" onclick="return doclink('link-38', 'S_IWGRP', 'link-38');">S_IWGRP</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00020</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line"><tt id="link-39" class="py-name" targets="Variable stat.S_IXGRP=stat-module.html#S_IXGRP"><a title="stat.S_IXGRP" class="py-name" href="#" onclick="return doclink('link-39', 'S_IXGRP', 'link-39');">S_IXGRP</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00010</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"><tt id="link-40" class="py-name" targets="Variable stat.S_IRWXO=stat-module.html#S_IRWXO"><a title="stat.S_IRWXO" class="py-name" href="#" onclick="return doclink('link-40', 'S_IRWXO', 'link-40');">S_IRWXO</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00007</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"><tt id="link-41" class="py-name" targets="Variable stat.S_IROTH=stat-module.html#S_IROTH"><a title="stat.S_IROTH" class="py-name" href="#" onclick="return doclink('link-41', 'S_IROTH', 'link-41');">S_IROTH</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00004</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"><tt id="link-42" class="py-name" targets="Variable stat.S_IWOTH=stat-module.html#S_IWOTH"><a title="stat.S_IWOTH" class="py-name" href="#" onclick="return doclink('link-42', 'S_IWOTH', 'link-42');">S_IWOTH</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00002</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"><tt id="link-43" class="py-name" targets="Variable stat.S_IXOTH=stat-module.html#S_IXOTH"><a title="stat.S_IXOTH" class="py-name" href="#" onclick="return doclink('link-43', 'S_IXOTH', 'link-43');">S_IXOTH</a></tt> <tt class="py-op">=</tt> <tt class="py-number">00001</tt> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="scapi-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Fri Feb 29 16:38:08 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

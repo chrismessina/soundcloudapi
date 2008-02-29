@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>urllib2</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="scapi-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;urllib2
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="urllib2-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module urllib2</h1><span class="codelink"><a href="urllib2-pysrc.html">source&nbsp;code</a></span><br /><br />
+<p>An extensible library for opening URLs using a variety of 
+  protocols</p>
+  <p>The simplest way to use this module is to call the urlopen function, 
+  which accepts a string containing a URL or a Request object (described 
+  below).  It opens the URL and returns the results as file-like object; 
+  the returned object has some extra methods described below.</p>
+  <p>The OpenerDirector manages a collection of Handler objects that do all
+  the actual work.  Each Handler implements a particular protocol or 
+  option.  The OpenerDirector is a composite object that invokes the 
+  Handlers needed to open the requested URL.  For example, the HTTPHandler 
+  performs HTTP GET and POST requests and deals with non-error returns.  
+  The HTTPRedirectHandler automatically deals with HTTP 301, 302, 303 and 
+  307 redirect errors, and the HTTPDigestAuthHandler deals with digest 
+  authentication.</p>
+  <p>urlopen(url, data=None) -- basic usage is the same as original urllib.
+  pass the url and optionally data to post to an HTTP URL, and get a 
+  file-like object back.  One difference is that you can also pass a 
+  Request instance instead of URL.  Raises a URLError (subclass of 
+  IOError); for HTTP errors, raises an HTTPError, which can also be treated
+  as a valid response.</p>
+  <p>build_opener -- function that creates a new OpenerDirector instance. 
+  will install the default handlers.  accepts one or more Handlers as 
+  arguments, either instances or Handler classes that it will instantiate.
+  if one of the argument is a subclass of the default handler, the argument
+  will be installed instead of the default.</p>
+  <p>install_opener -- installs a new opener as the default opener.</p>
+  <p>objects of interest: OpenerDirector --</p>
+  <p>Request -- an object that encapsulates the state of a request.  the 
+  state can be a simple as the URL.  it can also include extra HTTP 
+  headers, e.g. a User-Agent.</p>
+  <p>BaseHandler --</p>
+  <p>exceptions: URLError-- a subclass of IOError, individual protocols 
+  have their own specific subclass</p>
+  <p>HTTPError-- also a valid HTTP response, so you can treat an HTTP error
+  as an exceptional event or valid response</p>
+  <p>internals: BaseHandler and parent _call_chain conventions</p>
+  <p>Example usage:</p>
+  <p>import urllib2</p>
+  <p># set up authentication info authinfo = urllib2.HTTPBasicAuthHandler()
+  authinfo.add_password('realm', 'host', 'username', 'password')</p>
+  <p>proxy_support = urllib2.ProxyHandler({&quot;http&quot; : 
+  &quot;http://ahad-haam:3128&quot;})</p>
+  <p># build a new opener that adds authentication and caching FTP handlers
+  opener = urllib2.build_opener(proxy_support, authinfo, 
+  urllib2.CacheFTPHandler)</p>
+  <p># install it urllib2.install_opener(opener)</p>
+  f = urllib2.urlopen('http://www.python.org/')<br /><br />
+
+<hr />
+<div class="fields">      <p><strong>Version:</strong>
+        2.5
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.AbstractBasicAuthHandler-class.html" class="summary-name">AbstractBasicAuthHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.AbstractDigestAuthHandler-class.html" class="summary-name">AbstractDigestAuthHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.AbstractHTTPHandler-class.html" class="summary-name">AbstractHTTPHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.BaseHandler-class.html" class="summary-name">BaseHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.CacheFTPHandler-class.html" class="summary-name">CacheFTPHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.FTPHandler-class.html" class="summary-name">FTPHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.FileHandler-class.html" class="summary-name">FileHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.GopherError-class.html" class="summary-name">GopherError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.GopherHandler-class.html" class="summary-name">GopherHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPBasicAuthHandler-class.html" class="summary-name">HTTPBasicAuthHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPCookieProcessor-class.html" class="summary-name">HTTPCookieProcessor</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPDefaultErrorHandler-class.html" class="summary-name">HTTPDefaultErrorHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPDigestAuthHandler-class.html" class="summary-name">HTTPDigestAuthHandler</a><br />
+      An authentication protocol defined by RFC 2069
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPError-class.html" class="summary-name">HTTPError</a><br />
+      Raised when HTTP error occurs, but also acts like non-error 
+        return
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPErrorProcessor-class.html" class="summary-name">HTTPErrorProcessor</a><br />
+      Process HTTP error responses.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPHandler-class.html" class="summary-name">HTTPHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPPasswordMgr-class.html" class="summary-name">HTTPPasswordMgr</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPPasswordMgrWithDefaultRealm-class.html" class="summary-name">HTTPPasswordMgrWithDefaultRealm</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPRedirectHandler-class.html" class="summary-name">HTTPRedirectHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.HTTPSHandler-class.html" class="summary-name">HTTPSHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.OpenerDirector-class.html" class="summary-name">OpenerDirector</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.ProxyBasicAuthHandler-class.html" class="summary-name">ProxyBasicAuthHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.ProxyDigestAuthHandler-class.html" class="summary-name">ProxyDigestAuthHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.ProxyHandler-class.html" class="summary-name">ProxyHandler</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.Request-class.html" class="summary-name">Request</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.URLError-class.html" class="summary-name">URLError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib2.UnknownHandler-class.html" class="summary-name">UnknownHandler</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib2-module.html#_parse_proxy" class="summary-sig-name">_parse_proxy</a>(<span class="summary-sig-arg">proxy</span>)</span><br />
+      Return (scheme, user, password, host/port) given a URL or an 
+      authority.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#_parse_proxy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib2-module.html#build_opener" class="summary-sig-name">build_opener</a>(<span class="summary-sig-arg">*handlers</span>)</span><br />
+      Create an opener object from a list of handlers.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#build_opener">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="install_opener"></a><span class="summary-sig-name">install_opener</span>(<span class="summary-sig-arg">opener</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#install_opener">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib2-module.html#parse_http_list" class="summary-sig-name">parse_http_list</a>(<span class="summary-sig-arg">s</span>)</span><br />
+      Parse lists as described by RFC 2068 Section 2.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#parse_http_list">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parse_keqv_list"></a><span class="summary-sig-name">parse_keqv_list</span>(<span class="summary-sig-arg">l</span>)</span><br />
+      Parse list of key=value strings where keys are not duplicated.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#parse_keqv_list">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="randombytes"></a><span class="summary-sig-name">randombytes</span>(<span class="summary-sig-arg">n</span>)</span><br />
+      Return n random bytes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#randombytes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib2-module.html#request_host" class="summary-sig-name">request_host</a>(<span class="summary-sig-arg">request</span>)</span><br />
+      Return request-host, as defined by RFC 2965.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#request_host">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="urlopen"></a><span class="summary-sig-name">urlopen</span>(<span class="summary-sig-arg">url</span>,
+        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib2-pysrc.html#urlopen">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_cut_port_re"></a><span class="summary-name">_cut_port_re</span> = <code title="re.compile(r':\d+$')">re.compile(r':\d<code class="re-op">+</code>$')</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_opener"></a><span class="summary-name">_opener</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_parse_proxy"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_parse_proxy</span>(<span class="sig-arg">proxy</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib2-pysrc.html#_parse_proxy">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Return (scheme, user, password, host/port) given a URL or an 
+  authority.</p>
+  If a URL is supplied, it must have an authority (host:port) component.
+  According to RFC 3986, having an authority component means the URL must 
+  have two slashes after the scheme:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'file:/ftp.example.com/'</span>)
+<span class="py-except">Traceback (most recent call last):</span>
+<span class="py-except">ValueError: proxy URL with no authority: 'file:/ftp.example.com/'</span></pre>
+  <p>The first three items of the returned tuple may be None.</p>
+  Examples of authority parsing:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'proxy.example.com'</span>)
+<span class="py-output">(None, None, None, 'proxy.example.com')</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'proxy.example.com:3128'</span>)
+<span class="py-output">(None, None, None, 'proxy.example.com:3128')</span></pre>
+  The authority component may optionally include userinfo (assumed to be
+  username:password):
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'joe:password@proxy.example.com'</span>)
+<span class="py-output">(None, 'joe', 'password', 'proxy.example.com')</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'joe:password@proxy.example.com:3128'</span>)
+<span class="py-output">(None, 'joe', 'password', 'proxy.example.com:3128')</span></pre>
+  Same examples, but with URLs instead:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'http://proxy.example.com/'</span>)
+<span class="py-output">('http', None, None, 'proxy.example.com')</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'http://proxy.example.com:3128/'</span>)
+<span class="py-output">('http', None, None, 'proxy.example.com:3128')</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'http://joe:password@proxy.example.com/'</span>)
+<span class="py-output">('http', 'joe', 'password', 'proxy.example.com')</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'http://joe:password@proxy.example.com:3128'</span>)
+<span class="py-output">('http', 'joe', 'password', 'proxy.example.com:3128')</span></pre>
+  Everything after the authority is ignored:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'ftp://joe:password@proxy.example.com/rubbish:3128'</span>)
+<span class="py-output">('ftp', 'joe', 'password', 'proxy.example.com')</span></pre>
+  Test for no trailing '/' case:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>_parse_proxy(<span class="py-string">'http://joe:password@proxy.example.com'</span>)
+<span class="py-output">('http', 'joe', 'password', 'proxy.example.com')</span></pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="build_opener"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">build_opener</span>(<span class="sig-arg">*handlers</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib2-pysrc.html#build_opener">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Create an opener object from a list of handlers.</p>
+  <p>The opener will use several default handlers, including support for 
+  HTTP and FTP.</p>
+  If any of the handlers passed as arguments are subclasses of the 
+  default handlers, the default handlers will not be used.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_http_list"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_http_list</span>(<span class="sig-arg">s</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib2-pysrc.html#parse_http_list">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Parse lists as described by RFC 2068 Section 2.</p>
+  In particular, parse comma-separated lists where the elements of the 
+  list may include quoted-strings.  A quoted-string could contain a comma.
+  A non-quoted string could have quotes in the middle.  Neither commas nor 
+  quotes count if they are escaped. Only double-quotes count, not 
+  single-quotes.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="request_host"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">request_host</span>(<span class="sig-arg">request</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib2-pysrc.html#request_host">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Return request-host, as defined by RFC 2965.</p>
+  Variation from RFC: returned value is lowercased, for convenient 
+  comparison.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="scapi-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Fri Feb 29 16:38:06 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

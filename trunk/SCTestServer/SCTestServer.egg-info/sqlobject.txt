@@ -1,0 +1,2 @@
+db_module=sctestserver.model
+history_dir=$base/sctestserver/sqlobject-history
