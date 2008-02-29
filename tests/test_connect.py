@@ -189,9 +189,15 @@ def test_favorites():
 
 def test_large_list():
     sca = scapi.Scope()
+    me = sca.me()
     tracks = sca.tracks()
     if len(tracks) < scapi.SoundCloudAPI.LIST_LIMIT:
         for i in xrange(scapi.SoundCloudAPI.LIST_LIMIT):            
             track = scapi.Track.new(title='test_track_%i' % i)
     all_tracks = sca.tracks()
     assert len(all_tracks) > scapi.SoundCloudAPI.LIST_LIMIT
+
+
+def test_auth():
+    sca = scapi.Scope()
+    me = sca.me()
