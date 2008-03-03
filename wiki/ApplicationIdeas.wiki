@@ -11,7 +11,7 @@ Here we'll put in a bunch of API ideas that we've been thinking about while deve
   * "The world music map". A nice world map visualization where you can zoom in and listen to music that was created in that part of the world or tracks are are listened to a lot in this region.
   * Audio visualizer that uses the timed comments for textual-based artistic visualization at the right point in the track.
 
-= iPhone =
+= iPhone / Mobile =
 
   * Iphone app. Jiggy could be nice to play around with for that. While on wifi the app could sync the latest tracks on your dashboard for playback on the go.
   * Player app that synchs heard/unheard marker & playcounts & allows one-tap favoriting and commenting.
