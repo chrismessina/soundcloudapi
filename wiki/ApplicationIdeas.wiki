@@ -2,7 +2,7 @@
 Here we'll put in a bunch of API ideas that we've been thinking about while developing SoundCloud and the API for it. Of course, feel free to edit, add, comment.. Here are a few quick ones:
 
 = Desktop Applications =
-  * An uploader app that let's you drag'n'drop any sound file to push it to the cloud & set decide who has access to it.
+  * An uploader app that let's you drag'n'drop any sound file to push it to the cloud & decide who has access to it.
   * A file system plugin (fuse?) that lets you mount your SoundCloud account and add files to it by dragging and dropping.
   * A little radio cloud that sits on your desktop (or maybe it's a dashboard widget) and plays music from your dashboard and the hotlist. It could show comments popping up while music is being played.
   * A plugin for an audio editor to be able to "bounce-to-web" and share with friends straight from within the editor.
