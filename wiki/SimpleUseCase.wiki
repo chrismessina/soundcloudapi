@@ -50,7 +50,7 @@ $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/assets' -F asset[fil
 
 The asset's canonical resource is given in the Location response header and in this case it is "http://sandbox.soundcloud.com/api/assets/123".
 
-The track's id is 123.
+The asset's id is 123.
 
 === Connect the asset to the track ===
 
