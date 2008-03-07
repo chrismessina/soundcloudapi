@@ -85,7 +85,8 @@ XML representation:
   <myspace-name>joeyt</myspace-name>
   <website>http://www.europe.com/~joeyt/</website>
   <website-title>Home of the Stormwind</website-title>
-  <profile-image-url>http://assets.soundcloud.com/profile_images/0000/0000/i123456.jpg</profile-image-url>
+  <online>true</online>
+  <avatar-url>http://assets.soundcloud.com/profile_images/0000/0000/i123456.jpg</avatar-url>
 </user>
 }}}
 
@@ -715,7 +716,8 @@ $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/10/permission
     <website-title nil="true"></website-title>
     <full-name>Johann Sebastian Bach</full-name>
     <country>Germany</country>
-    <profile-image-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</profile-image-url>
+    <online>false</online>
+    <avatar-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
   </user>
   <user>
     <city nil="true"></city>
@@ -728,7 +730,8 @@ $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/10/permission
     <website-title nil="true"></website-title>
     <full-name>Robert Matthew Van Winkle</full-name>
     <country>United States</country>
-    <profile-image-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</profile-image-url>
+    <online>true</online>
+    <avatar-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
   </user>
 </users>
 }}}
