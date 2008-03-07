@@ -17,19 +17,13 @@
 ##    You should have received a copy of the GNU Lesser General Public
 ##    License along with this library; if not, write to the Free Software
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-import sys
-import md5
+
 import urllib
 import urllib2
-import mimetools
-import os.path
+
 import logging
-import copy
-import webbrowser
-import base64
 import simplejson
 import cookielib
-import scapi.config
 from scapi.MultipartPostHandler import MultipartPostHandler
 from inspect import isclass
 import urlparse
@@ -65,6 +59,17 @@ class InvalidMethodException(Exception):
         res += "\nmessage:\n\n"
         res += self._message
         return res
+
+class UnknownContentType(Exception):
+    def __init__(self, msg):
+        Exception.__init__(self)
+        self._msg = msg
+
+    def __repr__(self):
+        return self.__class__.__name__ + ":" + self._msg
+
+    def __str__(self):
+        return str(self)
 
 
 class SoundCloudAPI(object):
@@ -142,6 +147,12 @@ class SCRedirectHandler(urllib2.HTTPRedirectHandler):
         because that will determine the actual type of resource returned.
         """
         self.alternate_method = hdrs['location']
+        # for oauth, we need to re-create the whole header-shizzle. This
+        # does it - it recreates a full url and signs the request
+        old_url = req.get_full_url()
+        protocol, host, _, _, _, _ = urlparse.urlparse(old_url)
+        new_url = urlparse.urlunparse((protocol, host, self.alternate_method, None, None, None))
+        req = req.recreate_request(new_url)
         return urllib2.HTTPRedirectHandler.http_error_303(self, req, fp, code, msg, hdrs)
 
     def http_error_201(self, req, fp, code, msg, hdrs):
@@ -223,6 +234,14 @@ class Scope(object):
 
             def has_data(self):
                 return parameters is not None
+
+            def augment_request(self, params):
+                api.authenticator.augment_request(self, params)
+
+            @classmethod
+            def recreate_request(cls, location):
+                return self._create_request(location, api, None, None)
+        
         req = MyRequest(url)
         all_params = {}
         if parameters is not None:
@@ -231,7 +250,7 @@ class Scope(object):
             all_params.update(queryparams)
         if not all_params:
             all_params = None
-        api.authenticator.augment_request(req, all_params)
+        req.augment_request(all_params)
         req.add_header("Accept", "application/json")
         return req
 
@@ -315,7 +334,6 @@ class Scope(object):
         handlers = [redirect_handler]
         if USE_PROXY:
             handlers.append(urllib2.ProxyHandler({'http' : PROXY}))
-        import pdb; pdb.set_trace()
         req = self._create_request(url, api, urlparams, queryparams, alternate_http_method)
 
         http_method = req.get_method()
@@ -326,7 +344,6 @@ class Scope(object):
 
             
         if use_multipart:
-            cookies = cookielib.CookieJar()
             handlers.extend([MultipartPostHandler])            
         else:
             if urlparams is not None:
@@ -366,7 +383,7 @@ class Scope(object):
                 # this might be the famous SeeOtherSpecialCase which means that
                 # all that matters is just the method
                 pass
-            raise "Unknown Content-Type: %s, returned:\n%s" % (ct, content)
+            raise UnknownContentType("%s, returned:\n%s" % (ct, content))
         finally:
             handle.close()
 
@@ -383,7 +400,6 @@ class Scope(object):
             if part in RESTBase.REGISTRY:
                 cls = RESTBase.REGISTRY[part]
                 # multiple objects
-                #if part in res:
                 if isinstance(res, list):
                     items = []
                     #for item in res[part]:
@@ -668,11 +684,16 @@ class Comment(RESTBase):
     KIND = 'comments'
     
 
-g = {}
-g.update(globals())
-for name, cls in [(k, v) for k, v in g.iteritems() if isclass(v) and issubclass(v, RESTBase) and not v == RESTBase]:
-    RESTBase.REGISTRY[cls.KIND] = cls
-    for alias in cls.ALIASES:
-        RESTBase.REGISTRY[alias] = cls
-    __all__.append(name)
 
+# this registers all the RESTBase subclasses.
+# One day using a metaclass will make this a tad
+# less ugly.
+def register_classes():
+    g = {}
+    g.update(globals())
+    for name, cls in [(k, v) for k, v in g.iteritems() if isclass(v) and issubclass(v, RESTBase) and not v == RESTBase]:
+        RESTBase.REGISTRY[cls.KIND] = cls
+        for alias in cls.ALIASES:
+            RESTBase.REGISTRY[alias] = cls
+        __all__.append(name)
+register_classes()

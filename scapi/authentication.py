@@ -34,7 +34,6 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         return 'HMAC-SHA1'
 
     def build_signature(self, request, parameters, consumer_secret, token_secret, oauth_parameters):
-        import pdb; pdb.set_trace()
         temp = {}
         temp.update(oauth_parameters)
         for p in self.FORBIDDEN:
