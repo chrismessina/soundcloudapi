@@ -34,6 +34,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         return 'HMAC-SHA1'
 
     def build_signature(self, request, parameters, consumer_secret, token_secret, oauth_parameters):
+        import pdb; pdb.set_trace()
         temp = {}
         temp.update(oauth_parameters)
         for p in self.FORBIDDEN:
@@ -75,11 +76,14 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         except:
             pass
         key_values = []
+        
         for key, values in params.iteritems():
             if isinstance(values, file):
                 continue
             if isinstance(values, (int, long, float)):
                 values = str(values)
+            if isinstance(values, (list, tuple)):
+                values = [str(v) for v in values]
             if isinstance(values, basestring):
                 values = [values]
             for v in values:
