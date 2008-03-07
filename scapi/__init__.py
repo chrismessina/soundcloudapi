@@ -149,9 +149,11 @@ class SCRedirectHandler(urllib2.HTTPRedirectHandler):
         self.alternate_method = hdrs['location']
         # for oauth, we need to re-create the whole header-shizzle. This
         # does it - it recreates a full url and signs the request
-        old_url = req.get_full_url()
-        protocol, host, _, _, _, _ = urlparse.urlparse(old_url)
-        new_url = urlparse.urlunparse((protocol, host, self.alternate_method, None, None, None))
+        new_url = self.alternate_method
+        if USE_PROXY:
+            old_url = req.get_full_url()
+            protocol, host, _, _, _, _ = urlparse.urlparse(old_url)
+            new_url = urlparse.urlunparse((protocol, host, self.alternate_method, None, None, None))
         req = req.recreate_request(new_url)
         return urllib2.HTTPRedirectHandler.http_error_303(self, req, fp, code, msg, hdrs)
 
