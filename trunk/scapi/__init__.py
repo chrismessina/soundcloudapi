@@ -221,6 +221,8 @@ class Scope(object):
                     return alternate_http_method
                 return urllib2.Request.get_method(self)
 
+            def has_data(self):
+                return parameters is not None
         req = MyRequest(url)
         all_params = {}
         if parameters is not None:
@@ -313,7 +315,7 @@ class Scope(object):
         handlers = [redirect_handler]
         if USE_PROXY:
             handlers.append(urllib2.ProxyHandler({'http' : PROXY}))
-
+        import pdb; pdb.set_trace()
         req = self._create_request(url, api, urlparams, queryparams, alternate_http_method)
 
         http_method = req.get_method()
