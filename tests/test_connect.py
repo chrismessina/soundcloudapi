@@ -26,6 +26,7 @@ def setup():
     basic_authenticator = scapi.authentication.BasicAuthenticator('tiga', 'test')
     scapi.SoundCloudAPI(host='192.168.2.31:3000', 
                         authenticator=oauth_authenticator)
+                        #authenticator=basic_authenticator)
 
 def test_connect():
     #sca = scapi.SoundCloudAPI(host='localhost:8080')
@@ -109,19 +110,10 @@ def test_setting_comments():
     data = pkg_resources.resource_stream("tests.test_connect", "knaster.mp3")
     sca = scapi.Scope()
     user = sca.me()
-    asset = sca.assets.new(filedata=data)
-    assert isinstance(asset, scapi.Asset)
-    logger.debug(asset)
     track = scapi.Track.new(title='bar', sharing="private")
-    track.assets.append(asset)
-
     comment = scapi.Comment.create(body="This is the body of my comment", timestamp=10)
-    
     track.comments = comment
-
     assert track.comments()[0].body == comment.body
-
-
     
 def test_contact_add_and_removal():
     sca = scapi.Scope()

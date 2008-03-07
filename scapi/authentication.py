@@ -44,7 +44,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         sig = (
             escape(self.get_normalized_http_method(request)),
             escape(self.get_normalized_http_url(request)),
-            escape(self.get_normalized_parameters(temp)),
+            self.get_normalized_parameters(temp), # these are escaped in the method already
         )
         
         key = '%s&' % consumer_secret
@@ -87,11 +87,12 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
                 values = [values]
             for v in values:
                 v = v.encode("utf-8")
-                key_values.append("%s=%s" % (key, escape(v)))
+                key = key.encode("utf-8")
+                key_values.append(escape("%s=%s" % (key, v)))
         # sort lexicographically, first after key, then after value
         key_values.sort()
-        # combine key value pairs in string and escape
-        return '&'.join(key_values)
+        # combine key value pairs in string
+        return escape('&').join(key_values)
 
 class OAuthAuthenticator(object):
     OAUTH_API_VERSION = '1.0'
