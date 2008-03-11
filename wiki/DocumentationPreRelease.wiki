@@ -319,10 +319,6 @@ Type: Collection of Tracks
 
 The given user's uploaded tracks.
 
-Parameters:
-  - order, *creation*|hotness
-  - filter, *all*|public|private
-
 {{{
 $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/me/tracks'
 
@@ -488,6 +484,12 @@ Type: Collection of Tracks
 
 Collection of all tracks.
 
+Parameters:
+  * filter, *all*|public|private
+  * order, *creation*|hotness
+  * from_date, date (yyyy-mm-dd), start of time interval for hotness ordering
+  * to_date, date (yyyy-mm-dd), end of time interval for hotness ordering
+
 Unauthenticated request:
 
 {{{
@@ -579,11 +581,11 @@ Response headers:
 	Location - Canonical URI of the track
 
 Parameters
-  - *track`[`title`]`*, string, the title of the track
-  - track`[`description`]`, string, a description
-  - track`[`downloadable`]`, true|false
-  - track`[`sharing`]`, public|private
-  - track`[`bpm`]`, float, beats per minute
+  * *track[title ]*, string, the title of the track
+  * track[description ], string, a description
+  * track[downloadable ], true|false
+  * track[sharing ], public|private
+  * track[bpm ], float, beats per minute
 
 Creates a track belonging to the logged in user.
 
@@ -623,11 +625,11 @@ $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/13'
 Updates the given track.
 
 Parameters
-  - track`[`title`]`, string, the title of the track
-  - track`[`description`]`, string, a description
-  - track`[`downloadable`]`, true|false
-  - track`[`sharing`]`, public|private
-  - track`[`bpm`]`, float, beats per minute
+  * track[title ], string, the title of the track
+  * track[description ], string, a description
+  * track[downloadable ], true|false
+  * track[sharing ], public|private
+  * track[bpm ], float, beats per minute
 
 {{{
 $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/13' -X PUT -H 'Content-Type: application/xml'  -d '
@@ -678,9 +680,9 @@ Response Headers:
 Creates a comment on the given track.
 
 Parameters
-  - *comment`[`body`]`*, string
-  - comment`[`timestamp`]`, integer, milliseconds
-  - comment`[`reply_to`]`, integer, comment id
+  * *comment[body ]*, string
+  * comment[timestamp ], integer, milliseconds
+  * comment[reply_to ], integer, comment id
 
 {{{
 $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/1/comments' -X POST -H 'Content-Type: application/xml'  -d '
@@ -740,7 +742,7 @@ $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/10/permission
 Updates the list of permitted users.
 
 Parameters
-  - *permissions`[`user_id`]``[``]`*, integer, the users to be granted permission
+  * *permissions[user_id ][]*, integer, the users to be granted permission
 
 {{{
 $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/tracks/12/permissions' -X PUT -H 'Content-Type: application/xml' -d '
@@ -870,7 +872,7 @@ Response headers:
 	Location - Canonical URI of the asset.
 	
 Parameters:
-  - *asset`[`filedata`]`*, form-multipart-encoded-file
+  * *asset[filedata ]*, form-multipart-encoded-file
 
 {{{
 $ curl -u joey:hairspray 'http://sandbox.soundcloud.com/api/assets' -F asset[filedata]=@final_countdown.wav
