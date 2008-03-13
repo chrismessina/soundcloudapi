@@ -589,25 +589,25 @@ Assume that current time is 2008-03-13 18:00:00.
 Hot tracks the last 24 hours, from 2008-03-12 18:00:00
 
 {{{
-/api/tracks?from_date=2008-03-12+18%3A00%3A00&to_date=2008-03-13+18%3A00%3A00&order=hotness
+/api/tracks?order=hotness&from_date=2008-03-12+18%3A00%3A00&to_date=2008-03-13+18%3A00%3A00
 }}}
 
 Hot tracks the last seven days, from 2008-03-06 18:00:00
 
 {{{
-/api/tracks?from_date=2008-03-06+18%3A00%3A00&to_date=2008-03-13+18%3A00%3A00&order=hotness
+/api/tracks?order=hotness&from_date=2008-03-06+18%3A00%3A00&to_date=2008-03-13+18%3A00%3A00
 }}}
 
 Hot tracks this month, from 2008-03-01
 
 {{{
-/api/tracks?from_date=2008-03-01&to_date=2008-03-13+18%3A00%3A00&order=hotness
+/api/tracks?order=hotness&from_date=2008-03-01&to_date=2008-03-13+18%3A00%3A00
 }}}
 
 Hot tracks this year, from 2008-01-01
 
 {{{
-/api/tracks?from_date=2008-01-01&to_date=2008-03-13+18%3A00%3A00&order=hotness
+/api/tracks?order=hotness&from_date=2008-01-01&to_date=2008-03-13+18%3A00%3A00
 }}}
 
 
