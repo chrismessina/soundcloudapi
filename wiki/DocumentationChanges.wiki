@@ -3,7 +3,7 @@
 
 == April 4th 2008 ==
 
- * Deprecation of sandbox.soundcloud.com, please use the production server, api.soundcloud.com for testing
+ * Deprecation of sandbox.soundcloud.com, please use the production server api.soundcloud.com for testing
  * [Documentation#Basic_HTTP Consumer Key and Secret are now required when using HTTP Basic Auth]
  * [Documentation#Event Resource type Event added]
  * [http://code.google.com/p/soundcloudapi/wiki/Documentation#/events Resource events added]
