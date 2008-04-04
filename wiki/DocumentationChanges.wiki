@@ -7,5 +7,5 @@
  * [Documentation#Basic_HTTP Consumer Key and Secret are now required when using HTTP Basic Auth]
  * [Documentation#Event Resource type Event added]
  * [http://code.google.com/p/soundcloudapi/wiki/Documentation#/events Resource events added]
- * [Documentation#Partitions Collection "Chunking" renamed to "Paritions"]
+ * [Documentation#Partitions Collection "Chunking" renamed to "Partitions"]
  * [Documentation#Sorting_by_hotness Hot tracks interval description changed]
