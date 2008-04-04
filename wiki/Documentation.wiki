@@ -245,7 +245,7 @@ The two examples below are equivalent:
 
 URL encoded:
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks' -X POST -d 'track[title]=Superstitioustrack[description]A song about people.'
+$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks' -X POST -d 'track[title]=Superstitious&track[description]=A song about people.'
 }}}
 
 XML:
@@ -734,6 +734,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/13'
 Updates the given track.
 
 Parameters
+
   * track[title ], string, the title of the track
   * track[description ], string, a description
   * track[downloadable ], true|false
