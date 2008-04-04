@@ -1,0 +1,11 @@
+#summary List of changes made to the documentation
+#labels Featured
+
+== April 4th 2008 ==
+
+ * Deprecation of sandbox.soundcloud.com, please use the production server, api.soundcloud.com for testing
+ * [Documentation#Basic_HTTP Consumer Key and Secret are now required when using HTTP Basic Auth]
+ * [Documentation#Event Resource type Event added]
+ * [http://code.google.com/p/soundcloudapi/wiki/Documentation#/events Resource events added]
+ * [Documentation#Partitions Collection "Chunking" renamed to "Paritions"]
+ * [Documentation#Sorting_by_hotness Hot tracks interval description changed]
