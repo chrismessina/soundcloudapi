@@ -797,7 +797,7 @@ Parameters
 {{{
 $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/comments' -X POST -H 'Content-Type: application/xml'  -d '
 <comment>
-	<body>Yeah!</title>
+	<body>Yeah!</body>
 </comment >
 '
 
