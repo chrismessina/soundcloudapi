@@ -30,7 +30,12 @@
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -70,11 +75,12 @@
 <a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">    contains some hooks for decoding encoded and multipart messages."""</tt> </tt>
 <a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"> </tt>
 <a name="Message.__init__"></a><div id="Message.__init__-def"><a name="L15"></a><tt class="py-lineno"> 15</tt> <a class="py-toggle" href="#" id="Message.__init__-toggle" onclick="return toggle('Message.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="mimetools.Message-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fp</tt><tt class="py-op">,</tt> <tt class="py-param">seekable</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Message.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Message.__init__-expanded"><a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-name">rfc822</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Class mimetools.Message=mimetools.Message-class.html"><a title="mimetools.Message" class="py-name" href="#" onclick="return doclink('link-1', 'Message', 'link-1');">Message</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method scapi.InvalidMethodException.__init__()=scapi.InvalidMethodException-class.html#__init__,Method scapi.MultipartPostHandler'.Callable.__init__()=scapi.MultipartPostHandler%27.Callable-class.html#__init__,Method scapi.RESTBase.__init__()=scapi.RESTBase-class.html#__init__,Method scapi.Scope.__init__()=scapi.Scope-class.html#__init__,Method scapi.SoundCloudAPI.__init__()=scapi.SoundCloudAPI-class.html#__init__,Method scapi.authentication.BasicAuthenticator.__init__()=scapi.authentication.BasicAuthenticator-class.html#__init__,Method scapi.authentication.OAuthAuthenticator.__init__()=scapi.authentication.OAuthAuthenticator-class.html#__init__,Method scapi.json._StringGenerator.__init__()=scapi.json._StringGenerator-class.html#__init__"><a title="scapi.InvalidMethodException.__init__
+</div><div id="Message.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Message.__init__-expanded"><a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-name">rfc822</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Class mimetools.Message=mimetools.Message-class.html"><a title="mimetools.Message" class="py-name" href="#" onclick="return doclink('link-1', 'Message', 'link-1');">Message</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method scapi.InvalidMethodException.__init__()=scapi.InvalidMethodException-class.html#__init__,Method scapi.MultipartPostHandler'.Callable.__init__()=scapi.MultipartPostHandler%27.Callable-class.html#__init__,Method scapi.RESTBase.__init__()=scapi.RESTBase-class.html#__init__,Method scapi.Scope.__init__()=scapi.Scope-class.html#__init__,Method scapi.SoundCloudAPI.__init__()=scapi.SoundCloudAPI-class.html#__init__,Method scapi.UnknownContentType.__init__()=scapi.UnknownContentType-class.html#__init__,Method scapi.authentication.BasicAuthenticator.__init__()=scapi.authentication.BasicAuthenticator-class.html#__init__,Method scapi.authentication.OAuthAuthenticator.__init__()=scapi.authentication.OAuthAuthenticator-class.html#__init__,Method scapi.json._StringGenerator.__init__()=scapi.json._StringGenerator-class.html#__init__"><a title="scapi.InvalidMethodException.__init__
 scapi.MultipartPostHandler'.Callable.__init__
 scapi.RESTBase.__init__
 scapi.Scope.__init__
 scapi.SoundCloudAPI.__init__
+scapi.UnknownContentType.__init__
 scapi.authentication.BasicAuthenticator.__init__
 scapi.authentication.OAuthAuthenticator.__init__
 scapi.json._StringGenerator.__init__" class="py-name" href="#" onclick="return doclink('link-2', '__init__', 'link-2');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">fp</tt><tt class="py-op">,</tt> <tt class="py-name">seekable</tt><tt class="py-op">)</tt> </tt>
@@ -124,14 +130,10 @@ scapi.json._StringGenerator.__init__" class="py-name" href="#" onclick="return d
 </div><div id="Message.getplist-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Message.getplist-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">plist</tt> </tt>
 </div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
 <a name="Message.getparam"></a><div id="Message.getparam-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="Message.getparam-toggle" onclick="return toggle('Message.getparam');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="mimetools.Message-class.html#getparam">getparam</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Message.getparam-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Message.getparam-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt id="link-3" class="py-name" targets="Variable os.name=os-module.html#name,Variable scapi.name=scapi-module.html#name"><a title="os.name
-scapi.name" class="py-name" href="#" onclick="return doclink('link-3', 'name', 'link-3');">name</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="os.name
-scapi.name" class="py-name" href="#" onclick="return doclink('link-4', 'name', 'link-3');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'='</tt> </tt>
-<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">n</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="os.name
-scapi.name" class="py-name" href="#" onclick="return doclink('link-5', 'name', 'link-3');">name</a></tt><tt class="py-op">)</tt> </tt>
+</div><div id="Message.getparam-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Message.getparam-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt id="link-3" class="py-name" targets="Variable os.name=os-module.html#name"><a title="os.name" class="py-name" href="#" onclick="return doclink('link-3', 'name', 'link-3');">name</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="os.name" class="py-name" href="#" onclick="return doclink('link-4', 'name', 'link-3');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'='</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">n</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="os.name" class="py-name" href="#" onclick="return doclink('link-5', 'name', 'link-3');">name</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">plist</tt><tt class="py-op">:</tt> </tt>
-<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">n</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt id="link-6" class="py-name"><a title="os.name
-scapi.name" class="py-name" href="#" onclick="return doclink('link-6', 'name', 'link-3');">name</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">n</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt id="link-6" class="py-name"><a title="os.name" class="py-name" href="#" onclick="return doclink('link-6', 'name', 'link-3');">name</a></tt><tt class="py-op">:</tt> </tt>
 <a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">rfc822</tt><tt class="py-op">.</tt><tt class="py-name">unquote</tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-name">n</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
 <a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
 </div><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
@@ -341,13 +343,18 @@ expandto(location.href);
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Feb 29 16:38:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Apr  5 17:40:07 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

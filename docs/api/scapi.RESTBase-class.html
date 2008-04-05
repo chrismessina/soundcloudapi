@@ -30,7 +30,12 @@
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -66,6 +71,7 @@ object --+
 <dd>
     <a href="scapi.Asset-class.html">Asset</a>,
     <a href="scapi.Comment-class.html">Comment</a>,
+    <a href="scapi.Event-class.html">Event</a>,
     <a href="scapi.Track-class.html">Track</a>,
     <a href="scapi.User-class.html">User</a>
 </dd></dl>
@@ -137,8 +143,8 @@ The baseclass for all our domain-objects/resources.<br /><br />
           <td><span class="summary-sig"><a href="scapi.RESTBase-class.html#__setattr__" class="summary-sig-name">__setattr__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
         <span class="summary-sig-arg">value</span>)</span><br />
-      This method is used to set a resource or a list of resources as 
-      property of the resource the method is invoked on.</td>
+      This method is used to set a property, a resource or a list of 
+      resources as property of the resource the method is invoked on.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="scapi-pysrc.html#RESTBase.__setattr__">source&nbsp;code</a></span>
             
@@ -159,6 +165,23 @@ The baseclass for all our domain-objects/resources.<br /><br />
       it.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="scapi-pysrc.html#RESTBase._as_arguments">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_convert_value"></a><span class="summary-sig-name">_convert_value</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="scapi-pysrc.html#RESTBase._convert_value">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -321,6 +344,24 @@ The baseclass for all our domain-objects/resources.<br /><br />
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="scapi.RESTBase-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">cls</span>,
+        <span class="summary-sig-arg">id</span>)</span><br />
+      Fetch a resource by id.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="scapi-pysrc.html#RESTBase.get">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -364,11 +405,12 @@ The baseclass for all our domain-objects/resources.<br /><br />
         <a href="scapi.RESTBase-class.html#REGISTRY" class="summary-name">REGISTRY</a> = <code title="{'assets': &lt;class 'scapi.Asset'&gt;,
  'comments': &lt;class 'scapi.Comment'&gt;,
  'contacts': &lt;class 'scapi.User'&gt;,
+ 'events': &lt;class 'scapi.Event'&gt;,
  'favorites': &lt;class 'scapi.Track'&gt;,
  'me': &lt;class 'scapi.User'&gt;,
  'permissions': &lt;class 'scapi.User'&gt;,
  'tracks': &lt;class 'scapi.Track'&gt;,
- 'users': &lt;class 'scapi.User'&gt;}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">assets</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Asset'&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">comments</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;clas<code class="variable-ellipsis">...</code></code>
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">assets</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Asset'&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">comments</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;clas<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -466,8 +508,8 @@ The baseclass for all our domain-objects/resources.<br /><br />
     </td>
   </table>
   
-  <p>This method is used to set a resource or a list of resources as 
-  property of the resource the method is invoked on.</p>
+  <p>This method is used to set a property, a resource or a list of 
+  resources as property of the resource the method is invoked on.</p>
   For example, to set a comment on a track, do
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>sca = scapi.Scope()
@@ -482,11 +524,16 @@ The baseclass for all our domain-objects/resources.<br /><br />
 <span class="py-prompt">&gt;&gt;&gt; </span>users = sca.users()
 <span class="py-prompt">&gt;&gt;&gt; </span>users_to_set = [user  <span class="py-keyword">for</span> user <span class="py-keyword">in</span> users[:10] <span class="py-keyword">if</span> user != me]
 <span class="py-prompt">&gt;&gt;&gt; </span>track.permissions = users_to_set</pre>
+  And finally, to simply change the title of a track, do
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>track = scapi.Track.get(track_id)
+<span class="py-prompt">&gt;&gt;&gt; </span>track.title = <span class="py-string">&quot;new_title&quot;</span></pre>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>name</code></strong> (str) - the property name</li>
-        <li><strong class="pname"><code>value</code></strong> (RESTBase | list&lt;RESTBase&gt;) - the resource or resources to set</li>
+        <li><strong class="pname"><code>value</code></strong> (RESTBase | list&lt;RESTBase&gt; | basestring | long | int | 
+          float) - the property, resource or resources to set</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>None</dd>
@@ -570,6 +617,30 @@ The baseclass for all our domain-objects/resources.<br /><br />
     </ul></dd>
     <dt>Returns:</dt>
         <dd>new instance of the resource</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">cls</span>,
+        <span class="sig-arg">id</span>)</span>
+    <br /><em class="fname">Class Method</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="scapi-pysrc.html#RESTBase.get">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Fetch a resource by id.</p>
+  Simply pass a known id as argument. For example
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>track = scapi.Track.get(id)</pre>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -720,11 +791,12 @@ The baseclass for all our domain-objects/resources.<br /><br />
 <code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">assets</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Asset'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">comments</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Comment'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">contacts</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.User'&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">events</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Event'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">favorites</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Track'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">me</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.User'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">permissions</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.User'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">tracks</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.Track'&gt;<code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">users</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class 'scapi.User'&gt;<code class="variable-group">}</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -751,13 +823,18 @@ The baseclass for all our domain-objects/resources.<br /><br />
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Feb 29 16:38:06 2008
+    Generated by Epydoc 3.0beta1 on Sat Apr  5 17:40:06 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

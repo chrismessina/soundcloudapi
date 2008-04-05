@@ -13,6 +13,7 @@ TOKEN  = "QcciYu1FSwDSGKAG2mNw"
 SECRET = "gJ2ok6ULUsYQB3rsBmpHCRHoFCAPOgK8ZjoIyxzris"
 CONSUMER = "Cy2eLPrIMp4vOxjz9icdQ"
 CONSUMER_SECRET = "KsBa272x6M2to00Vo5FdvZXt9kakcX7CDIPJoGwTro"
+API_HOST = 'api.soundcloud.dev:3000'
 
 def setup():
     #scapi.SoundCloudAPI(host='192.168.2.101:3000', user='tiga', password='test')
@@ -21,13 +22,14 @@ def setup():
     scapi.PROXY = 'http://127.0.0.1:10000/'
 
     oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
-                                            CONSUMER_SECRET,
-                                            TOKEN, SECRET)
-    basic_authenticator = scapi.authentication.BasicAuthenticator('tiga', 'test')
-    scapi.SoundCloudAPI(host='192.168.2.31:3000', 
-                        authenticator=oauth_authenticator)
-                        #authenticator=basic_authenticator)
-
+                                                                  CONSUMER_SECRET,
+                                                                  TOKEN, 
+                                                                  SECRET)
+    basic_authenticator = scapi.authentication.BasicAuthenticator('tiga', 'test', CONSUMER, CONSUMER_SECRET)
+    scapi.SoundCloudAPI(host=API_HOST, 
+                        #authenticator=oauth_authenticator)
+                        authenticator=basic_authenticator)
+    
 def test_connect():
     #sca = scapi.SoundCloudAPI(host='localhost:8080')
 
@@ -51,9 +53,25 @@ def test_connect():
     print tracks
 
 
+def test_access_token_acquisition():
+    sca = scapi.SoundCloudAPI()
+    a = sca.authenticator
+    a._token = None
+    a._secret = None
+    a._token, a._secret = sca.fetch_request_token()
+    sca.authorize_token()
+
+
 def test_track_creation():
     track = scapi.Track.new(title='bar')
     assert isinstance(track, scapi.Track)
+
+def test_track_update():
+    track = scapi.Track.new(title='bar')
+    assert isinstance(track, scapi.Track)
+    track.title='baz'
+    track = scapi.Track.get(track.id)
+    assert track.title == "baz"
 
 def test_scoped_track_creation():
     sca = scapi.Scope()
@@ -193,3 +211,12 @@ def test_large_list():
 def test_auth():
     sca = scapi.Scope()
     me = sca.me()
+
+
+
+def test_events():
+    sca = scapi.Scope()
+    user = sca.me()
+    events = sca.events()
+    assert isinstance(events, list)
+    assert isinstance(events[0], scapi.Event)

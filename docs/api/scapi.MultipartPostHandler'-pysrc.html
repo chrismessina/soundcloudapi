@@ -30,7 +30,12 @@
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -161,8 +166,7 @@ urllib2.ProxyHandler.handler_order" class="py-name" href="#" onclick="return doc
 <a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">            <tt class="py-name">buffer</tt> <tt class="py-op">+=</tt> <tt class="py-string">'\r\n\r\n'</tt> <tt class="py-op">+</tt> <tt class="py-name">value</tt> <tt class="py-op">+</tt> <tt class="py-string">'\r\n'</tt> </tt>
 <a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">fd</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">files</tt><tt class="py-op">:</tt> </tt>
 <a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-name">file_size</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="os" class="py-name" href="#" onclick="return doclink('link-15', 'os', 'link-4');">os</a></tt><tt class="py-op">.</tt><tt class="py-name">fstat</tt><tt class="py-op">(</tt><tt class="py-name">fd</tt><tt class="py-op">.</tt><tt class="py-name">fileno</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-16" class="py-name"><a title="stat" class="py-name" href="#" onclick="return doclink('link-16', 'stat', 'link-5');">stat</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Variable stat.ST_SIZE=stat-module.html#ST_SIZE"><a title="stat.ST_SIZE" class="py-name" href="#" onclick="return doclink('link-17', 'ST_SIZE', 'link-17');">ST_SIZE</a></tt><tt class="py-op">]</tt> </tt>
-<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Variable os.name=os-module.html#name,Variable scapi.name=scapi-module.html#name"><a title="os.name
-scapi.name" class="py-name" href="#" onclick="return doclink('link-18', 'name', 'link-18');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">fd</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Variable os.name=os-module.html#name"><a title="os.name" class="py-name" href="#" onclick="return doclink('link-18', 'name', 'link-18');">name</a></tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
 <a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">            <tt class="py-name">contenttype</tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name"><a title="mimetypes" class="py-name" href="#" onclick="return doclink('link-19', 'mimetypes', 'link-3');">mimetypes</a></tt><tt class="py-op">.</tt><tt class="py-name">guess_type</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-keyword">or</tt> <tt class="py-string">'application/octet-stream'</tt> </tt>
 <a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">            <tt class="py-name">buffer</tt> <tt class="py-op">+=</tt> <tt class="py-string">'--%s\r\n'</tt> <tt class="py-op">%</tt> <tt class="py-name">boundary</tt> </tt>
 <a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">            <tt class="py-name">buffer</tt> <tt class="py-op">+=</tt> <tt class="py-string">'Content-Disposition: form-data; name="%s"; filename="%s"\r\n'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
@@ -230,13 +234,18 @@ expandto(location.href);
       <th>&nbsp;&nbsp;&nbsp;<a
         href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
 
-      <th class="navbar" width="100%"></th>
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >SoundCloud API</th>
+          </tr></table></th>
   </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Feb 29 16:38:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Apr  5 17:40:07 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
