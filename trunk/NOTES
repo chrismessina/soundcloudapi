@@ -13,3 +13,10 @@ to run a specific test, or::
 
 to run the whole suite.
 
+
+Creating the API-docs
+---------------------
+
+Do::
+
+   epydoc -v --name="SoundCloud API" --html -o docs/api scapi

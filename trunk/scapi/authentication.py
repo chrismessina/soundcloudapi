@@ -48,7 +48,8 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         )
         
         key = '%s&' % consumer_secret
-        key += token_secret
+        if token_secret is not None:
+            key += token_secret
         raw = '&'.join(sig)
         # hmac object
         hashed = hmac.new(key, raw, hashlib.sha1)
@@ -96,6 +97,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
 
 class OAuthAuthenticator(object):
     OAUTH_API_VERSION = '1.0'
+    AUTHORIZATION_HEADER = "Authorization"
 
     def __init__(self, consumer, consumer_secret, token, secret, signature_method=OAuthSignatureMethod_HMAC_SHA1()):
         self._consumer, self._token, self._secret = consumer, token, secret
@@ -108,15 +110,21 @@ class OAuthAuthenticator(object):
             'oauth_timestamp': self.generate_timestamp(),
             'oauth_nonce': self.generate_nonce(),
             'oauth_version': self.OAUTH_API_VERSION,
-            'oauth_token' : self._token,
             'oauth_signature_method' : self._signature_method.get_name(),
             #'realm' : "http://soundcloud.com",
             }
-        oauth_parameters['oauth_signature'] = self._signature_method.build_signature(req, parameters, self._consumer_secret, self._secret, oauth_parameters)
+        if self._token is not None:
+            oauth_parameters['oauth_token'] = self._token
+
+        oauth_parameters['oauth_signature'] = self._signature_method.build_signature(req, 
+                                                                                     parameters, 
+                                                                                     self._consumer_secret, 
+                                                                                     self._secret, 
+                                                                                     oauth_parameters)
         def to_header(d):
             return ",".join('%s="%s"' % (key, value) for key, value in sorted(oauth_parameters.items()))
 
-        req.add_header("Authorization", "OAuth  %s" % to_header(oauth_parameters))
+        req.add_header(self.AUTHORIZATION_HEADER, "OAuth  %s" % to_header(oauth_parameters))
 
     def generate_timestamp(self):
         return int(time.time())
@@ -126,10 +134,10 @@ class OAuthAuthenticator(object):
 
 class BasicAuthenticator(object):
     
-    def __init__(self, user, password):
+    def __init__(self, user, password, consumer, consumer_secret):
         self._base64string = base64.encodestring("%s:%s" % (user, password))[:-1]
-
+        self._x_auth_header = 'OAuth oauth_consumer_key="%s" oauth_consumer_secret="%s"' % (consumer, consumer_secret)
 
     def augment_request(self, req, parameters):
         req.add_header("Authorization", "Basic %s" % self._base64string)
-
+        req.add_header("X-Authorization", self._x_auth_header)

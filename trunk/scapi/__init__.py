@@ -23,7 +23,7 @@ import urllib2
 
 import logging
 import simplejson
-import cookielib
+import cgi
 from scapi.MultipartPostHandler import MultipartPostHandler
 from inspect import isclass
 import urlparse
@@ -40,7 +40,11 @@ Something like http://127.0.0.1:10000/
 PROXY = ''
 
 
-__all__ = ['SoundCloudAPI', 'RESTBase',]
+REQUEST_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/request_token'
+ACCESS_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/access_token'
+AUTHORIZATION_URL = 'http://api.soundcloud.dev:3000/oauth/authorize'
+
+__all__ = ['SoundCloudAPI', 'USE_PROXY', 'PROXY', 'REQUEST_TOKEN_URL', 'ACCESS_TOKEN_URL', 'AUTHORIZATION_URL']
 
 
 class NoResultFromRequest(Exception):
@@ -96,7 +100,7 @@ class SoundCloudAPI(object):
     """
     LIST_LIMIT_PARAMETER = 'limit'
 
-    __shared_state = {'base64string' : None, 'collapse_scope' : True, '_base' : 'api/'}
+    __shared_state = {'base64string' : None, 'collapse_scope' : True, '_base' : ''}
 
     def __init__(self, host=None, base64string=None, user=None, password=None, authenticator=None):
         """
@@ -130,9 +134,28 @@ class SoundCloudAPI(object):
         protocol, host, path, params, query, fragment = urlparse.urlparse(method)
         if path.startswith("/"):
             path = path[1:]
+        # if the base is "", we return the whole path,
+        # otherwise normalize it away
+        if self._base == "":
+            return path
         if path.startswith(self._base):
             return path[len(self._base)-1:]
         raise InvalidMethodException("Not a valid API method: %s" % method)
+
+    def fetch_request_token(self):
+        req = urllib2.Request(REQUEST_TOKEN_URL)
+        self.authenticator.augment_request(req, None)
+        handlers = []
+        if USE_PROXY:
+            handlers.append(urllib2.ProxyHandler({'http' : PROXY}))
+        opener = urllib2.build_opener(*handlers)
+        handle = opener.open(req, None)
+        info = handle.info()
+        content = handle.read()
+        params = cgi.parse_qs(content, keep_blank_values=False)
+        key = params['oauth_token'][0]
+        secret = params['oauth_token_secret'][0]
+        return key, secret
 
 
 class SCRedirectHandler(urllib2.HTTPRedirectHandler):
@@ -261,7 +284,7 @@ class Scope(object):
         Small helpermethod to create the querystring from a dict.
 
         @type queryparams: None|dict<str, basestring|list<basestring>>
-        @param alternate_http_method: an alternate HTTP-method to use
+        @param queryparams: the queryparameters.
         @return: either the empty string, or a "?" followed by the parameters joined by "&"
         @rtype: str
         """
@@ -500,7 +523,7 @@ class RESTBase(object):
 
     def __setattr__(self, name, value):
         """
-        This method is used to set a resource or a list of resources as property of the resource the
+        This method is used to set a property, a resource or a list of resources as property of the resource the
         method is invoked on.
 
         For example, to set a comment on a track, do
@@ -518,14 +541,20 @@ class RESTBase(object):
         >>> users = sca.users()
         >>> users_to_set = [user  for user in users[:10] if user != me]
         >>> track.permissions = users_to_set
+        
+        And finally, to simply change the title of a track, do
 
+        >>> track = scapi.Track.get(track_id)
+        >>> track.title = "new_title"
+ 
         @param name: the property name
         @type name: str
-        @param value: the resource or resources to set
-        @type value: RESTBase | list<RESTBase>
+        @param value: the property, resource or resources to set
+        @type value: RESTBase | list<RESTBase> | basestring | long | int | float
         @return: None
         """
 
+        # update "private" data, such as __data
         if "_RESTBase__" in name:
             self.__dict__[name] = value
         else:
@@ -538,9 +567,15 @@ class RESTBase(object):
                 kwargs = {"_alternate_http_method" : "PUT",
                           parameter_name : values}
                 self.__scope._call(self.KIND, self.id, name, **kwargs)
-            else:
+            elif isinstance(value, RESTBase):
                 # we got a single instance, so make that an argument
                 self.__scope._call(self.KIND, self.id, name, **value._as_arguments())
+            else:
+                # we have a simple property
+                parameter_name = "%s[%s]" % (self._singleton(), name)
+                kwargs = {"_alternate_http_method" : "PUT",
+                          parameter_name : self._convert_value(value)}
+                self.__scope._call(self.KIND, self.id, **kwargs)
 
     def _as_arguments(self):        
         """
@@ -548,12 +583,16 @@ class RESTBase(object):
         """
         res = {}
         for key, value in self.__data.items():
-            if isinstance(value, basestring):
-                value = value.encode("utf-8")
-            else:
-                value = str(value)
+            value = self._convert_value(value)
             res["%s[%s]" % (self._singleton(), key)] = value
         return res
+
+    def _convert_value(self, value):
+        if isinstance(value, basestring):
+            value = value.encode("utf-8")
+        else:
+            value = str(value)
+        return value
 
     @classmethod
     def create(cls, **data):
@@ -607,6 +646,27 @@ class RESTBase(object):
         for key, value in data.iteritems():
             d['%s[%s]' % (name, key)] = value
         return getattr(scope, cls.KIND)(**d)
+
+#     def update(self, **kwargs):
+#         d = {}
+#         name = self._singleton()
+#         for key, value in kwargs.iteritems():
+#             d['%s[%s]' % (name, key)] = value
+#         return getattr(scope, cls.KIND)(**d)
+
+    @classmethod    
+    def get(cls, id):
+        """
+        Fetch a resource by id.
+        
+        Simply pass a known id as argument. For example
+
+        >>> track = scapi.Track.get(id)
+
+        """
+        scope = Scope()
+        return getattr(scope, cls.KIND)(id)
+        
 
     def _scope(self):
         """
@@ -684,6 +744,12 @@ class Comment(RESTBase):
     A comment domain object/resource. 
     """
     KIND = 'comments'
+
+class Event(RESTBase):
+    """
+    A event domain object/resource. 
+    """
+    KIND = 'events'
     
 
 
