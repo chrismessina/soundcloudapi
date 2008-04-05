@@ -18,5 +18,5 @@ Creating the API-docs
 ---------------------
 
 Do::
+   epydoc -v --name="SoundCloud API" --html -o docs/api scapi --exclude="os|mimetypes|urllib2|exceptions|mimetools"
 
-   epydoc -v --name="SoundCloud API" --html -o docs/api scapi
