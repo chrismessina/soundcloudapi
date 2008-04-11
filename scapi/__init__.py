@@ -42,7 +42,7 @@ PROXY = ''
 
 REQUEST_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/request_token'
 ACCESS_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/access_token'
-AUTHORIZATION_URL = 'http://api.soundcloud.dev:3000/oauth/authorize'
+AUTHORIZATION_URL = 'http://soundcloud.dev:3000/oauth/authorize'
 
 __all__ = ['SoundCloudAPI', 'USE_PROXY', 'PROXY', 'REQUEST_TOKEN_URL', 'ACCESS_TOKEN_URL', 'AUTHORIZATION_URL']
 
@@ -142,8 +142,10 @@ class SoundCloudAPI(object):
             return path[len(self._base)-1:]
         raise InvalidMethodException("Not a valid API method: %s" % method)
 
-    def fetch_request_token(self):
-        req = urllib2.Request(REQUEST_TOKEN_URL)
+    def fetch_request_token(self, url=None):
+        if url is None:
+            url = REQUEST_TOKEN_URL
+        req = urllib2.Request(url)
         self.authenticator.augment_request(req, None)
         handlers = []
         if USE_PROXY:
@@ -158,6 +160,16 @@ class SoundCloudAPI(object):
         return key, secret
 
 
+    def fetch_access_token(self):
+        return self.fetch_request_token(ACCESS_TOKEN_URL)
+
+    def get_request_token_authorization_url(self, token):
+        """
+        """
+        return "%s?oauth_token=%s" % (AUTHORIZATION_URL, token)
+
+
+ 
 class SCRedirectHandler(urllib2.HTTPRedirectHandler):
     """
     A urllib2-Handler to deal with the redirects the RESTful API of SC uses.
@@ -173,10 +185,11 @@ class SCRedirectHandler(urllib2.HTTPRedirectHandler):
         # for oauth, we need to re-create the whole header-shizzle. This
         # does it - it recreates a full url and signs the request
         new_url = self.alternate_method
-        if USE_PROXY:
-            old_url = req.get_full_url()
-            protocol, host, _, _, _, _ = urlparse.urlparse(old_url)
-            new_url = urlparse.urlunparse((protocol, host, self.alternate_method, None, None, None))
+#         if USE_PROXY:
+#             import pdb; pdb.set_trace()
+#             old_url = req.get_full_url()
+#             protocol, host, _, _, _, _ = urlparse.urlparse(old_url)
+#             new_url = urlparse.urlunparse((protocol, host, self.alternate_method, None, None, None))
         req = req.recreate_request(new_url)
         return urllib2.HTTPRedirectHandler.http_error_303(self, req, fp, code, msg, hdrs)
 

@@ -1,16 +1,16 @@
 import pkg_resources
 import scapi
 import scapi.authentication
-import urllib
 import logging
+import webbrowser
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-#_logger = logging.getLogger("scapi")
+#_logger = logging.getLogger("scapi.authentication")
 #_logger.setLevel(logging.DEBUG)
 
-TOKEN  = "QcciYu1FSwDSGKAG2mNw"
-SECRET = "gJ2ok6ULUsYQB3rsBmpHCRHoFCAPOgK8ZjoIyxzris"
+TOKEN  = "CVnhk6fBIxSwLc8Bwdr8g"
+SECRET = "oSb0ZAwJusUy3iM7OJ5dj6tyTu5deSw9AeuT5OslU"
 CONSUMER = "Cy2eLPrIMp4vOxjz9icdQ"
 CONSUMER_SECRET = "KsBa272x6M2to00Vo5FdvZXt9kakcX7CDIPJoGwTro"
 API_HOST = 'api.soundcloud.dev:3000'
@@ -27,8 +27,8 @@ def setup():
                                                                   SECRET)
     basic_authenticator = scapi.authentication.BasicAuthenticator('tiga', 'test', CONSUMER, CONSUMER_SECRET)
     scapi.SoundCloudAPI(host=API_HOST, 
-                        #authenticator=oauth_authenticator)
-                        authenticator=basic_authenticator)
+                        authenticator=oauth_authenticator)
+                        #authenticator=basic_authenticator)
     
 def test_connect():
     #sca = scapi.SoundCloudAPI(host='localhost:8080')
@@ -54,13 +54,31 @@ def test_connect():
 
 
 def test_access_token_acquisition():
-    sca = scapi.SoundCloudAPI()
-    a = sca.authenticator
-    a._token = None
-    a._secret = None
-    a._token, a._secret = sca.fetch_request_token()
-    sca.authorize_token()
+    oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                  CONSUMER_SECRET,
+                                                                  None, 
+                                                                  None)
 
+    sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+    token, secret = sca.fetch_request_token()
+    authorization_url = sca.get_request_token_authorization_url(token)
+    webbrowser.open(authorization_url)
+    raw_input("please press return")
+    oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                  CONSUMER_SECRET,
+                                                                  token, 
+                                                                  secret)
+
+    sca = scapi.SoundCloudAPI(API_HOST, authenticator=oauth_authenticator)
+    token, secret = sca.fetch_access_token()
+
+    oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                  CONSUMER_SECRET,
+                                                                  token, 
+                                                                  secret)
+
+    sca = scapi.SoundCloudAPI(API_HOST, authenticator=oauth_authenticator)
+    test_track_creation()
 
 def test_track_creation():
     track = scapi.Track.new(title='bar')
@@ -220,3 +238,10 @@ def test_events():
     events = sca.events()
     assert isinstance(events, list)
     assert isinstance(events[0], scapi.Event)
+
+
+def test_me_having_stress():
+    sca = scapi.Scope()
+    for _ in xrange(20):
+        setup()
+        user = sca.me()
