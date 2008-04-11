@@ -25,6 +25,9 @@ import urlparse
 import hmac
 import hashlib
 from scapi.util import escape
+import logging
+
+logger = logging.getLogger(__name__)
 
 class OAuthSignatureMethod_HMAC_SHA1(object):
 
@@ -51,6 +54,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         if token_secret is not None:
             key += token_secret
         raw = '&'.join(sig)
+        logger.debug("raw basestring: %s", raw)
         # hmac object
         hashed = hmac.new(key, raw, hashlib.sha1)
         # calculate the digest base 64
@@ -103,6 +107,7 @@ class OAuthAuthenticator(object):
         self._consumer, self._token, self._secret = consumer, token, secret
         self._consumer_secret = consumer_secret
         self._signature_method = signature_method
+        random.seed()
 
     def augment_request(self, req, parameters):
         oauth_parameters = {
@@ -127,7 +132,7 @@ class OAuthAuthenticator(object):
         req.add_header(self.AUTHORIZATION_HEADER, "OAuth  %s" % to_header(oauth_parameters))
 
     def generate_timestamp(self):
-        return int(time.time())
+        return int(time.time() * 1000.0)
 
     def generate_nonce(self, length=8):
         return ''.join(str(random.randint(0, 9)) for i in range(length))

@@ -6,8 +6,8 @@ setup(
     author = "Diez B. Roggisch",
     author_email = "deets@soundcloud.com",
     description = "This is an implementation of the SoundCloud RESTful API",
-    license = "PSF",
-    keywords = "hello world example examples",
+    license = "LGPL",
+    keywords = "Soundcloud client API REST",
     url = "http://code.google.com/p/soundcloudapi/"
 
 )
