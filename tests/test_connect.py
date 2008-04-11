@@ -53,7 +53,10 @@ def test_connect():
     print tracks
 
 
-def test_access_token_acquisition():
+def _test_access_token_acquisition():
+    """
+    This test is commented out because it needs user-interaction.
+    """
     oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
                                                                   CONSUMER_SECRET,
                                                                   None, 

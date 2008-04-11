@@ -137,9 +137,49 @@ The SoundCloudAPI Singleton. It must be initialized with constructor
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="fetch_request_token"></a><span class="summary-sig-name">fetch_request_token</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="scapi.SoundCloudAPI-class.html#fetch_request_token" class="summary-sig-name">fetch_request_token</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">url</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Helper-function for a registered consumer to obtain a request 
+      token, as used by oauth.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.fetch_request_token">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="scapi.SoundCloudAPI-class.html#fetch_access_token" class="summary-sig-name">fetch_access_token</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Helper-function for a registered consumer to exchange an access 
+      token for a request token.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.fetch_access_token">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="scapi.SoundCloudAPI-class.html#get_request_token_authorization_url" class="summary-sig-name">get_request_token_authorization_url</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">token</span>)</span><br />
+      Simple helper function to generate the url needed to ask a user 
+      for request token authorization.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.get_request_token_authorization_url">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -317,6 +357,99 @@ The SoundCloudAPI Singleton. It must be initialized with constructor
   </dl>
 </td></tr></table>
 </div>
+<a name="fetch_request_token"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">fetch_request_token</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">url</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.fetch_request_token">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Helper-function for a registered consumer to obtain a request token, 
+  as used by oauth.</p>
+  Use it like this:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+<span class="py-output">                                                          CONSUMER_SECRET,</span>
+<span class="py-output">                                                          None, </span>
+<span class="py-output">                                                          None)</span></pre>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+<span class="py-prompt">&gt;&gt;&gt; </span>token, secret = sca.fetch_request_token()
+<span class="py-prompt">&gt;&gt;&gt; </span>authorization_url = sca.get_request_token_authorization_url(token)</pre>
+  Please note the None passed as  token &amp; secret to the 
+  authenticator.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="fetch_access_token"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">fetch_access_token</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.fetch_access_token">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Helper-function for a registered consumer to exchange an access token 
+  for a request token.</p>
+  Use it like this:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+<span class="py-output">                                                          CONSUMER_SECRET,</span>
+<span class="py-output">                                                          request_token, </span>
+<span class="py-output">                                                          request_token_secret)</span></pre>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+<span class="py-prompt">&gt;&gt;&gt; </span>token, secret = sca.fetch_access_token()</pre>
+  Please note the values passed as token &amp; secret to the 
+  authenticator.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_request_token_authorization_url"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_request_token_authorization_url</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">token</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="scapi-pysrc.html#SoundCloudAPI.get_request_token_authorization_url">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Simple helper function to generate the url needed to ask a user for 
+  request token authorization.</p>
+  <p>See also <a href="scapi.SoundCloudAPI-class.html#fetch_request_token" 
+  class="link">fetch_request_token</a>.</p>
+  Possible usage:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> webbrowser
+<span class="py-prompt">&gt;&gt;&gt; </span>sca = scapi.SoundCloudAPI()
+<span class="py-prompt">&gt;&gt;&gt; </span>authorization_url = sca.get_request_token_authorization_url(token)
+<span class="py-prompt">&gt;&gt;&gt; </span>webbrowser.open(authorization_url)</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
@@ -406,7 +539,7 @@ The SoundCloudAPI Singleton. It must be initialized with constructor
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sat Apr  5 17:47:32 2008
+    Generated by Epydoc 3.0beta1 on Fri Apr 11 15:22:42 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
