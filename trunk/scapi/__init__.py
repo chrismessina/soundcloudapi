@@ -40,8 +40,18 @@ Something like http://127.0.0.1:10000/
 PROXY = ''
 
 
+
+"""
+The url Soundcould offers to obtain request-tokens
+"""
 REQUEST_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/request_token'
+"""
+The url Soundcould offers to exchange access-tokens for request-tokens.
+"""
 ACCESS_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/access_token'
+"""
+The url Soundcould offers to make users authorize a concrete request token.
+"""
 AUTHORIZATION_URL = 'http://soundcloud.dev:3000/oauth/authorize'
 
 __all__ = ['SoundCloudAPI', 'USE_PROXY', 'PROXY', 'REQUEST_TOKEN_URL', 'ACCESS_TOKEN_URL', 'AUTHORIZATION_URL']
@@ -143,6 +153,23 @@ class SoundCloudAPI(object):
         raise InvalidMethodException("Not a valid API method: %s" % method)
 
     def fetch_request_token(self, url=None):
+        """
+        Helper-function for a registered consumer to obtain a request token, as
+        used by oauth.
+
+        Use it like this:
+
+        >>> oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                  CONSUMER_SECRET,
+                                                                  None, 
+                                                                  None)
+
+        >>> sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+        >>> token, secret = sca.fetch_request_token()
+        >>> authorization_url = sca.get_request_token_authorization_url(token)
+
+        Please note the None passed as  token & secret to the authenticator.
+        """
         if url is None:
             url = REQUEST_TOKEN_URL
         req = urllib2.Request(url)
@@ -161,10 +188,37 @@ class SoundCloudAPI(object):
 
 
     def fetch_access_token(self):
+        """
+        Helper-function for a registered consumer to exchange an access token for
+        a request token.
+
+        Use it like this:
+
+        >>> oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                  CONSUMER_SECRET,
+                                                                  request_token, 
+                                                                  request_token_secret)
+
+        >>> sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+        >>> token, secret = sca.fetch_access_token()
+
+        Please note the values passed as token & secret to the authenticator.
+        """
         return self.fetch_request_token(ACCESS_TOKEN_URL)
 
     def get_request_token_authorization_url(self, token):
         """
+        Simple helper function to generate the url needed
+        to ask a user for request token authorization.
+        
+        See also L{fetch_request_token}.
+
+        Possible usage:
+
+        >>> import webbrowser
+        >>> sca = scapi.SoundCloudAPI()
+        >>> authorization_url = sca.get_request_token_authorization_url(token)
+        >>> webbrowser.open(authorization_url)
         """
         return "%s?oauth_token=%s" % (AUTHORIZATION_URL, token)
 
