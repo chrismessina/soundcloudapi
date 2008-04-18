@@ -5,11 +5,11 @@ Running tests
 
 Use::
 
-  host:~/SoundCloudAPI deets$ nosetests -sw tests/ test_connect:test_setting_permissions
+  host:~/SoundCloudAPI deets$ nosetests -sw scapi/tests/ test_connect:test_setting_permissions
 
 to run a specific test, or::
 
-  host:~/SoundCloudAPI deets$ nosetests -sw tests/ test_connect
+  host:~/SoundCloudAPI deets$ nosetests -sw scapi/tests/ test_connect
 
 to run the whole suite.
 

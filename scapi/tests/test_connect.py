@@ -1,3 +1,7 @@
+from __future__ import with_statement
+import os
+import tempfile
+from ConfigParser import SafeConfigParser
 import pkg_resources
 import scapi
 import scapi.authentication
@@ -6,29 +10,94 @@ import webbrowser
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-#_logger = logging.getLogger("scapi.authentication")
+_logger = logging.getLogger("scapi")
 #_logger.setLevel(logging.DEBUG)
 
-TOKEN  = "CVnhk6fBIxSwLc8Bwdr8g"
-SECRET = "oSb0ZAwJusUy3iM7OJ5dj6tyTu5deSw9AeuT5OslU"
-CONSUMER = "Cy2eLPrIMp4vOxjz9icdQ"
-CONSUMER_SECRET = "KsBa272x6M2to00Vo5FdvZXt9kakcX7CDIPJoGwTro"
-API_HOST = 'api.soundcloud.dev:3000'
+RUN_INTERACTIVE_TESTS = False
+USE_OAUTH = True
 
+TOKEN  = ""
+SECRET = ""
+CONSUMER = ""
+CONSUMER_SECRET = ""
+API_HOST = ""
+USER = ""
+PASSWORD = ""
+
+CONFIG_NAME = "soundcloud.cfg"
+
+def load_config(config_name=None):
+    global TOKEN, SECRET, CONSUMER_SECRET, CONSUMER, API_HOST, USER, PASSWORD
+    if config_name is None:
+        config_name = CONFIG_NAME
+    parser = SafeConfigParser()
+    current = os.getcwd()
+    while current:
+        name = os.path.join(current, config_name)
+        if os.path.exists(name):
+            parser.read([name])
+            TOKEN = parser.get('global', 'accesstoken')
+            SECRET = parser.get('global', 'accesstoken_secret')
+            CONSUMER = parser.get('global', 'consumer')
+            CONSUMER_SECRET = parser.get('global', 'consumer_secret')
+            API_HOST = parser.get('global', 'host')
+            USER = parser.get('global', 'user')
+            PASSWORD = parser.get('global', 'password')
+            logger.debug("token: %s", TOKEN)
+            logger.debug("secret: %s", SECRET)
+            logger.debug("consumer: %s", CONSUMER)
+            logger.debug("consumer_secret: %s", CONSUMER_SECRET)
+            logger.debug("user: %s", USER)
+            logger.debug("password: %s", PASSWORD)
+            logger.debug("host: %s", API_HOST)
+            break
+        new_current = os.path.dirname(current)
+        if new_current == current:
+            break
+        current = new_current
+    
+
+def test_load_config():
+    base = tempfile.mkdtemp()
+    oldcwd = os.getcwd()
+    cdir = os.path.join(base, "foo")
+    os.mkdir(cdir)
+    os.chdir(cdir)
+    test_config = """
+[global]
+host=host
+consumer=consumer
+consumer_secret=consumer_secret
+accesstoken=accesstoken
+accesstoken_secret=accesstoken_secret
+user=user
+password=password
+"""
+    with open(os.path.join(base, CONFIG_NAME), "w") as cf:
+        cf.write(test_config)
+    load_config()
+    assert TOKEN == "accesstoken" and SECRET == "accesstoken_secret" and API_HOST == 'host'
+    assert CONSUMER == "consumer" and CONSUMER_SECRET == "consumer_secret"
+    assert USER == "user" and PASSWORD == "password"
+    os.chdir(oldcwd)
+    load_config()
+    
 def setup():
+    load_config()
     #scapi.SoundCloudAPI(host='192.168.2.101:3000', user='tiga', password='test')
     #scapi.SoundCloudAPI(host='staging-api.soundcloud.com:3030', user='tiga', password='test')
     scapi.USE_PROXY = True
     scapi.PROXY = 'http://127.0.0.1:10000/'
 
-    oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
-                                                                  CONSUMER_SECRET,
-                                                                  TOKEN, 
-                                                                  SECRET)
-    basic_authenticator = scapi.authentication.BasicAuthenticator('tiga', 'test', CONSUMER, CONSUMER_SECRET)
+    if USE_OAUTH:
+        authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
+                                                                CONSUMER_SECRET,
+                                                                TOKEN, 
+                                                                SECRET)
+    else:
+        authenticator = scapi.authentication.BasicAuthenticator(USER, PASSWORD, CONSUMER, CONSUMER_SECRET)
     scapi.SoundCloudAPI(host=API_HOST, 
-                        authenticator=oauth_authenticator)
-                        #authenticator=basic_authenticator)
+                        authenticator=authenticator)
     
 def test_connect():
     #sca = scapi.SoundCloudAPI(host='localhost:8080')
@@ -37,26 +106,27 @@ def test_connect():
     #assert isinstance(user, scapi.User)
     sca = scapi.Scope()
     all_users = sca.users()
-    print all_users
+    logger.debug(all_users)
     assert isinstance(all_users, list) and isinstance(all_users[0], scapi.User)
     user = sca.me()
-    print user
+    logger.debug(user)
     assert isinstance(user, scapi.User)
     contacts = user.contacts()
     assert isinstance(contacts, list)
     assert isinstance(contacts[0], scapi.User)
-    print contacts
-
+    logger.debug(contacts)
     tracks = user.tracks()
     assert isinstance(tracks, list)
     assert isinstance(tracks[0], scapi.Track)
-    print tracks
+    logger.debug(tracks)
 
 
-def _test_access_token_acquisition():
+def test_access_token_acquisition():
     """
     This test is commented out because it needs user-interaction.
     """
+    if not RUN_INTERACTIVE_TESTS:
+        return
     oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
                                                                   CONSUMER_SECRET,
                                                                   None, 
@@ -101,8 +171,8 @@ def test_scoped_track_creation():
     assert isinstance(track, scapi.Track)
 
 def test_upload():
-    assert pkg_resources.resource_exists("tests.test_connect", "knaster.mp3")
-    data = pkg_resources.resource_stream("tests.test_connect", "knaster.mp3")
+    assert pkg_resources.resource_exists("scapi.tests.test_connect", "knaster.mp3")
+    data = pkg_resources.resource_stream("scapi.tests.test_connect", "knaster.mp3")
     sca = scapi.Scope()
     user = sca.me()
     logger.debug(user)
@@ -145,8 +215,8 @@ def test_setting_permissions():
     assert set(track.permissions()) == set(users_to_set)
 
 def test_setting_comments():
-    assert pkg_resources.resource_exists("tests.test_connect", "knaster.mp3")
-    data = pkg_resources.resource_stream("tests.test_connect", "knaster.mp3")
+    assert pkg_resources.resource_exists("scapi.tests.test_connect", "knaster.mp3")
+    data = pkg_resources.resource_stream("scapi.tests.test_connect", "knaster.mp3")
     sca = scapi.Scope()
     user = sca.me()
     track = scapi.Track.new(title='bar', sharing="private")
@@ -154,6 +224,16 @@ def test_setting_comments():
     track.comments = comment
     assert track.comments()[0].body == comment.body
     
+
+def test_setting_comments_the_way_shawn_says_its_correct():
+    sca = scapi.Scope()
+    user = sca.me()
+    track = scapi.Track.new(title='bar', sharing="private")
+    #comment = scapi.Comment.create(body="This is the body of my comment", timestamp=10)
+    cbody = "This is the body of my comment"
+    track.comments.new(body=cbody, timestamp=10)
+    assert track.comments()[0].body == cbody
+
 def test_contact_add_and_removal():
     sca = scapi.Scope()
     me = sca.me()

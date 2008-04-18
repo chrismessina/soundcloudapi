@@ -93,8 +93,10 @@
 <a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name"><a title="scapi" class="py-name" href="#" onclick="return doclink('link-4', 'scapi', 'link-0');">scapi</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module scapi.util=scapi.util-module.html"><a title="scapi.util" class="py-name" href="#" onclick="return doclink('link-5', 'util', 'link-5');">util</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Function scapi.util.escape()=scapi.util-module.html#escape"><a title="scapi.util.escape" class="py-name" href="#" onclick="return doclink('link-6', 'escape', 'link-6');">escape</a></tt> </tt>
 <a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
 <a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">basicConfig</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable scapi.authentication.logger=scapi.authentication-module.html#logger,Variable scapi.logger=scapi-module.html#logger"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-7', 'logger', 'link-7');">logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable scapi.authentication.logger=scapi.authentication-module.html#logger,Variable scapi.logger=scapi-module.html#logger,Variable scapi.tests.test_connect.logger=scapi.tests.test_connect-module.html#logger,Variable scapi.tests.test_oauth.logger=scapi.tests.test_oauth-module.html#logger"><a title="scapi.authentication.logger
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-7', 'logger', 'link-7');">logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
 <a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
 <a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable scapi.USE_PROXY=scapi-module.html#USE_PROXY"><a title="scapi.USE_PROXY" class="py-name" href="#" onclick="return doclink('link-8', 'USE_PROXY', 'link-8');">USE_PROXY</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
 <a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
@@ -515,10 +517,14 @@ scapi.authentication.OAuthAuthenticator.augment_request" class="py-name" href="#
 <a name="L431"></a><tt class="py-lineno">431</tt>  <tt class="py-line">        <tt class="py-name">http_method</tt> <tt class="py-op">=</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">get_method</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L432"></a><tt class="py-lineno">432</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">urlparams</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L433"></a><tt class="py-lineno">433</tt>  <tt class="py-line">            <tt id="link-57" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-57', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Posting url: %s, method: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">url</tt><tt class="py-op">,</tt> <tt class="py-name">http_method</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-57', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Posting url: %s, method: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">url</tt><tt class="py-op">,</tt> <tt class="py-name">http_method</tt><tt class="py-op">)</tt> </tt>
 <a name="L434"></a><tt class="py-lineno">434</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L435"></a><tt class="py-lineno">435</tt>  <tt class="py-line">            <tt id="link-58" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-58', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Fetching url: %s, method: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">url</tt><tt class="py-op">,</tt> <tt class="py-name">http_method</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-58', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Fetching url: %s, method: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">url</tt><tt class="py-op">,</tt> <tt class="py-name">http_method</tt><tt class="py-op">)</tt> </tt>
 <a name="L436"></a><tt class="py-lineno">436</tt>  <tt class="py-line"> </tt>
 <a name="L437"></a><tt class="py-lineno">437</tt>  <tt class="py-line">             </tt>
 <a name="L438"></a><tt class="py-lineno">438</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">use_multipart</tt><tt class="py-op">:</tt> </tt>
@@ -541,11 +547,15 @@ scapi.logger" class="py-name" href="#" onclick="return doclink('link-58', 'logge
 <a name="L455"></a><tt class="py-lineno">455</tt>  <tt class="py-line">        <tt class="py-name">content</tt> <tt class="py-op">=</tt> <tt class="py-name">handle</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="scapi.json.JsonReader.read
 scapi.json.read" class="py-name" href="#" onclick="return doclink('link-60', 'read', 'link-27');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L456"></a><tt class="py-lineno">456</tt>  <tt class="py-line">        <tt id="link-61" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-61', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Request Content:\n%s"</tt><tt class="py-op">,</tt> <tt class="py-name">content</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-61', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Request Content:\n%s"</tt><tt class="py-op">,</tt> <tt class="py-name">content</tt><tt class="py-op">)</tt> </tt>
 <a name="L457"></a><tt class="py-lineno">457</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">redirect_handler</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="scapi.SCRedirectHandler.alternate_method" class="py-name" href="#" onclick="return doclink('link-62', 'alternate_method', 'link-31');">alternate_method</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
 <a name="L458"></a><tt class="py-lineno">458</tt>  <tt class="py-line">            <tt class="py-name">method</tt> <tt class="py-op">=</tt> <tt class="py-name">api</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Method scapi.SoundCloudAPI.normalize_method()=scapi.SoundCloudAPI-class.html#normalize_method"><a title="scapi.SoundCloudAPI.normalize_method" class="py-name" href="#" onclick="return doclink('link-63', 'normalize_method', 'link-63');">normalize_method</a></tt><tt class="py-op">(</tt><tt class="py-name">redirect_handler</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="scapi.SCRedirectHandler.alternate_method" class="py-name" href="#" onclick="return doclink('link-64', 'alternate_method', 'link-31');">alternate_method</a></tt><tt class="py-op">)</tt> </tt>
 <a name="L459"></a><tt class="py-lineno">459</tt>  <tt class="py-line">            <tt id="link-65" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-65', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Method changed through redirect to: &lt;%s&gt;"</tt><tt class="py-op">,</tt> <tt class="py-name">method</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-65', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Method changed through redirect to: &lt;%s&gt;"</tt><tt class="py-op">,</tt> <tt class="py-name">method</tt><tt class="py-op">)</tt> </tt>
 <a name="L460"></a><tt class="py-lineno">460</tt>  <tt class="py-line"> </tt>
 <a name="L461"></a><tt class="py-lineno">461</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
 <a name="L462"></a><tt class="py-lineno">462</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-string">"application/json"</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ct</tt><tt class="py-op">:</tt> </tt>
@@ -556,9 +566,13 @@ scapi.logger" class="py-name" href="#" onclick="return doclink('link-65', 'logge
 <a name="L467"></a><tt class="py-lineno">467</tt>  <tt class="py-line">                    <tt class="py-name">res</tt> <tt class="py-op">=</tt> <tt class="py-name">simplejson</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt class="py-name">content</tt><tt class="py-op">)</tt> </tt>
 <a name="L468"></a><tt class="py-lineno">468</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
 <a name="L469"></a><tt class="py-lineno">469</tt>  <tt class="py-line">                    <tt id="link-66" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-66', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-string">"Couldn't decode returned json"</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-66', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-string">"Couldn't decode returned json"</tt><tt class="py-op">)</tt> </tt>
 <a name="L470"></a><tt class="py-lineno">470</tt>  <tt class="py-line">                    <tt id="link-67" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-67', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-name">content</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-67', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-name">content</tt><tt class="py-op">)</tt> </tt>
 <a name="L471"></a><tt class="py-lineno">471</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> </tt>
 <a name="L472"></a><tt class="py-lineno">472</tt>  <tt class="py-line">                <tt class="py-name">res</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name" targets="Method scapi.Scope._map()=scapi.Scope-class.html#_map"><a title="scapi.Scope._map" class="py-name" href="#" onclick="return doclink('link-68', '_map', 'link-68');">_map</a></tt><tt class="py-op">(</tt><tt class="py-name">res</tt><tt class="py-op">,</tt> <tt class="py-name">method</tt><tt class="py-op">,</tt> <tt class="py-name">continue_list_fetching</tt><tt class="py-op">)</tt> </tt>
 <a name="L473"></a><tt class="py-lineno">473</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">res</tt> </tt>
@@ -594,9 +608,13 @@ scapi.logger" class="py-name" href="#" onclick="return doclink('link-67', 'logge
 <a name="L503"></a><tt class="py-lineno">503</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
 <a name="L504"></a><tt class="py-lineno">504</tt>  <tt class="py-line">                    <tt class="py-keyword">return</tt> <tt class="py-name">cls</tt><tt class="py-op">(</tt><tt class="py-name">res</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">stack</tt><tt class="py-op">)</tt> </tt>
 <a name="L505"></a><tt class="py-lineno">505</tt>  <tt class="py-line">        <tt id="link-76" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-76', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"don't know how to handle result"</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-76', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"don't know how to handle result"</tt><tt class="py-op">)</tt> </tt>
 <a name="L506"></a><tt class="py-lineno">506</tt>  <tt class="py-line">        <tt id="link-77" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-77', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-name">res</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-77', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-name">res</tt><tt class="py-op">)</tt> </tt>
 <a name="L507"></a><tt class="py-lineno">507</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">res</tt> </tt>
 </div><a name="L508"></a><tt class="py-lineno">508</tt>  <tt class="py-line"> </tt>
 <a name="Scope.__getattr__"></a><div id="Scope.__getattr__-def"><a name="L509"></a><tt class="py-lineno">509</tt> <a class="py-toggle" href="#" id="Scope.__getattr__-toggle" onclick="return toggle('Scope.__getattr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="scapi.Scope-class.html#__getattr__">__getattr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -670,7 +688,9 @@ scapi.User.ALIASES" class="py-name" href="#" onclick="return doclink('link-86', 
 <a name="L575"></a><tt class="py-lineno">575</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__scope</tt> <tt class="py-op">=</tt> <tt class="py-name">scope</tt> </tt>
 <a name="L576"></a><tt class="py-lineno">576</tt>  <tt class="py-line">        <tt class="py-comment"># try and see if we can/must create an id out of our path</tt> </tt>
 <a name="L577"></a><tt class="py-lineno">577</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt id="link-87" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-87', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"path_stack: %r"</tt><tt class="py-op">,</tt> <tt class="py-name">path_stack</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-87', 'logger', 'link-7');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"path_stack: %r"</tt><tt class="py-op">,</tt> <tt class="py-name">path_stack</tt><tt class="py-op">)</tt> </tt>
 <a name="L578"></a><tt class="py-lineno">578</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">path_stack</tt><tt class="py-op">:</tt> </tt>
 <a name="L579"></a><tt class="py-lineno">579</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
 <a name="L580"></a><tt class="py-lineno">580</tt>  <tt class="py-line">                <tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">path_stack</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
@@ -1036,7 +1056,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Apr 11 15:22:42 2008
+    Generated by Epydoc 3.0beta1 on Fri Apr 11 17:17:58 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
