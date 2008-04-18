@@ -300,12 +300,13 @@ def test_favorites():
 
 def test_large_list():
     sca = scapi.Scope()
-    me = sca.me()
-    tracks = sca.tracks()
+    tracks = list(sca.tracks())
     if len(tracks) < scapi.SoundCloudAPI.LIST_LIMIT:
         for i in xrange(scapi.SoundCloudAPI.LIST_LIMIT):            
-            track = scapi.Track.new(title='test_track_%i' % i)
+            scapi.Track.new(title='test_track_%i' % i)
     all_tracks = sca.tracks()
+    assert not isinstance(all_tracks, list)
+    all_tracks = list(all_tracks)
     assert len(all_tracks) > scapi.SoundCloudAPI.LIST_LIMIT
 
 
@@ -327,4 +328,6 @@ def test_me_having_stress():
     sca = scapi.Scope()
     for _ in xrange(20):
         setup()
-        user = sca.me()
+        sca.me()
+
+
