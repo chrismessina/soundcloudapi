@@ -493,13 +493,15 @@ class Scope(object):
                 cls = RESTBase.REGISTRY[part]
                 # multiple objects
                 if isinstance(res, list):
-                    items = []
-                    #for item in res[part]:
-                    for item in res:
-                        items.append(cls(item, self, stack))
-                    if len(res) == SoundCloudAPI.LIST_LIMIT:
-                        items.extend(continue_list_fetching())
-                    return items
+                    def result_gen():
+                        count = 0
+                        for item in res:
+                            yield cls(item, self, stack)
+                            count += 1
+                        if count == SoundCloudAPI.LIST_LIMIT:
+                            for item in continue_list_fetching():
+                                yield item
+                    return result_gen()
                 else:
                     return cls(res, self, stack)
         logger.debug("don't know how to handle result")
