@@ -90,8 +90,10 @@
 <a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package scapi=scapi-module.html"><a title="scapi" class="py-name" href="#" onclick="return doclink('link-0', 'scapi', 'link-0');">scapi</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module scapi.util=scapi.util-module.html"><a title="scapi.util" class="py-name" href="#" onclick="return doclink('link-1', 'util', 'link-1');">util</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function scapi.util.escape()=scapi.util-module.html#escape"><a title="scapi.util.escape" class="py-name" href="#" onclick="return doclink('link-2', 'escape', 'link-2');">escape</a></tt> </tt>
 <a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
 <a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
-<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable scapi.authentication.logger=scapi.authentication-module.html#logger,Variable scapi.logger=scapi-module.html#logger"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-3', 'logger', 'link-3');">logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable scapi.authentication.logger=scapi.authentication-module.html#logger,Variable scapi.logger=scapi-module.html#logger,Variable scapi.tests.test_connect.logger=scapi.tests.test_connect-module.html#logger,Variable scapi.tests.test_oauth.logger=scapi.tests.test_oauth-module.html#logger"><a title="scapi.authentication.logger
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-3', 'logger', 'link-3');">logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
 <a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
 <a name="OAuthSignatureMethod_HMAC_SHA1"></a><div id="OAuthSignatureMethod_HMAC_SHA1-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="OAuthSignatureMethod_HMAC_SHA1-toggle" onclick="return toggle('OAuthSignatureMethod_HMAC_SHA1');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="scapi.authentication.OAuthSignatureMethod_HMAC_SHA1-class.html">OAuthSignatureMethod_HMAC_SHA1</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="OAuthSignatureMethod_HMAC_SHA1-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="OAuthSignatureMethod_HMAC_SHA1-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
@@ -119,7 +121,9 @@ scapi.logger" class="py-name" href="#" onclick="return doclink('link-3', 'logger
 <a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-name">key</tt> <tt class="py-op">+=</tt> <tt class="py-name">token_secret</tt> </tt>
 <a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">raw</tt> <tt class="py-op">=</tt> <tt class="py-string">'&amp;'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">sig</tt><tt class="py-op">)</tt> </tt>
 <a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt id="link-11" class="py-name"><a title="scapi.authentication.logger
-scapi.logger" class="py-name" href="#" onclick="return doclink('link-11', 'logger', 'link-3');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"raw basestring: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">)</tt> </tt>
+scapi.logger
+scapi.tests.test_connect.logger
+scapi.tests.test_oauth.logger" class="py-name" href="#" onclick="return doclink('link-11', 'logger', 'link-3');">logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"raw basestring: %s"</tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">)</tt> </tt>
 <a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-comment"># hmac object</tt> </tt>
 <a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-comment"></tt>        <tt class="py-name">hashed</tt> <tt class="py-op">=</tt> <tt class="py-name">hmac</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Class Method scapi.RESTBase.new()=scapi.RESTBase-class.html#new"><a title="scapi.RESTBase.new" class="py-name" href="#" onclick="return doclink('link-12', 'new', 'link-12');">new</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">,</tt> <tt class="py-name">hashlib</tt><tt class="py-op">.</tt><tt class="py-name">sha1</tt><tt class="py-op">)</tt> </tt>
 <a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-comment"># calculate the digest base 64</tt> </tt>
@@ -249,7 +253,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Fri Apr 11 15:22:43 2008
+    Generated by Epydoc 3.0beta1 on Fri Apr 11 17:17:57 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
