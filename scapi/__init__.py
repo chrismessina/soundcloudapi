@@ -86,11 +86,11 @@ class UnknownContentType(Exception):
         return str(self)
 
 
-class SoundCloudAPI(object):
+class ApiConnector(object):
     """
-    The SoundCloudAPI Singleton. It must be initialized with constructor parameters once
-    to make the connection to the SoundCloud-server possible. Afterwards, a simple non-argument
-    instantiation will be sufficient.
+    The ApiConnector holds all the data necessary to authenticate against
+    the soundcloud-api. You can instantiate several connectors if you like, but usually one 
+    should be sufficient.
     """
 
     """
@@ -110,9 +110,7 @@ class SoundCloudAPI(object):
     """
     LIST_LIMIT_PARAMETER = 'limit'
 
-    __shared_state = {'base64string' : None, 'collapse_scope' : True, '_base' : ''}
-
-    def __init__(self, host=None, base64string=None, user=None, password=None, authenticator=None):
+    def __init__(self, host, user=None, password=None, authenticator=None, base="", collapse_scope=True):
         """
         Constructor for the API-Singleton. Use it once with parameters, and then the
         subsequent calls internal to the API will work.
@@ -127,13 +125,13 @@ class SoundCloudAPI(object):
         @type authenticator: OAuthAuthenticator | BasicAuthenticator
         @param authenticator: the authenticator to use, see L{scapi.authentication}
         """
-        self.__dict__ = self.__shared_state
-        if host is not None:
-            self.host = host
+        self.host = host
         if authenticator is not None:
             self.authenticator = authenticator
         elif user is not None and password is not None:
             self.authenticator = BasicAuthenticator(user, password)
+        self._base = base
+        self.collapse_scope = collapse_scope
 
     def normalize_method(self, method):
         """ 
@@ -141,7 +139,7 @@ class SoundCloudAPI(object):
         and see if it's valid, which means that it's located beneath our base. 
         If yes, we return it normalized without that very base.
         """
-        protocol, host, path, params, query, fragment = urlparse.urlparse(method)
+        _, _, path, _, _, _ = urlparse.urlparse(method)
         if path.startswith("/"):
             path = path[1:]
         # if the base is "", we return the whole path,
@@ -164,7 +162,7 @@ class SoundCloudAPI(object):
                                                                   None, 
                                                                   None)
 
-        >>> sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+        >>> sca = scapi.ApiConnector(host=API_HOST, authenticator=oauth_authenticator)
         >>> token, secret = sca.fetch_request_token()
         >>> authorization_url = sca.get_request_token_authorization_url(token)
 
@@ -199,7 +197,7 @@ class SoundCloudAPI(object):
                                                                   request_token, 
                                                                   request_token_secret)
 
-        >>> sca = scapi.SoundCloudAPI(host=API_HOST, authenticator=oauth_authenticator)
+        >>> sca = scapi.ApiConnector(host=API_HOST, authenticator=oauth_authenticator)
         >>> token, secret = sca.fetch_access_token()
 
         Please note the values passed as token & secret to the authenticator.
@@ -216,7 +214,7 @@ class SoundCloudAPI(object):
         Possible usage:
 
         >>> import webbrowser
-        >>> sca = scapi.SoundCloudAPI()
+        >>> sca = scapi.ApiConnector()
         >>> authorization_url = sca.get_request_token_authorization_url(token)
         >>> webbrowser.open(authorization_url)
         """
@@ -261,30 +259,35 @@ class SCRedirectHandler(urllib2.HTTPRedirectHandler):
 
 class Scope(object):
     """
-    The basic means to query and create resources. The Scope uses the L{SoundCloudAPI} to
-    create the proper URIs for querying or creating resources. It will only work after
-    you created the L{SoundCloudAPI}-singleton once with the proper connection parameters.
+    The basic means to query and create resources. The Scope uses the L{ApiConnector} to
+    create the proper URIs for querying or creating resources. 
 
-    For accessing resources from the root level, you explcitly create a Scope and query it 
+    For accessing resources from the root level, you explcitly create a Scope and pass it
+    an L{ApiConnector}-instance. Then you can query it 
     or create new resources like this:
 
-    >>> scapi.SoundCloudAPI(host='host', user='user', password='password') # initialize the API
-    >>> scope = scapi.Scope() # get the root scope
-    >>> users = scope.users()
+    Please not that all resources that are lists are returned as B{generator}. So you need
+    to either iterate over them, or call list(resources) on them.
+
+    >>> connector = scapi.ApiConnector(host='host', user='user', password='password') # initialize the API
+    >>> scope = scapi.Scope(connector) # get the root scope
+    >>> users = list(scope.users())
     [<scapi.User object at 0x12345>, ...]
 
     When accessing resources that belong to another resource, like contancts of a user, you access
     the parent's resource scope implicitly through the resource instance like this:
 
-    >>> user = scope.users()[0]
-    >>> user.contacts()
+    >>> user = scope.users().next()
+    >>> list(user.contacts())
     [<scapi.Contact object at 0x12345>, ...]
 
     """
-    def __init__(self, scope=None, parent=None):
+    def __init__(self, connector, scope=None, parent=None):
         """
         Create the Scope. It can have a resource as scope, and possibly a parent-scope.
 
+        @param connector: The connector to use.
+        @type connector: ApiConnector
         @type scope: scapi.RESTBase
         @param scope: the resource to make this scope belong to
         @type parent: scapi.Scope
@@ -298,8 +301,12 @@ class Scope(object):
         if parent is not None:
             scope = parent._scope + scope
         self._scope = scope
+        self._connector = connector
 
-    def _create_request(self, url, api, parameters, queryparams, alternate_http_method=None):
+    def _get_connector(self):
+        return self._connector
+
+    def _create_request(self, url, connector, parameters, queryparams, alternate_http_method=None):
         """
         This method returnes the urllib2.Request to perform the actual HTTP-request.
 
@@ -308,7 +315,7 @@ class Scope(object):
         headers.
 
         @param url: the destination url
-        @param api: our api-instance
+        @param connector: our connector-instance
         @param parameters: the POST-parameters to use.
         @type parameters: None|dict<str, basestring|list<basestring>>
         @param queryparams: the queryparams to use
@@ -328,11 +335,11 @@ class Scope(object):
                 return parameters is not None
 
             def augment_request(self, params):
-                api.authenticator.augment_request(self, params)
+                connector.authenticator.augment_request(self, params)
 
             @classmethod
             def recreate_request(cls, location):
-                return self._create_request(location, api, None, None)
+                return self._create_request(location, connector, None, None)
         
         req = MyRequest(url)
         all_params = {}
@@ -375,11 +382,11 @@ class Scope(object):
         You have been warned.
         """
         queryparams = {}
-        __offset__ = SoundCloudAPI.LIST_LIMIT
+        __offset__ = ApiConnector.LIST_LIMIT
         if "__offset__" in kwargs:
             offset = kwargs.pop("__offset__")
             queryparams['offset'] = offset
-            __offset__ = offset + SoundCloudAPI.LIST_LIMIT
+            __offset__ = offset + ApiConnector.LIST_LIMIT
 
         # create a closure to invoke this method again with a greater offset
         _cl_method = method
@@ -389,7 +396,7 @@ class Scope(object):
         _cl_kwargs["__offset__"] = __offset__
         def continue_list_fetching():
             return self._call(method, *_cl_args, **_cl_kwargs)
-        api = SoundCloudAPI()
+        connector = self._get_connector()
         def filelike(v):
             if isinstance(v, file):
                 return True
@@ -414,10 +421,10 @@ class Scope(object):
         scope = ''
         if self._scope:
             scopes = self._scope
-            if api.collapse_scope:
+            if connector.collapse_scope:
                 scopes = scopes[-1:]
             scope = "/".join([sc._scope() for sc in scopes]) + "/"
-        url = "http://%(host)s/%(base)s%(scope)s%(method)s%(queryparams)s" % dict(host=api.host, method=method, base=api._base, scope=scope, queryparams=self._create_query_string(queryparams))
+        url = "http://%(host)s/%(base)s%(scope)s%(method)s%(queryparams)s" % dict(host=connector.host, method=method, base=connector._base, scope=scope, queryparams=self._create_query_string(queryparams))
 
         # we need to install SCRedirectHandler
         # to gather possible See-Other redirects
@@ -426,7 +433,7 @@ class Scope(object):
         handlers = [redirect_handler]
         if USE_PROXY:
             handlers.append(urllib2.ProxyHandler({'http' : PROXY}))
-        req = self._create_request(url, api, urlparams, queryparams, alternate_http_method)
+        req = self._create_request(url, connector, urlparams, queryparams, alternate_http_method)
 
         http_method = req.get_method()
         if urlparams is not None:
@@ -455,7 +462,7 @@ class Scope(object):
         content = handle.read()
         logger.debug("Request Content:\n%s", content)
         if redirect_handler.alternate_method is not None:
-            method = api.normalize_method(redirect_handler.alternate_method)
+            method = connector.normalize_method(redirect_handler.alternate_method)
             logger.debug("Method changed through redirect to: <%s>", method)
 
         try:
@@ -498,7 +505,7 @@ class Scope(object):
                         for item in res:
                             yield cls(item, self, stack)
                             count += 1
-                        if count == SoundCloudAPI.LIST_LIMIT:
+                        if count == ApiConnector.LIST_LIMIT:
                             for item in continue_list_fetching():
                                 yield item
                     return result_gen()
@@ -510,7 +517,9 @@ class Scope(object):
 
     def __getattr__(self, _name):
         """
-        Retrieve an API-method. The result is a callable that supports the following invocations:
+        Retrieve an API-method or a scoped domain-class. 
+        
+        If the former, result is a callable that supports the following invocations:
 
          - calling (...), with possible arguments (positional/keyword), return the resulting resource or list of resources.
 
@@ -518,18 +527,22 @@ class Scope(object):
            sense only if it's a collection of course.
 
          - invoking remove(resource) on it will DELETE the resource from it's container. Also only usable on collections.
+
+         TODO: describe the latter 
         """
+        scope = self
+
         class api_call(object):
             def __call__(selfish, *args, **kwargs):
                 return self._call(_name, *args, **kwargs)
 
-            def new(selfish, **kwargs):
+            def new(self, **kwargs):
                 """
                 Will invoke the new method on the named resource _name, with 
                 self as scope.
                 """
                 cls = RESTBase.REGISTRY[_name]
-                return cls.new(self, **kwargs)
+                return cls.new(scope, **kwargs)
 
             def append(selfish, resource):
                 """
@@ -539,7 +552,23 @@ class Scope(object):
 
             def remove(selfish, resource):
                 self._call(_name, str(resource.id), _alternate_http_method="DELETE")
+                
+        if _name in RESTBase.ALL_DOMAIN_CLASSES:
+            cls = RESTBase.ALL_DOMAIN_CLASSES[_name]
+            class ScopeBinder(object):
+                def new(self, *args, **data):
+                    d = {}
+                    name = cls._singleton()
+                    for key, value in data.iteritems():
+                        d['%s[%s]' % (name, key)] = value
+                    return scope._call(cls.KIND, **d)
+                
+                def create(self, **data):
+                    return cls.create(scope, **data)
 
+                def get(self, id):
+                    return cls.get(scope, id)
+            return ScopeBinder()
         return api_call()
 
     def __repr__(self):
@@ -569,8 +598,12 @@ class RESTBase(object):
     
     """
     REGISTRY = {}
+    
+    ALL_DOMAIN_CLASSES = {}
 
     ALIASES = []
+
+    KIND = None
 
     def __init__(self, data, scope, path_stack=None):
         self.__data = data
@@ -587,7 +620,7 @@ class RESTBase(object):
     def __getattr__(self, name):
         if name in self.__data:
             return self.__data[name]
-        scope = Scope(scope=self, parent=self.__scope)
+        scope = Scope(self.__scope._get_connector(), scope=self, parent=self.__scope)
         return getattr(scope, name)
 
     def __setattr__(self, name, value):
@@ -597,14 +630,14 @@ class RESTBase(object):
 
         For example, to set a comment on a track, do
 
-        >>> sca = scapi.Scope()
+        >>> sca = scapi.Scope(connector)
         >>> track = scapi.Track.new(title='bar', sharing="private")
         >>> comment = scapi.Comment.create(body="This is the body of my comment", timestamp=10)    
         >>> track.comments = comment
 
         To set a list of users as permissions, do
 
-        >>> sca = scapi.Scope()
+        >>> sca = scapi.Scope(connector)
         >>> me = sca.me()
         >>> track = scapi.Track.new(title='bar', sharing="private")
         >>> users = sca.users()
@@ -613,7 +646,8 @@ class RESTBase(object):
         
         And finally, to simply change the title of a track, do
 
-        >>> track = scapi.Track.get(track_id)
+        >>> sca = scapi.Scope(connector)
+        >>> track = sca.Track.get(track_id)
         >>> track.title = "new_title"
  
         @param name: the property name
@@ -664,37 +698,35 @@ class RESTBase(object):
         return value
 
     @classmethod
-    def create(cls, **data):
+    def create(cls, scope, **data):
         """
         This is a convenience-method for creating an object that will be passed
         as parameter - e.g. a comment. A usage would look like this:
 
-        >>> sca = scapi.Scope()
-        >>> track = scapi.Track.new(title='bar', sharing="private")
-        >>> comment = scapi.Comment.create(body="This is the body of my comment", timestamp=10)    
+        >>> sca = scapi.Scope(connector)
+        >>> track = sca.Track.new(title='bar', sharing="private")
+        >>> comment = sca.Comment.create(body="This is the body of my comment", timestamp=10)    
         >>> track.comments = comment
 
         """
-        return cls(data, None)
+        return cls(data, scope)
 
     @classmethod
-    def new(cls, *args, **data):
+    def new(cls, scope, **data):
         """
-        Create a new resource. The actual values are in data. If the creation
-        is scoped, that is e.g. a new contact as part of an user, the 
-        args command is a one-element-tuple containing the L{Scope}.
+        Create a new resource inside a given Scope. The actual values are in data. 
 
         So for creating new resources, you have two options:
         
          - create an instance directly using the class:
 
-           >>> scope = scapi.Scope()
+           >>> scope = scapi.Scope(connector)
            >>> scope.User.new(...)
            <scapi.User object at 0x1234>
 
          - create a instance in a certain scope:
 
-           >>> scope = scapi.Scope()
+           >>> scope = scapi.Scope(connector)
            >>> user = scapi.User("1")
            >>> track = user.tracks.new()
            <scapi.Track object at 0x1234>
@@ -705,35 +737,19 @@ class RESTBase(object):
         @type data: dict
         @return: new instance of the resource
         """
-        if args:
-            scope = args[0]
-        else:
-            scope = Scope()
-        # prepend the data with our kind
-        d = {}
-        name = cls._singleton()
-        for key, value in data.iteritems():
-            d['%s[%s]' % (name, key)] = value
-        return getattr(scope, cls.KIND)(**d)
-
-#     def update(self, **kwargs):
-#         d = {}
-#         name = self._singleton()
-#         for key, value in kwargs.iteritems():
-#             d['%s[%s]' % (name, key)] = value
-#         return getattr(scope, cls.KIND)(**d)
+        return getattr(scope, cls.__name__).new(**data)
 
     @classmethod    
-    def get(cls, id):
+    def get(cls, scope, id):
         """
         Fetch a resource by id.
         
         Simply pass a known id as argument. For example
 
-        >>> track = scapi.Track.get(id)
+        >>> sca = scapi.Scope(connector)
+        >>> track = sca.Track.get(id)
 
         """
-        scope = Scope()
         return getattr(scope, cls.KIND)(id)
         
 
@@ -769,7 +785,6 @@ class RESTBase(object):
                 v = str(v)
             res.append("%s=%s" % (key, v))
         return "\n".join(res)
-
 
     def __hash__(self):
         return hash("%s%i" % (self.KIND, self.id))
@@ -819,8 +834,6 @@ class Event(RESTBase):
     A event domain object/resource. 
     """
     KIND = 'events'
-    
-
 
 # this registers all the RESTBase subclasses.
 # One day using a metaclass will make this a tad
@@ -830,6 +843,7 @@ def register_classes():
     g.update(globals())
     for name, cls in [(k, v) for k, v in g.iteritems() if isclass(v) and issubclass(v, RESTBase) and not v == RESTBase]:
         RESTBase.REGISTRY[cls.KIND] = cls
+        RESTBase.ALL_DOMAIN_CLASSES[cls.__name__] = cls
         for alias in cls.ALIASES:
             RESTBase.REGISTRY[alias] = cls
         __all__.append(name)
