@@ -552,7 +552,7 @@ Collection of all tracks.
 
 Parameters:
   * filter, *all*|public|private
-  * order, *creation*|hotness
+  * order, *created_at*|hotness
   * from_date, date (yyyy-mm-dd hh:mm:ss), start of time interval for hotness ordering
   * to_date, date (yyyy-mm-dd hh:mm:ss), end of time interval for hotness ordering
 
