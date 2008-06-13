@@ -9,7 +9,7 @@ The API is built with the design principles of REST in mind, exposing resources 
 
 If you have questions, comments or suggestions they are very welcome. Join the discussion on our mailing list or, if you wish to keep it private, send an email to api@soundcloud.com.
 
-We've put up a [SimpleUseCase simple use case] if you want to see what the API is capable of.
+We've put up a [SimpleUseCase simple use case] demonstrating how to upload a track and share it to other users.
 
 If you've already read this document from top to bottom, you might want to check [DocumentationChanges the list of changes to this document].
 
