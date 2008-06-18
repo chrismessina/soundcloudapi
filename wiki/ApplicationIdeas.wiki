@@ -10,6 +10,7 @@ Here we'll put in a bunch of API ideas that we've been thinking about while deve
 = Web apps / mash-ups =
   * "The world music map". A nice world map visualization where you can zoom in and listen to music that was created in that part of the world or tracks are are listened to a lot in this region.
   * Audio visualizer that uses the timed comments for textual-based artistic visualization at the right point in the track.
+ * Export and/or sync to MySpace: login with your myspace account on the app, which then syncs your latest tracks to the myspace artist-profile player in the background
 
 = iPhone / Mobile =
 
