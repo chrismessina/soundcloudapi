@@ -1,6 +1,38 @@
 #labels Featured
 = !SoundCloud API = 
 
+== Table of Contents ==
+
+  * [Documentation#Introduction Introduction]
+   * [Documentation#Getting_Started Getting Started]
+  * [Documentation#Authentication Authentication]
+   * [Documentation#Basic_HTTP Basic HTTP]
+   * [Documentation#OAuth OAuth]
+  * [Documentation#Resource_Types Resource Types]
+   * [Documentation#User User]
+   * [Documentation#Track Track]
+   * [Documentation#Asset Asset]
+   * [Documentation#Comment Comment]
+   * [Documentation#Event Event]
+    * [Documentation#Comment Comment]
+    * [Documentation#Track Track]
+    * [Documentation#Fan Fan]
+    * [Documentation#Favorite Favorite]
+  * [Documentation#Response_Formats Response Formats]
+  * [Documentation#Request_Content_Types Request Content Types]
+  * [Documentation#Cross_Site_Scripting Cross Site Scripting]
+   * [Documentation#JSONP JSONP]
+  * [Documentation#Collections Collections]
+   * [Documentation#Partitions Partitions]
+  * [Documentation#Client_Forward_Compatibility Client Forward Compatibility]
+  * [Documentation#Resources Resources]
+   * [Documentation#users users]
+   * [Documentation#tracks tracks]
+    * [Documentation#Sorting_by_hotness Sorting by hotness]
+   * [Documentation#comments comments]
+   * [Documentation#assets assets]
+   * [Documentation#events events]
+
 == Introduction ==
 
 Please note that the API, as well as the web application, is still beta. This means that things can change.
@@ -13,7 +45,7 @@ We've put up a [SimpleUseCase simple use case] demonstrating how to upload a tra
 
 If you've already read this document from top to bottom, you might want to check [DocumentationChanges the list of changes to this document].
 
-=== Getting started ===
+=== Getting Started ===
 
 Examples throughout this document will mainly be illustrated using [http://curl.haxx.se cURL]. We start by requesting the tracks that are publicly accessible:
 
@@ -44,27 +76,24 @@ To get all request and response headers do the cURL request in verbose mode usin
 
 == Authentication ==
 
-Anyone can read Users, public Tracks and Comments on public Tracks. Other resources are protected and need authentication.
+Anyone can read Users, public Tracks and Comments on public Tracks. Other resources are protected and require authentication.
 
 === Basic HTTP ===
 
-When using HTTP Basic Authorization Consumer key and secret also have to be passed. This is required to discourage client applications to send users' login credentials over the wire (and storing them in an insecure way locally) and enabling us to keep track of API traffic.
+Basic HTTP is only available in our sandbox environment. The intention is to give easy access to play around, without being able to manipulate production data.
 
 Using cURL with -u username:password to access protected resources and passing Consumer credentials in the X-Authorization header:
 {{{
-$ curl -u joey:hairspray -H 'X-Authorization: OAuth
-  oauth_consumer_key="Iam1337RUleet2"
-  oauth_consumer_secret="i81wouldU8eat12"
-  ' 'http://api.soundcloud.com/me'
+$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/me'
 }}}
 
 === OAuth ===
 
-Authentication can also be done with OAuth, a standard to give third party applications the authority to act on a user's behalf. You need to register a client application which is connected to your !SoundCloud user account.
+To access protected resources you can authenticate with [http://oauth.net/ OAuth], a standard to give third party applications the authority to act on a user's behalf. You need to register a client application which is connected to your !SoundCloud user account.
 
-If you're not already familiar with OAuth, please read more on oauth.net and check out the OAuth mailing list.
+If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] and check out the [http://groups.google.com/group/oauth/ OAuth mailing list].
 
-== Resource types ==
+== Resource Types ==
 
 The resources can have different roles, but when processing the response data from the API the five resource types are all you have to keep in mind.
 
@@ -207,7 +236,7 @@ A User adds one of the recipient's Tracks to their favorites.
 </event>
 }}}
 
-== Response formats ==
+== Response Formats ==
 
 Representations in XML and JSON are available.
 
@@ -221,23 +250,23 @@ http://api.soundcloud.com/me.json
 http://api.soundcloud.com/me.js
 }}}
 
-or send an accept header specifying the mime type.
+or send an Accept header specifying the mime type.
 
 When using cURL:
 
 {{{
-$ curl -u joey:hairspray -H "Accept: text/xml" 'http://api.soundcloud.com/me/'
-$ curl -u joey:hairspray -H "Accept: application/xml" 'http://api.soundcloud.com/me/'
-$ curl -u joey:hairspray -H "Accept: application/x-xml" 'http://api.soundcloud.com/me/'
+$ curl 'http://api.soundcloud.com/me/' -H 'Accept: text/xml'
+$ curl 'http://api.soundcloud.com/me/' -H 'Accept: application/xml'
+$ curl 'http://api.soundcloud.com/me/' -H 'Accept: application/x-xml'
 
-$ curl -u joey:hairspray -H "Accept: application/json" 'http://api.soundcloud.com/me/'
+$ curl 'http://api.soundcloud.com/me/' -H 'Accept: application/json'
 
-$ curl -u joey:hairspray -H "Accept: text/javascript" 'http://api.soundcloud.com/me/'
+$ curl 'http://api.soundcloud.com/me/' -H 'Accept: text/javascript'
 }}}
 
 The default response format is XML. 
 
-== Request content types ==
+== Request Content Types ==
 
 When creating or updating resources data can be passed as urlencoded or in XML-format.
 
@@ -245,12 +274,12 @@ The two examples below are equivalent:
 
 URL encoded:
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks' -X POST -d 'track[title]=Superstitious&track[description]=A song about people.'
+$ curl 'http://api.soundcloud.com/tracks' -X POST -d 'track[title]=Superstitious&track[description]=A song about people.'
 }}}
 
 XML:
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
+$ curl 'http://api.soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
 <track>
 	<title>Superstitious</title>
 	<description>A song about people.</description>
@@ -262,7 +291,7 @@ The examples below will use XML-format for legibility.
 
 Sending data as JSON is planned for the official release.
 
-== Cross site scripting ==
+== Cross Site Scripting ==
 
 === JSONP ===
 
@@ -272,15 +301,6 @@ Example:
 {{{
 <script src="http://api.soundcloud.com/me.js?callback=XSS.JSONP.callback" type="text/javascript"></script>
 }}}
-
-=== Flash ===
-
-To access !SoundCloud content from Flash, we have put the Flash cross domain policy file at: http://sandbox.soundcloud.com/crossdomain.xml
-
-Further resources on Flash cross site scripting:
-  * [http://moock.org/asdg/technotes/crossDomainPolicyFiles/ Crossdomain Article by Colin Moock]
-  * [http://www.adobe.com/devnet/flash/articles/fplayer_security.html Adobe Developer Center]
-  * [http://www.macromedia.com/cfusion/knowledgebase/index.cfm?id=tn_14213 Adobe Crossdomain Technote]
 
 == Collections ==
 
@@ -294,15 +314,15 @@ When requesting a collection it is possible to pass two parameters: *offset* and
 
 Retrieving the whole collection can be done by repeatedly requesting the collection, starting with an offset value of 0, and then increasing the offset for each request until the response contains fewer elements than requested or if it is empty.
 
-== Client forward compatibility ==
+== Client Forward Compatibility ==
 
 The API may change when new features are introduced. New attribute and sub resources might be added to existing resource types and resource types might be added.
 
 == Resources ==
 
-=== api/users ===
+=== users ===
 
-||  *Resource*									                ||  *Method*          ||
+||  *Resource*									            ||  *Method*          ||
 ||  /users/									                ||  GET               ||
 ||  /users/{user_id}						            ||  GET, PUT          ||
 ||  /users/{user_id}/tracks					        ||  GET               ||
@@ -322,7 +342,7 @@ Type: Collection of Users
 Retrieves all users.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users'
+$ curl 'http://api.soundcloud.com/users'
 
 < HTTP/1.1 200 OK
 
@@ -339,7 +359,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/users'
 The resource is searchable by passing the query to the resource. It then lists a subset matching the search query.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users?q=seba'
+$ curl 'http://api.soundcloud.com/users?q=seba'
 
 < HTTP/1.1 200 OK
 
@@ -367,7 +387,7 @@ Type: User
 The given user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/me'
+$ curl 'http://api.soundcloud.com/me'
 
 < HTTP/1.1 200 OK
 
@@ -386,7 +406,7 @@ Type: Collection of Tracks
 The given user's uploaded tracks.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/me/tracks'
+$ curl 'http://api.soundcloud.com/me/tracks'
 
 < HTTP/1.1 200 OK
 
@@ -410,7 +430,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/me/tracks'
 Requesting the tracks resource of another user:
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users/2/tracks'
+$ curl 'http://api.soundcloud.com/users/2/tracks'
 
 < HTTP/1.1 200 OK
 
@@ -464,7 +484,7 @@ $ curl 'http://api.soundcloud.com/users/2/contacts'
 Adds the user with the id contact_id to the given user's list of contacts. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users/1/contacts/21' -X PUT
+$ curl 'http://api.soundcloud.com/users/1/contacts/21' -X PUT
 
 < HTTP/1.1 201 Created
 }}}
@@ -474,7 +494,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/users/1/contacts/21' -X PUT
 Removes the user with the id contact_id from the given user's list of contacts. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users/1/contacts/21' -X DELETE
+$ curl 'http://api.soundcloud.com/users/1/contacts/21' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
@@ -519,7 +539,7 @@ $ curl 'http://api.soundcloud.com/users/1/favorites/'
 Adds the given track to the given user's list of favorites. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/me/favorites/3' -X PUT
+$ curl 'http://api.soundcloud.com/me/favorites/3' -X PUT
 
 < HTTP/1.1 201 Created
 }}}
@@ -529,12 +549,12 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/me/favorites/3' -X PUT
 Adds the given track to the given user's list of favorites. Responds with 403 Forbidden if the given user is not the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/users/1/favorites/3' -X DELETE
+$ curl 'http://api.soundcloud.com/users/1/favorites/3' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
 
-=== api/tracks ===
+=== tracks ===
 
 ||  *Resource*								            ||	*Method*          ||
 ||  /tracks							                	||	GET, POST         ||
@@ -584,7 +604,7 @@ $ curl 'http://api.soundcloud.com/tracks'
 Authenticated request:
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks'
+$ curl 'http://api.soundcloud.com/tracks'
 
 < HTTP/1.1 200 OK
 
@@ -620,7 +640,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks'
 The collection is searchable by passing the query to the resource. It then lists a subset matching the search query.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks?q=ice'
+$ curl 'http://api.soundcloud.com/tracks?q=ice'
 
 < HTTP/1.1 200 OK
 
@@ -700,7 +720,7 @@ Parameters
 Creates a track belonging to the logged in user.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
+$ curl 'http://api.soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
 <track>
 	<title>Superstitious</title>
 	<description>A song about people.</description>
@@ -717,7 +737,7 @@ Result type: Track
 Retrieves the given track.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/13'
+$ curl 'http://api.soundcloud.com/tracks/13'
 
 < HTTP/1.1 200 OK
 
@@ -743,7 +763,7 @@ Parameters
   * track[bpm ], float, beats per minute
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/13' -X PUT -H 'Content-Type: application/xml'  -d '
+$ curl 'http://api.soundcloud.com/tracks/13' -X PUT -H 'Content-Type: application/xml'  -d '
 <track>
 	<downloadable>true</downloadable >
 </track>
@@ -756,7 +776,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/13' -X PUT -H 'Conten
 Deletes the given track
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/13' -X DELETE
+$ curl 'http://api.soundcloud.com/tracks/13' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
@@ -767,7 +787,7 @@ Type: Collection of Comments
 Retrieves comments made on the given track.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/9/comments'
+$ curl 'http://api.soundcloud.com/tracks/9/comments'
 
 < HTTP/1.1 200 OK
 
@@ -796,7 +816,7 @@ Parameters
   * comment[reply_to ], integer, comment id
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/comments' -X POST -H 'Content-Type: application/xml'  -d '
+$ curl 'http://api.soundcloud.com/tracks/1/comments' -X POST -H 'Content-Type: application/xml'  -d '
 <comment>
 	<body>Yeah!</body>
 </comment >
@@ -812,7 +832,7 @@ Type: Collection of Users
 Retrieves the users with permission to see the track.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/10/permissions'
+$ curl 'http://api.soundcloud.com/tracks/10/permissions'
 
 < HTTP/1.1 200 OK
 
@@ -856,7 +876,7 @@ Parameters
   * *permissions[user_id ][]*, integer, the users to be granted permission
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/12/permissions' -X PUT -H 'Content-Type: application/xml' -d '
+$ curl 'http://api.soundcloud.com/tracks/12/permissions' -X PUT -H 'Content-Type: application/xml' -d '
 <permissions>
 	<user-id>2</user-id>
 	<user-id>3</user-id>
@@ -867,7 +887,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/12/permissions' -X PU
 is equivalent to:
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/12/permissions' -X PUT -d 'permissions[user_id][]=2&permissions[user_id][]=3'
+$ curl 'http://api.soundcloud.com/tracks/12/permissions' -X PUT -d 'permissions[user_id][]=2&permissions[user_id][]=3'
 
 < HTTP/1.1 200 OK
 }}}
@@ -876,7 +896,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/12/permissions' -X PU
 Associates the given asset with the given track.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/assets/1' -X PUT
+$ curl 'http://api.soundcloud.com/tracks/1/assets/1' -X PUT
 
 < HTTP/1.1 201 Created
 }}}
@@ -887,7 +907,7 @@ Type: Binary
 Retrieves the original uploaded asset of the Track if it is downloadable.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/download'
+$ curl 'http://api.soundcloud.com/tracks/1/download'
 
 < HTTP/1.1 200 OK
 < Content-Transfer-Encoding: binary
@@ -901,7 +921,7 @@ Type: Binary, MP3
 Retrieves the stream of the track.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/stream'
+$ curl 'http://api.soundcloud.com/tracks/1/stream'
 
 < HTTP/1.1 200 OK
 < Content-Transfer-Encoding: binary
@@ -915,7 +935,7 @@ Type: Binary, PNG
 Retrieves the waveform representation of the Track in PNG format.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/waveform'
+$ curl 'http://api.soundcloud.com/tracks/1/waveform'
 
 < HTTP/1.1 200 OK
 < Content-Transfer-Encoding: binary
@@ -923,7 +943,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/1/waveform'
 < Content-Type: image/png
 }}}
 
-=== /comments ===
+=== comments ===
 
 ||  Resource						    ||  Method	    ||
 ||  /comments/{comment_id}	||  GET, DELETE ||
@@ -934,7 +954,7 @@ Type: Comment
 Retrieves the given comment.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/tracks/9/comments'
+$ curl 'http://api.soundcloud.com/tracks/9/comments'
 
 < HTTP/1.1 200 OK
 
@@ -956,12 +976,12 @@ Deletes the given comment.
 This is only allowed to the comment's creator or the associated track's owner.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/comments/1' -X DELETE
+$ curl 'http://api.soundcloud.com/comments/1' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
 
-=== /assets ===
+=== assets ===
 
 ||  Resource					      ||  Method      ||
 ||  /assets/			      ||  GET, POST   ||
@@ -973,7 +993,7 @@ Type: Asset
 Retrieves a list of the logged in user's assets.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/assets'
+$ curl 'http://api.soundcloud.com/assets'
 
 < HTTP/1.1 200 OK
 
@@ -1000,7 +1020,7 @@ Parameters:
   * *asset[filedata ]*, form-multipart-encoded-file
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/assets' -F asset[filedata]=@final_countdown.wav
+$ curl 'http://api.soundcloud.com/assets' -F asset[filedata]=@final_countdown.wav
 
 < HTTP/1.1 201 Created
 < Location: http://api.soundcloud.com/assets/1
@@ -1010,12 +1030,12 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/assets' -F asset[filedata]=@
 Deletes the given asset.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/assets/1' -X DELETE
+$ curl 'http://api.soundcloud.com/assets/1' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
 
-=== /events ===
+=== events ===
 
 ||  Resource					  ||  Method  ||
 ||  /events/			      ||  GET     ||
@@ -1027,7 +1047,7 @@ Type: Events
 Retrieves a list of the logged in user's events.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/events'
+$ curl 'http://api.soundcloud.com/events'
 
 < HTTP/1.1 200 OK
 
@@ -1060,7 +1080,7 @@ $ curl -u joey:hairspray 'http://api.soundcloud.com/events'
 Shows the given event and its related resource.
 
 {{{
-$ curl -u joey:hairspray 'http://api.soundcloud.com/event/1'
+$ curl 'http://api.soundcloud.com/event/1'
 
 < HTTP/1.1 200 OK
 
