@@ -82,7 +82,6 @@ Anyone can read Users, public Tracks and Comments on public Tracks. Other resour
 
 Basic HTTP is only available in our sandbox environment. The intention is to give easy access to play around, without being able to manipulate production data.
 
-Using cURL with -u username:password to access protected resources and passing Consumer credentials in the X-Authorization header:
 {{{
 $ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/me'
 }}}
