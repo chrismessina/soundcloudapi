@@ -1,7 +1,7 @@
 #labels Featured
 = API use case =
 
-If you've read the [DocumentationPreRelease documentation] but need more guidance on how to make something with the API, here is a short upload and sharing example.
+If you've read the [Documentation documentation] but need more guidance on how to make something with the API, here is a short upload and sharing example.
 
 This is how to do it:
 
