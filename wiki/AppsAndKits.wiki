@@ -1,4 +1,5 @@
 #summary Applications and kits built on the SoundCloud API
+#labels Featured
 
 =Applications=
 
