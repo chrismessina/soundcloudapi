@@ -1,2 +1,0 @@
-#labels Featured
-Here we'll put links to all SoundCloud API projects
