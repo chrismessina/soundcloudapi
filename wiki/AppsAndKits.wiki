@@ -1,20 +1,20 @@
 #summary Applications and kits built on the SoundCloud API
 
-=Applications and libraries written for SoundCloud= 
-
-==Applications==
+=Applications=
 
 ===[http://www.radioclouds.com Radioclouds]===
-Matas Petrikas wrote a nice visual radio application on top of the SoundCloud platform. It shows a users social graph and makes listening to new music that’s in network of a user super easy. [http://www.radioclouds.com Try it out] and read up on how easy it is to write apps like Radioclouds.
+[http://soundcloud.com/matas Matas Petrikas] wrote a nice visual radio application on top of the [http://soundcloud.com/pages/api SoundCloud platform]. It shows a users social graph and makes listening to new music that’s in network of a user super easy. [http://www.radioclouds.com Try it out] and read up on how easy it is to write apps like Radioclouds.
 
 [http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
+
+
 
 ===[http://www.hinkeb.com/soundcloud/web Player for Facebook]===
 Our nice widget with timed comments, crisp waveform and all now also fits right on your Facebook profile. Just go to the [http://apps.facebook.com/soundcloudplayer SoundCloud Player] on Facebook, add the application, find your track and you're done. Now your profile has it's own soundtrack!
 
-Read more and [http://www.hinkeb.com/soundcloud/web get a hold of the source code here].
-
 [http://apps.facebook.com/soundcloudplayer http://farm4.static.flickr.com/3062/2679171669_ea3f407310_o.png]
 
-==Libraries / Kits==
+Read more and [http://www.hinkeb.com/soundcloud/web get a hold of the source code here].
+
+=Libraries / Kits=
  * [http://code.google.com/p/soundcloudapi/source/browse/trunk/scapi/?r=59 Python wrapper]
