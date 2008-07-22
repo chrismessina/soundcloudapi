@@ -7,6 +7,7 @@ Here we'll put in a bunch of API ideas that we've been thinking about while deve
   * A little radio cloud that sits on your desktop (or maybe it's a dashboard widget) and plays music from your dashboard and the hotlist. It could show comments popping up while music is being played.
   * A plugin for an audio editor to be able to "bounce-to-web" and share with friends straight from within the editor.
   * Notifier that lets you know when your uploaded track has been processed and is available.
+  * A feed style app similar to Twhirl for Twitter where you can monitor your dashboard and listen to tracks right from your desktop.
 
 = Web apps / mash-ups =
   * "The world music map". A nice world map visualization where you can zoom in and listen to music that was created in that part of the world or tracks are are listened to a lot in this region.
