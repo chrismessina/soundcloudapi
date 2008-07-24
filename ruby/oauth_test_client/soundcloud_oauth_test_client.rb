@@ -38,16 +38,16 @@
 # This is where you configure the client to work with your specific settings
 
 # Your consumer application
-consumer = {:key => 'Consumer key', :secret => 'Consumer secret'}
+@consumer_application = {:key => 'Consumer key', :secret => 'Consumer secret'}
 
 # If you already have an authorized token and don't want to negotiate a new.
-saved_access_token = {:key => 'Token key', :secret => 'Token secret'}
+@saved_access_token = {:key => 'Token key', :secret => 'Token secret'}
 
 # If you want to test the security by trying to access protected resources with an invalid token.
-invalid_access_token = {:key => 'Invalid token key', :secret => 'Token secret'}
+@invalid_access_token = {:key => 'Invalid token key', :secret => 'Token secret'}
 
 # If you want to test the security by trying to access protected resources with an invalid token secret.
-token_with_invalid_secret = {:key => 'Token key', :secret => 'Invalid token secret'}
+@token_with_invalid_secret = {:key => 'Token key', :secret => 'Invalid token secret'}
 
 require 'rubygems'
 require 'json'
@@ -66,7 +66,7 @@ class String
   end
 end
 
-@consumer = OAuth::Consumer.new consumer[:key], consumer[:secret], {
+@consumer = OAuth::Consumer.new @consumer_application[:key], @consumer_application[:secret], {
   :site               => 'http://api.sandbox-soundcloud.com', 
   :request_token_path => '/oauth/request_token',
   :access_token_path  => '/oauth/access_token',
@@ -76,15 +76,15 @@ end
 @authorize_url = 'http://sandbox-soundcloud.com/oauth/authorize?oauth_token='
 
 def use_saved_access_token
-  @access_token = OAuth::AccessToken.new(@consumer, saved_access_token[:key], saved_access_token[:secret])
+  @access_token = OAuth::AccessToken.new(@consumer, @saved_access_token[:key], @saved_access_token[:secret])
 end
 
 def use_access_token_with_invalid_secret
-  @access_token = OAuth::AccessToken.new(@consumer, token_with_invalid_secret[:key], token_with_invalid_secret[:secret])
+  @access_token = OAuth::AccessToken.new(@consumer, @token_with_invalid_secret[:key], @token_with_invalid_secret[:secret])
 end
 
 def use_invalid_access_token
-  @access_token = OAuth::AccessToken.new(@consumer, invalid_access_token[:key], invalid_access_token[:secret])
+  @access_token = OAuth::AccessToken.new(@consumer, @invalid_access_token[:key], @invalid_access_token[:secret])
 end
 
 def get_access_token
