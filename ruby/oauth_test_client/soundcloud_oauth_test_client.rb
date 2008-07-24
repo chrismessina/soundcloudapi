@@ -50,7 +50,6 @@ invalid_access_token = {:key => 'Invalid token key', :secret => 'Token secret'}
 token_with_invalid_secret = {:key => 'Token key', :secret => 'Invalid token secret'}
 
 require 'rubygems'
-require 'ruby-debug'
 require 'json'
 # Generic setup
 gem 'oauth', '0.2.2'
