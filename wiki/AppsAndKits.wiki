@@ -19,3 +19,4 @@ Read more and [http://www.hinkeb.com/soundcloud/web get a hold of the source cod
 
 =Libraries / Kits=
  * [http://code.google.com/p/soundcloudapi/source/browse/trunk/#trunk/python Python wrapper] by [http://www.xing.com/profile/Diez_Roggisch Diez Roggisch]. [http://blog.soundcloud.com/docs/python/ Documentation]
+ * [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_test_client/soundcloud_oauth_test_client.rb Simple Ruby OAuth client]
