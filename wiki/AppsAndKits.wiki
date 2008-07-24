@@ -18,4 +18,4 @@ Our nice widget with timed comments, crisp waveform and all now also fits right 
 Read more and [http://www.hinkeb.com/soundcloud/web get a hold of the source code here].
 
 =Libraries / Kits=
- * [http://code.google.com/p/soundcloudapi/source/browse/trunk/scapi/?r=59 Python wrapper]
+ * [http://code.google.com/p/soundcloudapi/source/browse/trunk/scapi/?r=59 Python wrapper] by Dietz Roggisch
