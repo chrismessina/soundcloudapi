@@ -88,7 +88,7 @@ $ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/me'
 
 === OAuth ===
 
-To access protected resources you can authenticate with [http://oauth.net/ OAuth], a standard to give third party applications the authority to act on a user's behalf. You need to register a client application which is connected to your !SoundCloud user account.
+To access protected resources you can authenticate with [http://oauth.net/ OAuth], a standard to give third party applications the authority to act on a user's behalf. You need to register a client application which is connected to your !SoundCloud user account. We're working on extending this section of the documentation. In the meantime you'll find all the OAuth endpoints you need after you [http://soundcloud.com/settings/applications/new register an application].
 
 If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] and check out the [http://groups.google.com/group/oauth/ OAuth mailing list].
 
