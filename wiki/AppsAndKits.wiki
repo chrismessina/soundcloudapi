@@ -9,7 +9,7 @@
 [http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
 
 ===[http://luxtape.com Luxtape]===
-Luxtape was created by [http://hinkeb.com Henrik Berggren] & [http://eric.wahlforss.com Eric Wahlforss] during a weekend of code. It's built using the open SoundCloud API, [http://appengine.google.com Google Appengine], [http://python.org Python] and [http://jquery.com jQuery]. It's heavily inspired by the excellent [http://muxtape.com Muxtape] but instead of the hassle with slow mp3 uploads we just use the SoundCloud API to access all the awesome tracks out there.
+Luxtape was created by [http://hinkeb.com Henrik Berggren] & [http://eric.wahlforss.com Eric Wahlforss] during a weekend of code. It's built using the open SoundCloud API, [http://appengine.google.com Google Appengine], [http://python.org Python] and [http://jquery.com jQuery]. It's heavily inspired by the excellent [http://muxtape.com Muxtape] but instead of the hassle with slow mp3 uploads it uses the SoundCloud API to access all the awesome tracks out there.
 
 If you want to look at the source code just head over to [http://github.com/hinke/luxtape/tree/master github] where all code is hosted.
 
