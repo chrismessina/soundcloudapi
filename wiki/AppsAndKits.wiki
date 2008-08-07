@@ -13,7 +13,7 @@ Luxtape was created by [http://hinkeb.com Henrik Berggren] & [http://eric.wahlfo
 
 If you want to look at the source code just head over to [http://github.com/hinke/luxtape/tree/master github] where all code is hosted.
 
-[http://luxtape.com http://luxtape.com/images/cassette-small.jpg]
+[http://luxtape.com http://a1.soundcloud.com/images/api/featured-luxtape.jpg]
 
 ===[http://www.hinkeb.com/soundcloud/web Player for Facebook]===
 Our nice widget with timed comments, crisp waveform and all now also fits right on your Facebook profile. Just go to the [http://apps.facebook.com/soundcloudplayer SoundCloud Player] on Facebook, add the application, find your track and you're done. Now your profile has it's own soundtrack!
