@@ -44,15 +44,15 @@ PROXY = ''
 """
 The url Soundcould offers to obtain request-tokens
 """
-REQUEST_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/request_token'
+REQUEST_TOKEN_URL = 'http://api.staging-soundcloud.com/oauth/request_token'
 """
 The url Soundcould offers to exchange access-tokens for request-tokens.
 """
-ACCESS_TOKEN_URL = 'http://api.soundcloud.dev:3000/oauth/access_token'
+ACCESS_TOKEN_URL = 'http://api.staging-soundcloud.com/oauth/access_token'
 """
 The url Soundcould offers to make users authorize a concrete request token.
 """
-AUTHORIZATION_URL = 'http://soundcloud.dev:3000/oauth/authorize'
+AUTHORIZATION_URL = 'http://api.staging-soundcloud.com/oauth/authorize'
 
 __all__ = ['SoundCloudAPI', 'USE_PROXY', 'PROXY', 'REQUEST_TOKEN_URL', 'ACCESS_TOKEN_URL', 'AUTHORIZATION_URL']
 
@@ -266,15 +266,15 @@ class Scope(object):
     an L{ApiConnector}-instance. Then you can query it 
     or create new resources like this:
 
-    Please not that all resources that are lists are returned as B{generator}. So you need
-    to either iterate over them, or call list(resources) on them.
-
     >>> connector = scapi.ApiConnector(host='host', user='user', password='password') # initialize the API
     >>> scope = scapi.Scope(connector) # get the root scope
     >>> users = list(scope.users())
     [<scapi.User object at 0x12345>, ...]
 
-    When accessing resources that belong to another resource, like contancts of a user, you access
+    Please not that all resources that are lists are returned as B{generator}. So you need
+    to either iterate over them, or call list(resources) on them.
+
+    When accessing resources that belong to another resource, like contacts of a user, you access
     the parent's resource scope implicitly through the resource instance like this:
 
     >>> user = scope.users().next()
@@ -619,7 +619,16 @@ class RESTBase(object):
 
     def __getattr__(self, name):
         if name in self.__data:
-            return self.__data[name]
+            obj = self.__data[name]
+            if name in RESTBase.REGISTRY:
+                if isinstance(obj, dict):
+                    obj = RESTBase.REGISTRY[name](obj, self.__scope)
+                elif isinstance(obj, list):
+                    obj = [RESTBase.REGISTRY[name](o, self.__scope) for o in obj]
+                else:
+                    logger.warning("Found %s in our registry, but don't know what to do with"\
+                                   "the object.")
+            return obj
         scope = Scope(self.__scope._get_connector(), scope=self, parent=self.__scope)
         return getattr(scope, name)
 
@@ -779,6 +788,7 @@ class RESTBase(object):
         res.append("\n\n******\n%s:" % self.__class__.__name__)
         res.append("")
         for key, v in self.__data.iteritems():
+            key = str(key)
             if isinstance(v, unicode):
                 v = v.encode('utf-8')
             else:
@@ -808,7 +818,7 @@ class User(RESTBase):
     A user domain object/resource. 
     """
     KIND = 'users'
-    ALIASES = ['me', 'permissions', 'contacts']
+    ALIASES = ['me', 'permissions', 'contacts', 'user']
 
 class Track(RESTBase):
     """
@@ -834,6 +844,13 @@ class Event(RESTBase):
     A event domain object/resource. 
     """
     KIND = 'events'
+
+class Playlist(RESTBase):
+    """
+    A playlist/set domain object/resource
+    """
+    KIND = 'playlists'
+
 
 # this registers all the RESTBase subclasses.
 # One day using a metaclass will make this a tad
