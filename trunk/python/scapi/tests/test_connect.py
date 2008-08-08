@@ -10,7 +10,7 @@ import logging
 import webbrowser
 
 logger = logging.getLogger(__name__)
-#logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.DEBUG)
 _logger = logging.getLogger("scapi")
 #_logger.setLevel(logging.DEBUG)
 
@@ -107,9 +107,10 @@ password=password
     
 def test_connect():
     sca = ROOT
-    all_users = list(sca.users())
-    logger.debug(all_users)
-    assert isinstance(all_users, list) and isinstance(all_users[0], scapi.User)
+    quite_a_few_users = list(itertools.islice(sca.users(), 0, 127))
+
+    logger.debug(quite_a_few_users)
+    assert isinstance(quite_a_few_users, list) and isinstance(quite_a_few_users[0], scapi.User)
     user = sca.me()
     logger.debug(user)
     assert isinstance(user, scapi.User)
@@ -146,7 +147,8 @@ def test_access_token_acquisition():
 
     sca = scapi.ApiConnector(API_HOST, authenticator=oauth_authenticator)
     token, secret = sca.fetch_access_token()
-
+    logger.info("Access token: '%s'", token)
+    logger.info("Access token secret: '%s'", secret)
     oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
                                                                   CONSUMER_SECRET,
                                                                   token, 
@@ -312,3 +314,19 @@ def test_non_global_api():
     # now get something *from* that user
     favorites = list(me.favorites())
     assert favorites
+
+def test_playlists():
+    sca = ROOT
+    playlists = list(itertools.islice(sca.playlists(), 0, 127))
+    found = False
+    for playlist in playlists:
+        tracks = playlist.tracks
+        if not isinstance(tracks, list):
+            tracks = [tracks]
+        for trackdata in tracks:
+            print trackdata
+            user = trackdata.user
+            print user
+            print user.tracks()
+        print playlist.user
+        break
