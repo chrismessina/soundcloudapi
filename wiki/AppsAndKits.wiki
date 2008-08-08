@@ -8,12 +8,12 @@
 
 [http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
 
-===[http://luxtape.com Luxtape]===
-Luxtape was created by [http://hinkeb.com Henrik Berggren] & [http://eric.wahlforss.com Eric Wahlforss] during a weekend of code. It's built using the open SoundCloud API, [http://appengine.google.com Google Appengine], [http://python.org Python], [http://jquery.com jQuery] and [http://www.schillmania.com/projects/soundmanager2/ SoundManager 2]. It's heavily inspired by the excellent [http://muxtape.com Muxtape] but uses the SoundCloud API to access music instead of uploading mp3's.
+===[http://tapecloud.com TapeCloud]===
+TapeCloud was created by [http://hinkeb.com Henrik Berggren] & [http://eric.wahlforss.com Eric Wahlforss] during a weekend of code. It's built using the open SoundCloud API, [http://appengine.google.com Google Appengine], [http://python.org Python], [http://jquery.com jQuery] and [http://www.schillmania.com/projects/soundmanager2/ SoundManager 2]. It's heavily inspired by the excellent [http://muxtape.com Muxtape] but uses the SoundCloud API to access music instead of uploading mp3's.
 
-If you want to look at the source code just head over to [http://github.com/hinke/luxtape/tree/master github] where all code is hosted.
+If you want to look at the source code just head over to [http://github.com/hinke/tapecloud/tree/master github] where all code is hosted.
 
-[http://luxtape.com http://a1.soundcloud.com/images/api/featured-luxtape.jpg]
+[http://tapecloud.com http://farm4.static.flickr.com/3248/2743316759_ae18a4966f_o.jpg]
 
 ===[http://www.hinkeb.com/soundcloud/web Player for Facebook]===
 Our nice widget with timed comments, crisp waveform and all now also fits right on your Facebook profile. Just go to the [http://apps.facebook.com/soundcloudplayer SoundCloud Player] on Facebook, add the application, find your track and you're done. Now your profile has it's own soundtrack!
