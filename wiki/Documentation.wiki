@@ -114,7 +114,10 @@ XML representation:
   <website>http://www.europe.com/~joeyt/</website>
   <website-title>Home of the Stormwind</website-title>
   <online>true</online>
-  <avatar-url>http://assets.soundcloud.com/profile_images/0000/0000/i123456.jpg</avatar-url>
+  <avatar-url>http://a1.soundcloud.com/profile_images/0000/0000/i123456.jpg</avatar-url>
+  <permalink-url>http://soundcloud.com/joey</permalink-url>
+  <uri>http://api.soundcloud.com/users/1</uri>
+  <track-count>1</track-count>
 </user>
 }}}
 
@@ -137,6 +140,24 @@ XML representation:
   <downloadable type="boolean">false</downloadable>
   <downloads-count type="integer">34</downloads-count>
   <duration type="integer">31000</duration>
+  <genre>Rock</genre>
+  <streamable type="boolean">true</streamable>
+  <uri>http://api.soundcloud.com/tracks/1</uri>
+  <user>
+    <uri>http://api.soundcloud.com/users/1</uri>
+    <username>joey</username>
+    <permalink>joey</permalink>
+    <permalink-url>http://soundcloud.com/joey</permalink-url>   
+  </user>
+  <permalink-url>http://soundcloud.com/joey/final-countdown</permalink-url>
+  <playback-count>644</playback-count>
+  <artwork-url>http://a1.soundcloud.com/artworks/0200/120/i02911_big.jpg</artwork-url>
+  <waveform-url>http://a1.soundcloud.com/assets/1/072/001/00001026/waveform-medium.png</waveform-url>
+  <purchase-url>http://my-music-shop.com/tracks/final-countdown/</purchase-url>
+  <stream-url>http://media.soundcloud.com/joey/final-countdown.mp3</stream-url>
+  <user-playback-count>2</user-playback-count>
+  <user-favorite>false</user-favorite>
+
 </track>
 }}}
 
@@ -149,6 +170,10 @@ XML representation:
 <asset>
   <id type="integer">1</id>
   <track-id type="integer">1</track-id>
+  <filename>final-countdown.mp3</filename>
+  <duration type="integer">31000</duration>
+  <created-at type="datetime">2007-07-28T18:58:17+02:00</created-at>
+  <uri>http://api.soundcloud.com/assets/1</uri>
 </asset>
 }}}
 
@@ -161,9 +186,10 @@ XML representation:
 <comment>
   <id type="integer">1</id>
   <track-id type="integer">1</track-id>
-  <user-id type="integer">2</user-id>
+  <user-id type="integer">1</user-id>
   <body>Great guitar solo!</body>
   <timestamp type="integer">2010000</timestamp>
+  <uri>http://api.soundcloud.com/comments/1</uri>
 </comment>
 }}}
 
@@ -571,10 +597,11 @@ Type: Collection of Tracks
 Collection of all tracks.
 
 Parameters:
-  * filter, *all*|public|private
+  * filter, *all*|public|private|streamable
   * order, *created_at*|hotness
   * from_date, date (yyyy-mm-dd hh:mm:ss), start of time interval for hotness ordering
   * to_date, date (yyyy-mm-dd hh:mm:ss), end of time interval for hotness ordering
+  * ids, a comma separated list of track ids
 
 Unauthenticated request:
 
@@ -849,7 +876,7 @@ $ curl 'http://api.soundcloud.com/tracks/10/permissions'
     <full-name>Johann Sebastian Bach</full-name>
     <country>Germany</country>
     <online>false</online>
-    <avatar-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
+    <avatar-url>http://a1.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
   </user>
   <user>
     <city nil="true"></city>
@@ -863,7 +890,7 @@ $ curl 'http://api.soundcloud.com/tracks/10/permissions'
     <full-name>Robert Matthew Van Winkle</full-name>
     <country>United States</country>
     <online>true</online>
-    <avatar-url>http://assets.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
+    <avatar-url>http://a1.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
   </user>
 </users>
 }}}
