@@ -11,6 +11,7 @@
   * [Documentation#Resource_Types Resource Types]
    * [Documentation#User User]
    * [Documentation#Track Track]
+   * [Documentation#Set Set]
    * [Documentation#Asset Asset]
    * [Documentation#Comment Comment]
    * [Documentation#Event Event]
@@ -29,6 +30,7 @@
    * [Documentation#users users]
    * [Documentation#tracks tracks]
     * [Documentation#Sorting_by_hotness Sorting by hotness]
+   * [Documentation#sets sets]
    * [Documentation#comments comments]
    * [Documentation#assets assets]
    * [Documentation#events events]
@@ -157,8 +159,53 @@ XML representation:
   <stream-url>http://media.soundcloud.com/joey/final-countdown.mp3</stream-url>
   <user-playback-count>2</user-playback-count>
   <user-favorite>false</user-favorite>
-
 </track>
+}}}
+
+
+=== Set ===
+
+Sets are collections of tracks created by the owner of the tracks.
+
+XML representation:
+
+{{{
+<playlist>
+  <created-at type="datetime">2008-07-22T13:28:59+02:00</created-at>
+  <description/>
+  <genre/>
+  <id type="integer">1</id>
+  <permalink>my-own-set</permalink>
+  <title>My Set</title>
+  <user-id type="integer">1</user-id>
+  <permalink-url>http://soundcloud.com/joey/sets/my-own-set</permalink-url>
+  <uri>http://api.soundcloud.com/playlists/1</uri>
+  <artwork-url>
+    http://a1.soundcloud.com/images/default_artwork_big.png?5216
+  </artwork-url>
+  <duration>538320</duration>
+  <type/>
+  <user>
+    <uri>http://api.soundcloud.com/users/1</uri>
+    <username>joey</username>
+    <permalink>joey</permalink>
+    <permalink-url>http://soundcloud.com/joey</permalink-url>
+  </user>
+  <tracks>
+    <track>
+      <bpm type="float" nil="true"/>
+      <created-at type="datetime">2008-06-25T16:38:02+02:00</created-at>
+      ...
+      <user-favorite>false</user-favorite>
+    </track>
+    <track>
+      <bpm type="float">126.1</bpm>
+      <created-at type="datetime">2007-07-28T18:58:54+02:00</created-at>
+      ...
+      <user-favorite>false</user-favorite>
+    </track>
+  </tracks>
+</playlist>
 }}}
 
 === Asset ===
@@ -676,14 +723,7 @@ $ curl 'http://api.soundcloud.com/tracks?q=ice'
     <bpm type="float" nil="true"></bpm>
     <comments-count type="integer">0</comments-count>
     <created-at type="datetime">2008-02-26T17:39:24+01:00</created-at>
-    <description>Cooking MCs like a pound of bacon.</description>
-    <downloadable type="boolean">false</downloadable>
-    <downloads-count type="integer">0</downloads-count>
-    <duration type="integer">0</duration>
-    <id type="integer">14</id>
-    <permalink>ice-ice-baby</permalink>
-    <title>Ice, Ice, Baby</title>
-    <user-id type="integer">10</user-id>
+    ...
     <sharing>public</sharing>
   </track>
 </tracks>
@@ -825,6 +865,8 @@ $ curl 'http://api.soundcloud.com/tracks/9/comments'
     <timestamp type="integer" nil="true"></timestamp>
     <track-id type="integer">9</track-id>
     <user-id type="integer">9</user-id>
+    <uri>http://api.soundcloud.com/comments/2</uri>
+    <created-at type="datetime">2008-08-06T21:46:38+02:00</created-at>
   </comment>
 </comments>
 }}}
@@ -877,6 +919,10 @@ $ curl 'http://api.soundcloud.com/tracks/10/permissions'
     <country>Germany</country>
     <online>false</online>
     <avatar-url>http://a1.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
+    <uri>http://api.soundcloud.com/users/129</uri>
+    <track-count>2</track-count>
+    <permalink-url>http://soundcloud.com/jsb</permalink-url>
+    <permalink>jsb</permalink>
   </user>
   <user>
     <city nil="true"></city>
@@ -891,6 +937,11 @@ $ curl 'http://api.soundcloud.com/tracks/10/permissions'
     <country>United States</country>
     <online>true</online>
     <avatar-url>http://a1.soundcloud.com/images/default_profile_image_big.png?2725</avatar-url>
+    <uri>http://api.soundcloud.com/users/3854</uri>
+    <track-count>1</track-count>
+    <permalink-url>http://soundcloud.com/vice</permalink-url>
+    <permalink>vice</permalink>
+
   </user>
 </users>
 }}}
@@ -969,6 +1020,88 @@ $ curl 'http://api.soundcloud.com/tracks/1/waveform'
 < Content-Type: image/png
 }}}
 
+=== sets ===
+
+IMPORTANT: Sets are internally called *playlists* due to naming restrictions and will therefore be named thereafter in the rest of this document.
+
+IMPORTANT 2: For now it's only possible to read sets. Creating, updating and deleting will be implemented shortly.
+
+||  *Resource*								                  ||	*Method*  ||
+||  /playlists					                	      ||	GET       ||
+||  /playlists/{playlist_id}				          	||	GET       ||
+
+==== GET /playlists ====
+Type: Collection of Sets
+
+Collection of all sets.
+
+Parameters:
+  * q, a string to search for
+
+
+Unauthenticated request:
+
+{{{
+ $ curl 'http://api.soundcloud.com/playlists'
+
+<playlists type="array">
+  <playlist>
+    <created-at type="datetime">2008-07-22T13:28:59+02:00</created-at>
+    <description/>
+    <genre/>
+    <id type="integer">315</id>
+    ...
+    <duration>538320</duration>
+  </playlist>
+</playlists>
+
+}}}
+
+Authenticated request:
+
+Generates the same response but the sets returned only contain the tracks that the authenticated user has the right to access. 
+
+The collection is searchable by passing the query to the resource. It then lists a subset matching the search query.
+
+{{{
+$ curl 'http://api.soundcloud.com/playlists?q=ice'
+
+< HTTP/1.1 200 OK
+
+<?xml version="1.0" encoding="UTF-8"?>
+<playlists type="array">
+  <playlist>
+    <created-at type="datetime">2008-07-22T13:28:59+02:00</created-at>
+    <description/>
+    <genre/>
+    <id type="integer">315</id>
+    ...
+    <duration>538320</duration>
+  </playlist>
+</playlists>
+}}}
+
+==== GET /playlists/{playlist_id} ====
+Result type: Set
+
+Retrieves the given set.
+
+{{{
+$ curl 'http://api.soundcloud.com/playlists/315'
+
+< HTTP/1.1 200 OK
+
+<playlist>
+  <created-at type="datetime">2008-07-22T13:28:59+02:00</created-at>
+  <description/>
+  <genre/>
+  <id type="integer">315</id>
+  ...
+  <duration>538320</duration>
+</playlist>
+
+}}}
+
 === comments ===
 
 ||  Resource						    ||  Method	    ||
@@ -1029,11 +1162,18 @@ $ curl 'http://api.soundcloud.com/assets'
     <duration type="integer">312043</duration>
     <id type="integer">556</id>
     <track-id type="integer">9</track-id>
+    <created-at type="datetime">2007-07-28T18:58:17+02:00</created-at>
+    <filename>song-1.mp3</filename>
+    <uri>http://api.soundcloud.com/assets/556</uri>
   </asset>
   <asset>
     <duration type="integer">302000</duration>
     <id type="integer">557</id>
     <track-id type="integer">10</track-id>
+    <created-at type="datetime">2007-04-08T18:53:07+02:00</created-at>
+
+    <filename>song-2.mp3</filename>
+    <uri>http://api.soundcloud.com/assets/557</uri>
   </asset>
 </assets>
 }}}
