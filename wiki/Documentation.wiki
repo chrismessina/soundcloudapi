@@ -646,9 +646,10 @@ Collection of all tracks.
 Parameters:
   * filter, *all*|public|private|streamable
   * order, *created_at*|hotness
+  * bpm, from, to or an both. ex. bpm[from]=125&bpm[to]=130 
   * from_date, date (yyyy-mm-dd hh:mm:ss), start of time interval for hotness ordering
   * to_date, date (yyyy-mm-dd hh:mm:ss), end of time interval for hotness ordering
-  * ids, a comma separated list of track ids
+  * ids, a comma separated list of track ids to filter on
 
 Unauthenticated request:
 
@@ -1036,8 +1037,8 @@ Type: Collection of Sets
 Collection of all sets.
 
 Parameters:
+  * filter, *all*|public|private|streamable
   * q, a string to search for
-
 
 Unauthenticated request:
 
