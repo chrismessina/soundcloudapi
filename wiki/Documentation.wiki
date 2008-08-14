@@ -100,7 +100,7 @@ The resources can have different roles, but when processing the response data fr
 
 === User ==
 
-Users are the active object. Users are able to create Tracks, Comments, upload Assets, make other Users their contacts and make Tracks favorites. 
+Users are the active object. Users are able to create Tracks, Comments, upload Assets, make other Users their contacts and make Tracks favorites. Full search, filtering and usage documentation [Documentation#users here].
 
 XML representation:
 {{{
@@ -125,7 +125,7 @@ XML representation:
 
 === Track ===
 
-Tracks have two different sharing modes, public and private. Public tracks are accessible to all users and private tracks are only accessible to users to whom the Track's creator has explicitly given permission.
+Tracks have two different sharing modes, public and private. Public tracks are accessible to all users and private tracks are only accessible to users to whom the Track's creator has explicitly given permission. Full search, filtering and usage documentation [Documentation#tracks here].
 
 XML representation:
 {{{
@@ -165,7 +165,8 @@ XML representation:
 
 === Set ===
 
-Sets are collections of tracks created by the owner of the tracks.
+Sets are collections of tracks created by the owner of the tracks. Full search, filtering and usage documentation [Documentation#sets here].
+
 
 XML representation:
 
@@ -210,7 +211,8 @@ XML representation:
 
 === Asset ===
 
-Assets are the audio files that are heard when playing a Track.
+Assets are the audio files that are heard when playing a Track. Full search, filtering and usage documentation [Documentation#assets here].
+
 
 XML representation:
 {{{
@@ -226,7 +228,7 @@ XML representation:
 
 === Comment ===
 
-Comments can be made on a Track. Users can only read comments made on Tracks they have access to. If a timestamp is supplied the comment will be displayed at, or around, that time during playback of the Track on the !SoundCloud website.
+Comments can be made on a Track. Users can only read comments made on Tracks they have access to. If a timestamp is supplied the comment will be displayed at, or around, that time during playback of the Track on the !SoundCloud website. Full search, filtering and usage documentation [Documentation#comments here].
 
 XML representation:
 {{{
@@ -247,6 +249,8 @@ Events are notifications informing a User about things that have happened concer
 They are always ordered with the latest events first.
 
 In the examples below the User receiving the event is called "the recipient".
+
+Full search, filtering and usage documentation [Documentation#events here].
 
 ==== Comment ===
 Another User creates a Comment on a Track of the recipient or in a Comment thread where the recipient has also made a comment. 
@@ -1192,6 +1196,7 @@ $ curl 'http://api.soundcloud.com/assets' -F asset[filedata]=@final_countdown.wa
 < HTTP/1.1 201 Created
 < Location: http://api.soundcloud.com/assets/1
 }}}
+
 
 ==== DELETE /assets/{asset_id} ====
 Deletes the given asset.
