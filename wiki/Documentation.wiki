@@ -96,7 +96,7 @@ To access protected resources you can authenticate with [http://oauth.net/ OAuth
 
 If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] and check out the [http://groups.google.com/group/oauth/ OAuth mailing list].
 
-Since Google decided to implement OAuth support in all their API:s they have a [http://code.google.com/apis/gdata/articles/oauth.html nice write up] on the topic as well as an [http://googlecodesamples.com/oauth_playground/ OAuth playground].
+Since Google decided to implement OAuth support in all their API:s they have a [http://code.google.com/apis/gdata/articles/oauth.html nice write up] on the topic as well as an [http://googlecodesamples.com/oauth_playground/ OAuth playground]. These resources are specfic to Google, but might give you a good feel on how OAuth works.
 
 == Resource Types ==
 
