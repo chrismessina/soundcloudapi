@@ -5,6 +5,7 @@
 
   * [Documentation#Introduction Introduction]
    * [Documentation#Getting_Started Getting Started]
+   * [Documentation#Simple_Use_Case Simple Use Case]
   * [Documentation#Authentication Authentication]
    * [Documentation#Basic_HTTP Basic HTTP]
    * [Documentation#OAuth OAuth]
@@ -43,8 +44,6 @@ The API is built with the design principles of REST in mind, exposing resources 
 
 If you have questions, comments or suggestions they are very welcome. Join the discussion on our mailing list or, if you wish to keep it private, send an email to api@soundcloud.com.
 
-We've put up a [SimpleUseCase simple use case] demonstrating how to upload a track and share it to other users.
-
 If you've already read this document from top to bottom, you might want to check [DocumentationChanges the list of changes to this document].
 
 === Getting Started ===
@@ -75,6 +74,9 @@ $ curl 'http://api.soundcloud.com/tracks'
 }}}
 
 To get all request and response headers do the cURL request in verbose mode using the -v flag.
+
+=== Simple Use Case ===
+We've put up a [SimpleUseCase simple use case] how to upload a track and share it to other users using curl from a shell.
 
 == Authentication ==
 
