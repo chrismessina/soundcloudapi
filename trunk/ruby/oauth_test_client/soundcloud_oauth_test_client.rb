@@ -4,12 +4,12 @@
 # Last modified: 2008-09-23
 # 
 # This is a small ruby hack to test the SoundCloud API with OAuth authentication.
-# It is thought to be used in irb.
+# It is designed for use with irb.
 # 
 ### How to:
 #
 # Configure the consumer and token data below
-# Start irb and oad the test client script:
+# Start irb and load the test client script:
 # $ irb -r soundcloud_oauth_test_client.rb
 # If you haven't got an access token
 # >> get_access_token
