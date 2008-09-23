@@ -2,8 +2,9 @@
 = API use case =
 
 If you've read the [Documentation documentation] but need more guidance on how to make something with the API, here is a short upload and sharing example.
-
-This is how to do it:
+Beware that this example only works with our sandbox. For working with our live soundcloud instance you need to use [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_test_client/soundcloud_oauth_test_client.rb oauth] for authentication.
+ 
+This is how to do it on the sandbox:
 
   # Create a private track, this contains information about the track.
   # Upload an asset,  this is the actual audio file.
