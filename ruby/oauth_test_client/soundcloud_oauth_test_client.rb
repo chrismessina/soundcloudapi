@@ -9,10 +9,8 @@
 ### How to:
 #
 # Configure the consumer and token data below
-# Start irb:
-# $ irb
-# Load the test client script:
-# >> require 'soundcloud_oauth_test_client.rb'
+# Start irb and oad the test client script:
+# $ irb -r soundcloud_oauth_test_client.rb
 # If you haven't got an access token
 # >> get_access_token
 # Get to know yourself:
@@ -20,13 +18,13 @@
 #
 ### Available commands:
 #
-## Tokens:
+## To obtain tokens:
 # >> get_access_token
 # >> use_saved_access_token
 # >> use_invalid_access_token
 # >> use_with_invalid_secret
 #
-## Requests
+## To make requests to the API
 # >> test_request
 # >> who_am_i
 # >> get_user_tracks
@@ -38,16 +36,19 @@
 # This is where you configure the client to work with your specific settings
 
 # Your consumer application
+# See a list of your applications at: http://sandbox-soundcloud.com/settings/applications
+# or register a new application at: http://sandbox-soundcloud.com/settings/applications/new
 @consumer_application = {:key => 'YOUR_CONSUMER_KEY', :secret => 'YOUR_CONSUMER_SECRET'}
 
-# If you already have an authorized token and don't want to negotiate a new.
+# If you already have an authorized token and don't want to negotiate a new,
+# otherwise you get one by using get_access_token
 @saved_access_token = {:key => 'SAVED_TOKEN_KEY', :secret => 'SAVED_TOKEN_SECRET'}
 
 # If you want to test the security by trying to access protected resources with an invalid token.
 @invalid_access_token = {:key => 'INVALID_TOKEN_KEY', :secret => 'TOKEN_SECRET'}
 
 # If you want to test the security by trying to access protected resources with an invalid token secret.
-@token_with_invalid_secret = {:key => 'TOKEN_KEY', :secret => 'INVALID_TOKEN_SECRET'}
+@token_with_invalid_secret = {:key => 'A_VALID_TOKEN_KEY', :secret => 'INVALID_TOKEN_SECRET'}
 
 require 'rubygems'
 require 'json'
@@ -58,6 +59,20 @@ require 'oauth/consumer'
 def reload!
   puts "Reloading '#{__FILE__}'"
   load __FILE__
+end
+
+def open_browser(url)
+  if RUBY_PLATFORM =~ /darwin|linux/
+    puts "Press enter to open #{url} in a browser."
+    gets
+    if RUBY_PLATFORM =~ /darwin/
+      `open #{url}`
+    elsif RUBY_PLATFORM =~ /linux/ && `which firefox` != ""
+      `firefox #{url}`
+    end
+  else
+    puts "Please open #{url}"
+  end
 end
 
 class String
@@ -93,17 +108,15 @@ def get_access_token
   request_token = @consumer.get_request_token
 
   # Goto URL and authorize token
-  puts "Press enter to open a browser, log in to SoundCloud and authorize this application."
-  gets
-  `open "#{@authorize_url + request_token.token}"`
+  puts "Open a browser log in to SoundCloud and go to this URL to authenticate:"
+  open_browser("#{@authorize_url + request_token.token}")
   puts "Press enter when request token is authorized."
   gets
 
   # When request token is authorized, get access token
   @access_token = request_token.get_access_token
   if test_request.code == '200'
-    puts "Access granted."
-    @access_token
+    puts "Access granted for <AccessToken key = #{@access_token.token}, secret = #{@access_token.secret}>."
   else
     puts "Access denied."
   end
