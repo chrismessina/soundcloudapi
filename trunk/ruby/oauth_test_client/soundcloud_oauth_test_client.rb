@@ -12,7 +12,7 @@
 # Start irb:
 # $ irb
 # Load the test client script:
-# >> require 'oauth_client.rb'
+# >> require 'soundcloud_oauth_test_client.rb'
 # If you haven't got an access token
 # >> get_access_token
 # Get to know yourself:
@@ -38,16 +38,16 @@
 # This is where you configure the client to work with your specific settings
 
 # Your consumer application
-@consumer_application = {:key => 'Consumer key', :secret => 'Consumer secret'}
+@consumer_application = {:key => 'YOUR_CONSUMER_KEY', :secret => 'YOUR_CONSUMER_SECRET'}
 
 # If you already have an authorized token and don't want to negotiate a new.
-@saved_access_token = {:key => 'Token key', :secret => 'Token secret'}
+@saved_access_token = {:key => 'SAVED_TOKEN_KEY', :secret => 'SAVED_TOKEN_SECRET'}
 
 # If you want to test the security by trying to access protected resources with an invalid token.
-@invalid_access_token = {:key => 'Invalid token key', :secret => 'Token secret'}
+@invalid_access_token = {:key => 'INVALID_TOKEN_KEY', :secret => 'TOKEN_SECRET'}
 
 # If you want to test the security by trying to access protected resources with an invalid token secret.
-@token_with_invalid_secret = {:key => 'Token key', :secret => 'Invalid token secret'}
+@token_with_invalid_secret = {:key => 'TOKEN_KEY', :secret => 'INVALID_TOKEN_SECRET'}
 
 require 'rubygems'
 require 'json'
