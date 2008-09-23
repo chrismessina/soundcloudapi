@@ -1,7 +1,7 @@
 #### SoundCloud OAuth tester
 #
 # Author: Hannes Tydén, hannes@soundcloud.com
-# Last modified: 2008-07-24
+# Last modified: 2008-09-23
 # 
 # This is a small ruby hack to test the SoundCloud API with OAuth authentication.
 # It is thought to be used in irb.
@@ -53,7 +53,7 @@
 require 'rubygems'
 require 'json'
 # Generic setup
-gem 'oauth', '0.2.2'
+gem 'oauth'
 require 'oauth/consumer'
 
 def reload!
