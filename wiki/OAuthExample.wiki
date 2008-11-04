@@ -1,0 +1,89 @@
+#labels Featured,Authentication
+= OAuth =
+
+A short "OAuth Dance" example, using a custom wrapper for the Ruby OAuth library and passing the OAuth paramters in the querystring.
+
+Terminology
+|| Service Provider || !SoundCloud ||
+|| Consumer         || Your Application ||
+|| User             || The user registered with !SoundCloud using your application ||
+
+Endpoints
+|| Request token    || http://api.sandbox-soundcloud.com/oauth/request_token ||
+|| Authorize token: || http://sandbox-soundcloud.com/oauth/authorize_token ||
+|| Access token:    || http://api.sandbox-soundcloud.com/oauth/request_token ||
+
+== Register your application ==
+
+When you register an application with us you get an consumer key and an consumer secret. The key is used to identify your application when making requests to our API and the secret is used to sign the request. Please note that the secret should be kept secret and never sent with the request or exposed in any way.
+
+{{{
+> client = SC::Client.new('sandbox-soundcloud.com', 'EEi2URUfM97pAAxHTogDpQ', 'NFYd8T3i4jVKGZ9TMy9LHaBQB3Sh8V5sxBiMeMZBow', 'api.')
+}}}
+
+To access protected protected resources the request needs to be signed with the consumer's secret and an access token secret. The access token is aquired in three steps.
+
+== Get a request token ==
+
+The consumer requests 
+
+{{{
+> client.get_request_token
+# Request => POST  /oauth/request_token?oauth_nonce=1aQylNEzy7gwCjTzms2qN1igpNnull8MeKq38IURKQ&oauth_signature_method=HMAC-SHA1&oauth_token=&oauth_timestamp=1225818820&oauth_consumer_key=EEi2URUfM97pAAxHTogDpQ&oauth_version=1.0&oauth_signature=%2BVi%2BrOShehNrFf8Ax%2FTbAFrAEys%3D
+
+> client.request_token.token
+=> "CMPMuFx1PTUe15nZvzYFw"
+}}}
+
+The token key is used when the user authorizes the token.
+
+== Ask the User to authorize it ==
+
+{{{
+> client.authorize_url("http://example.com")
+=> "http://soundcloud.com/oauth/authorize?oauth_token=CMPMuFx1PTUe15nZvzYFw&oauth_callback=http://example.com"
+}}}
+
+If you are able to direct a web browser to the url do so, otherwise instruct the user how to get to this url.
+
+This page shows a dialog where the user can authorize the token or refuse the token access. The user has to be logged in to SoundCloud to do so.
+
+When the token has been authorized and if the callback parameter has been set, or the client application was registed with a callback url the browser is redirected to that url with the request token appended:
+{{{
+http://example.com/?oauth_token=CMPMuFx1PTUe15nZvzYFw
+}}}
+
+Doing a get request to this URL could notify that this token has been authorized, otherwise the user needs to inform the application this.
+
+== Trade the authorized request token for an access token ==
+
+Now the consumer can trade the authorized request token for an access token that will be used for future requests to the API.
+{{{
+> client.get_access_token
+# Request => POST  /oauth/access_token?oauth_nonce=rV97AaiYtG7hS3DV9fmYGsXopHhiFfygLoGAMcCYck4&oauth_signature_method=HMAC-SHA1&oauth_token=CMPMuFx1PTUe15nZvzYFw&oauth_timestamp=1225819328&oauth_consumer_key=EEi2URUfM97pAAxHTogDpQ&oauth_version=1.0&oauth_signature=Pp1JUAX7P5e1ULJRnmuMZJK5RZ4%3D}}}
+> client.access_token.token
+=> "fJutKvxpdNJDQoMHvhoDkQ"
+}}}
+
+== Test the access token ==
+
+This is not required but could be nice to do.
+
+{{{
+> client.test_request_ok?
+# Request => GET  /oauth/test_request?oauth_nonce=PxQHINpbhGzkzkDa0yo63qhb3DSPNFp4yr73h6VyQYg&oauth_signature_method=HMAC-SHA1&oauth_token=fJutKvxpdNJDQoMHvhoDkQ&oauth_timestamp=1225819433&oauth_consumer_key=EEi2URUfM97pAAxHTogDpQ&oauth_version=1.0&oauth_signature=fnarIQENmD5PbyacRrKzu8n6xxQ%3D
+=> true
+
+}}}
+
+== Use the access token to sign request to protected resources ==
+
+http://api.soundcloud.com/me is a protected resource and can only be accessed when logged in. With our access token we can access this resource and find out who we are.
+{{{
+> res = client.do_request(:get, "/me/")
+# Request => GET  /me/?oauth_nonce=nZhE54oOH9QFXtNzhz7GvCjcWcGB8YSI0YalF9m4pPA&oauth_signature_method=HMAC-SHA1&oauth_token=fJutKvxpdNJDQoMHvhoDkQ&oauth_timestamp=1225819683&oauth_consumer_key=EEi2URUfM97pAAxHTogDpQ&oauth_version=1.0&oauth_signature=M%2Be8V9ZmsHfPVR8NZhvXVQIfhA8%3D
+> JSON.parse(res.body)['username']
+=> "Hannes"
+}}}
+
+This means we can act on the behalf of the User authorizing the token. Creating Tracks, making Comments, adding Users to their contact lists and much more.
