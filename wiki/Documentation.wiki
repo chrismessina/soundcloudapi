@@ -92,11 +92,15 @@ $ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/me'
 
 === OAuth ===
 
-To access protected resources you can authenticate with [http://oauth.net/ OAuth], a standard to give third party applications the authority to act on a user's behalf. You need to register a client application which is connected to your !SoundCloud user account. We're working on extending this section of the documentation. In the meantime you'll find all the OAuth endpoints you need after you [http://soundcloud.com/settings/applications/new register an application].
+To access protected resources you can authenticate with [http://oauth.net/ OAuth], a standard to give third party applications the authority to act on a user's behalf.
+You need to register a client application which is connected to your !SoundCloud user account.
+We're working on extending this section of the documentation.
+In the meantime you'll find all the OAuth endpoints you need after you [http://soundcloud.com/settings/applications/new register an application].
 
-If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] and check out the [http://groups.google.com/group/oauth/ OAuth mailing list].
+If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] where there is also a [http://oauth.net/documentation/getting-started getting started series].
+Subscribing to the [http://groups.google.com/group/oauth/ OAuth mailing list] will keep you updated.
 
-Since Google decided to implement OAuth support in all their API:s they have a [http://code.google.com/apis/gdata/articles/oauth.html nice write up] on the topic as well as an [http://googlecodesamples.com/oauth_playground/ OAuth playground]. These resources are specfic to Google, but might give you a good feel on how OAuth works.
+If you want to give at a go you can look at our [OAuthExample OAuth Example] on how to authorize a third party application.
 
 == Resource Types ==
 
