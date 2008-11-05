@@ -3,7 +3,7 @@
 
 A short "OAuth Dance" example, using a custom wrapper for the Ruby OAuth GEM and passing the OAuth parameters in the querystring.
 
-You can install the [http://oauth.rubyforge.org/ Ruby OAuth GEM] with {{{ sudo gem install oauth }}}. The wrapper is in [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_wrapper/sc_client.rb the code repository of this project].
+You can install the [http://oauth.rubyforge.org/ Ruby OAuth GEM] with {{{ gem install oauth }}}. The wrapper is in [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_wrapper/sc_client.rb the code repository of this project].
 
 * Terminology *
 || Service Provider || !SoundCloud                                                 ||
