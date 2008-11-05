@@ -30,14 +30,14 @@ possibility_to_line_break
 == Register your application ==
 
 I you haven't registered your application with us yet, do so [http://soundcloud.com/settings/applications/new here].
-After registering the application you get an consumer key and an consumer secret. A list of your applications is available [http://soundcloud.com/settings/applications/ here]. The key is used to identify your application when making requests to our API and the secret is used to sign the request. Please note that the secret should be kept secret and never sent with the request or exposed in any way. Below is an example, if you want test the API you need to do it with your own key/secret pair.
+After registering the application you get a consumer key and a consumer secret. A list of your applications is available [http://soundcloud.com/settings/applications/ here]. The key is used to identify your application when making requests to our API and the secret is used to sign the request. Please note that the secret should be kept secret and never sent with the request or exposed in any way. Below is an example, if you want test the API you need to do it with your own key/secret pair.
 
 {{{
 > client = SC::Client.new('sandbox-soundcloud.com', 'EEi2URUfM97pAAxHTogDpQ',
   'NFYd8T3i4jVKGZ9TMy9LHaBQB3Sh8V5sxBiMeMZBow', 'api.')
 }}}
 
-To access protected protected resources the request needs to be signed with the consumer's secret and an access token secret. Follow the flow below to aquire an access token.
+To access protected resources the request needs to be signed with the consumer's secret and an access token secret. Follow the flow below to aquire an access token.
 
 == Get a request token ==
 
