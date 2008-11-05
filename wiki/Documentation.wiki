@@ -30,6 +30,7 @@
   * [Documentation#Resources Resources]
    * [Documentation#users users]
    * [Documentation#tracks tracks]
+    * [Documentation#Downloading_tracks Downloading tracks]
     * [Documentation#Sorting_by_hotness Sorting by hotness]
    * [Documentation#sets sets]
    * [Documentation#comments comments]
@@ -646,7 +647,6 @@ $ curl 'http://api.soundcloud.com/users/1/favorites/3' -X DELETE
 ||  /tracks/{track_id}/comments		      	||	GET, POST         ||
 ||  /tracks/{track_id}/permissions  	  	||	GET, PUT          ||
 ||  /tracks/{track_id}/assets/{asset_id}  ||	GET, PUT          ||
-||  /tracks/{track_id}/download			      ||	GET               ||
 ||  /tracks/{track_id}/stream			        ||	GET               ||
 ||  /tracks/{track_id}/waveform			      ||	GET               ||
 
@@ -699,7 +699,7 @@ $ curl 'http://api.soundcloud.com/tracks'
   <track>
     <id type="integer">11</id>
     <title>Final Countdown</title>
-	...
+    ...
     <sharing>public</sharing>
   </track>
   <track>
@@ -711,13 +711,13 @@ $ curl 'http://api.soundcloud.com/tracks'
   <track>
     <id type="integer">21</id>
     <title>The Musical Offering</title>
-	...
+    ...
     <sharing>public</sharing>
   </track>
   <track>
     <id type="integer">22</id>
     <title>Ice, Ice, Baby</title>
-	...
+    ...
     <sharing>private</sharing>
   </track>
 </tracks>
@@ -740,6 +740,28 @@ $ curl 'http://api.soundcloud.com/tracks?q=ice'
     <sharing>public</sharing>
   </track>
 </tracks>
+}}}
+
+===== Downloading tracks =====
+Tracks that are downloadable can be downloaded from the download-url in the track representation.
+
+{{{
+<track>
+  <id type="integer">11</id>
+  <title>Final Countdown</title>
+  ...
+  <downloadable>true</downloadable>
+  <download-url>http://sandbox-soundcloud.com/joey/final-countdown/download</download-url>
+</track>
+}}}
+
+To download a public Track, do a request to the URL and follow the redirect to get the file.
+
+Downloading a private Track requires authentication, and here some restrictions changes the way we get the file. Authentication is done with OAuth and when requesting a {{{ http://sandbox-soundcloud.com/{user}/{track} }}} resource the OAuth parameters MUST be sent in the querystring. Also note that the host is "sandbox-soundcloud.com" and not "api.sandbox-soundcloud.com". For the production server the host is "soundcloud.com".
+
+So if "Final Countdown" is a private Track and we want to download it we would get a URL looking something like:
+{{{
+http://sandbox-soundcloud.com/joey/final-countdown/download?oauth_nonce=CSZMby3XFbfjqZB9LwYPYsyZqEbgTiclekrTyfaOeM&oauth_signature_method=HMAC-SHA1&oauth_token=SdMzbtW5ZQNFmkiVZrWxLA&oauth_timestamp=1225906320&oauth_consumer_key=xqw4ef0C4iqS5PC5yaX4WA&oauth_version=1.0&oauth_signature=4pVMW43V4GOMBGPomjr9pO56BBo%3D
 }}}
 
 ===== Sorting by hotness =====
