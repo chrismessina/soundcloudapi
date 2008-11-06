@@ -120,4 +120,4 @@ http://api.soundcloud.com/me is a protected resource and can only be accessed wh
 => "Hannes"
 }}}
 
-This means we can act on the behalf of the User authorizing the token. Creating Tracks, making Comments, adding Users to their contact lists and much more.
+This means we can act on the behalf of the User that authorized the token. Creating Tracks, making Comments, adding Users to their contact lists and much more.
