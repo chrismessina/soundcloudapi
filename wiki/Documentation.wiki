@@ -757,9 +757,9 @@ Tracks that are downloadable can be downloaded from the download-url in the trac
 
 To download a public Track, do a request to the URL and follow the redirect to get the file.
 
-Downloading a private Track requires authentication, and here some restrictions changes the way we get the file. Authentication is done with OAuth and when requesting a {{{ http://sandbox-soundcloud.com/{user}/{track} }}} resource the OAuth parameters MUST be sent in the querystring. Also note that the host is "sandbox-soundcloud.com" and not "api.sandbox-soundcloud.com". For the production server the host is "soundcloud.com".
+Downloading a private Track requires authentication, and there are some restrictions that changes the way we get the file. Authentication is done with OAuth and when requesting a {{{ http://sandbox-soundcloud.com/{user}/{track}/download }}} resource the OAuth parameters MUST be sent in the querystring. Also note that the host is "sandbox-soundcloud.com" and not "api.sandbox-soundcloud.com". For the production server the host is "soundcloud.com".
 
-So if "Final Countdown" is a private Track and we want to download it we would get a URL looking something like:
+So if "Final Countdown" is a private Track and we want to download it we would get a [http://code.google.com/p/soundcloudapi/wiki/OAuthExample#Use_the_access_token_to_sign_request_to_protected_resources signed URL] looking something like:
 {{{
 http://sandbox-soundcloud.com/joey/final-countdown/download?oauth_nonce=CSZMby3XFbfjqZB9LwYPYsyZqEbgTiclekrTyfaOeM&oauth_signature_method=HMAC-SHA1&oauth_token=SdMzbtW5ZQNFmkiVZrWxLA&oauth_timestamp=1225906320&oauth_consumer_key=xqw4ef0C4iqS5PC5yaX4WA&oauth_version=1.0&oauth_signature=4pVMW43V4GOMBGPomjr9pO56BBo%3D
 }}}
