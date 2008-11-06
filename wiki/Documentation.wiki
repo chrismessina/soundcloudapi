@@ -101,7 +101,7 @@ In the meantime you'll find all the OAuth endpoints you need after you [http://s
 If you're not already familiar with OAuth, please read more on [http://oauth.net/ oauth.net] where there is also a [http://oauth.net/documentation/getting-started getting started series].
 Subscribing to the [http://groups.google.com/group/oauth/ OAuth mailing list] will keep you updated.
 
-If you want to give at a go you can look at our [OAuthExample OAuth Example] on how to authorize a third party application.
+If you want to give it a go you can look at our [OAuthExample OAuth Example] on how to authorize a third party application.
 
 == Resource Types ==
 
