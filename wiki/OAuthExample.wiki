@@ -15,15 +15,15 @@ You can install the [http://oauth.rubyforge.org/ Ruby OAuth GEM] with {{{ gem in
 || Authorize token: || http://sandbox-soundcloud.com/oauth/authorize_token   ||
 || Access token:    || http://api.sandbox-soundcloud.com/oauth/request_token ||
 
-In the code examples \ denotes a line break inserted for legability.
+In the code examples \ denotes a line break inserted for legibility.
 So
 {{{
-this_is_a_very_long_line_of_code_with_no_possibility_to_line_break
+this_is_a_very_long_line_with_no_natural_place_to_put_a_line_break
 }}}
 becomes
 {{{
-this_is_a_very_long_line_of_code_with_no_ \
-possibility_to_line_break
+this_is_a_very_long_line_with_no_natural_place_to \
+_put_a_line_break
 }}}
 
 
