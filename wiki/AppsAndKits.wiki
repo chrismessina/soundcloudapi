@@ -8,12 +8,14 @@
 
 [http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
 
-===[http://www.hinkeb.com/soundcloud/web Player for Facebook]===
+===[http://github.com/hinke/soundcloud-player/ Player for Facebook]===
 Our nice widget with timed comments, crisp waveform and all now also fits right on your Facebook profile. Just go to the [http://apps.facebook.com/soundcloudplayer SoundCloud Player] on Facebook, add the application, find your track and you're done. Now your profile has it's own soundtrack!
 
 [http://apps.facebook.com/soundcloudplayer http://farm4.static.flickr.com/3062/2679171669_ea3f407310_o.png]
 
-Read more and [http://www.hinkeb.com/soundcloud/web get a hold of the source code here].
+Read more and [http://github.com/hinke/soundcloud-player/ get a hold of the source code here].
+
+Developed by [http://freenerd.de Johan Uhle aka. Freenerd] & [http://hinkeb.com Henrik Berggren]
 
 =Libraries / Kits=
  * [http://code.google.com/p/soundcloudapi/source/browse/trunk/#trunk/python Python wrapper] by [http://www.xing.com/profile/Diez_Roggisch Diez Roggisch]. [http://blog.soundcloud.com/docs/python/ Documentation]
