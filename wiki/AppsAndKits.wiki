@@ -4,9 +4,8 @@
 =Applications=
 
 ===[http://www.radioclouds.com Radioclouds]===
-[http://soundcloud.com/matas Matas Petrikas] wrote a nice visual radio application on top of the [http://soundcloud.com/pages/api SoundCloud platform]. It shows a users social graph and makes listening to new music that’s in network of a user super easy. [http://www.radioclouds.com Try it out] and read up on how easy it is to write apps like Radioclouds.
-
 [http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
+[http://soundcloud.com/matas Matas Petrikas] wrote a nice visual radio application on top of the [http://soundcloud.com/pages/api SoundCloud platform]. It shows a users social graph and makes listening to new music that’s in network of a user super easy. [http://www.radioclouds.com Try it out] and read up on how easy it is to write apps like Radioclouds.
 
 ===[http://github.com/hinke/soundcloud-player/ Player for Facebook]===
 Our nice widget with timed comments, crisp waveform and all now also fits right on your Facebook profile. Just go to the [http://apps.facebook.com/soundcloudplayer SoundCloud Player] on Facebook, add the application, find your track and you're done. Now your profile has it's own soundtrack!
