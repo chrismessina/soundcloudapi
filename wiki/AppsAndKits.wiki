@@ -4,7 +4,7 @@
 =Applications=
 
 ===[http://www.radioclouds.com Radioclouds]===
-[http://www.radioclouds.com http://farm4.static.flickr.com/3030/2679991550_127f4a3dcd_t.jpg]
+[http://blog.soundcloud.com/images/radioclouds.png]
 
 [http://soundcloud.com/matas Matas Petrikas] wrote a nice visual radio application on top of the [http://soundcloud.com/pages/api SoundCloud platform]. It shows a users social graph and makes listening to new music that’s in network of a user super easy. [http://www.radioclouds.com Try it out] and read up on how easy it is to write apps like Radioclouds.
 
