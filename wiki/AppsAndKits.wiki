@@ -13,7 +13,7 @@ Our nice widget with timed comments, crisp waveform and all now also fits right 
 
 [http://apps.facebook.com/soundcloudplayer http://farm4.static.flickr.com/3062/2679171669_ea3f407310_o.png]
 
-Read more and [http://github.com/hinke/soundcloud-player/ get a hold of the source code here]. Developed by [http://freenerd.de Johan Uhle aka. Freenerd] & [http://hinkeb.com Henrik Berggren]
+Read more and [http://github.com/hinke/soundcloud-player/ get a hold of the source code here]. Developed by [http://freenerd.de Johan Uhle aka. Freenerd] & [http://hinkeb.com Henrik Berggren].
 
 ===[http://blog.soundcloud.com/2008/11/21/digital-tunes-soundcloud/ Digital Tunes integration]===
 
