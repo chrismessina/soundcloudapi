@@ -22,6 +22,15 @@ Read more and [http://github.com/hinke/soundcloud-player/ get a hold of the sour
 
 Our first online music store integration is now deployed. Digital Tunes has just launched a way to import tracks and releases to their store directly from SoundCloud. Using our API and authentication via oAuth you can get tracks up for sale with a single click. [http://blog.soundcloud.com/2008/11/21/digital-tunes-soundcloud/ Read more about the integration on our blog] or [http://vimeo.com/2308378 watch a video about it].
 
+===iGoogle Gadget===
+
+http://blog.soundcloud.com/wp-content/uploads/2008/11/igoogle.png
+
+[mailto:StretchMasterP@googlemail.com StretchMasterP] has written a gadget for iGoogle. The gadget is using the API for search and uses our widget to stream tracks. Excellent way of incorporating your favorites from SoundCloud right on your iGoogle page. To install it, go to your iGoogle page, click "Add stuff", click "Add feed or gadget" and paste the link below.
+
+http://hosting.gmodules.com/ig/gadgets/file/100489631041158406533/SoundCloudPlayerV2.xml
+
+Source code will be available shortly.
 
 =Libraries / Kits=
  * [http://code.google.com/p/soundcloudapi/source/browse/trunk/#trunk/python Python wrapper] by [http://www.xing.com/profile/Diez_Roggisch Diez Roggisch]. [http://blog.soundcloud.com/docs/python/ Documentation]
