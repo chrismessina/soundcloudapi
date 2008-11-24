@@ -22,7 +22,7 @@ Developed by [http://freenerd.de Johan Uhle aka. Freenerd] & [http://hinkeb.com 
 
 [http://www.digital-tunes.net/ http://blog.soundcloud.com/images/digital-tunes.jpg]
 
-Our first online music store integration is now deployed. Digital Tunes has just launched a way to import tracks and releases to their store directly from SoundCloud. Using our API and authentication via oAuth you can get tracks up for sale with a single click. [http://blog.soundcloud.com/2008/11/21/digital-tunes-soundcloud/ Read more about the integration on our blog].
+Our first online music store integration is now deployed. Digital Tunes has just launched a way to import tracks and releases to their store directly from SoundCloud. Using our API and authentication via oAuth you can get tracks up for sale with a single click. [http://blog.soundcloud.com/2008/11/21/digital-tunes-soundcloud/ Read more about the integration on our blog] or [http://vimeo.com/2308378 watch a video about it].
 
 
 =Libraries / Kits=
