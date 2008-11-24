@@ -26,11 +26,11 @@ Our first online music store integration is now deployed. Digital Tunes has just
 
 http://blog.soundcloud.com/wp-content/uploads/2008/11/igoogle.png
 
-[mailto:StretchMasterP@googlemail.com StretchMasterP] has written a gadget for iGoogle. The gadget is using the API for search and uses our widget to stream tracks. Excellent way of incorporating your favorites from SoundCloud right on your iGoogle page. To install it, go to your iGoogle page, click "Add stuff", click "Add feed or gadget" and paste the link below.
+[http://sites.google.com/site/mrpyedotcom/ StretchMasterP] has written a gadget for iGoogle. The gadget is using the API for search and uses our widget to stream tracks. Excellent way of incorporating your favorites from SoundCloud right on your iGoogle page. To install it, go to your iGoogle page, click "Add stuff", click "Add feed or gadget" and paste the link below.
 
 http://hosting.gmodules.com/ig/gadgets/file/100489631041158406533/SoundCloudPlayerV2.xml
 
-Source code will be available shortly.
+[http://code.google.com/p/soundcloudwidget/ Want to contribute, here is the source code!]
 
 =Libraries / Kits=
  * [http://code.google.com/p/soundcloudapi/source/browse/trunk/#trunk/python Python wrapper] by [http://www.xing.com/profile/Diez_Roggisch Diez Roggisch]. [http://blog.soundcloud.com/docs/python/ Documentation]
