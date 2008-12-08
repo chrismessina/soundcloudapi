@@ -3,6 +3,22 @@
 
 =Applications=
 
+
+===[http://blog.soundcloud.com/2008/12/08/thecloudplayer/ The Cloud Player]===
+
+
+[http://www.thecloudplayer.com/ http://www.thecloudplayer.com/images/about-thumb.png]
+
+The Cloud Player is a web-based music player that let’s you…
+
+ * *Find and play* all tracks from SoundCloud
+ * *Save playlists* to your Google Account
+ * Make *smart playlists* based on genre, BPM, etc
+ * *Share* your ready-made playlists with your friends
+ * *Collaborate* in making the best playlists ever
+
+It is built by [http://hinkeb.com Henrik Berggren], and [http://eric.wahlforss.com Eric Wahlforss] using [http://appengine.google.com Google App Engine], [http://python.org Python], [http://jquery.com/ jQuery], [http://www.schillmania.com/projects/soundmanager2/ SoundManager 2], [http://www.everaldo.com/crystal/ Crystal] and of course the [http://soundcloud.com/api SoundCloud API]. Do you want to contribute? [http://github.com/hinke/the-cloud-player/tree/master Go ahead and fork from GitHub!]
+
 ===[http://blog.soundcloud.com/2008/11/21/digital-tunes-soundcloud/ Digital Tunes integration]===
 
 
