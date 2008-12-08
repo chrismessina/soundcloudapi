@@ -7,7 +7,7 @@
 ===[http://blog.soundcloud.com/2008/12/08/thecloudplayer/ The Cloud Player]===
 
 
-[http://www.thecloudplayer.com/ http://www.thecloudplayer.com/images/about-thumb.png]
+[http://www.thecloudplayer.com/ http://blog.soundcloud.com/images/thecloudplayer.png]
 
 The Cloud Player is a web-based music player that let’s you…
 
