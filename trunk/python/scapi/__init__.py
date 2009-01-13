@@ -44,15 +44,15 @@ PROXY = ''
 """
 The url Soundcould offers to obtain request-tokens
 """
-REQUEST_TOKEN_URL = 'http://api.staging-soundcloud.com/oauth/request_token'
+REQUEST_TOKEN_URL = 'http://api.sandbox-soundcloud.com/oauth/request_token'
 """
 The url Soundcould offers to exchange access-tokens for request-tokens.
 """
-ACCESS_TOKEN_URL = 'http://api.staging-soundcloud.com/oauth/access_token'
+ACCESS_TOKEN_URL = 'http://api.sandbox-soundcloud.com/oauth/access_token'
 """
 The url Soundcould offers to make users authorize a concrete request token.
 """
-AUTHORIZATION_URL = 'http://api.staging-soundcloud.com/oauth/authorize'
+AUTHORIZATION_URL = 'http://api.sandbox-soundcloud.com/oauth/authorize'
 
 __all__ = ['SoundCloudAPI', 'USE_PROXY', 'PROXY', 'REQUEST_TOKEN_URL', 'ACCESS_TOKEN_URL', 'AUTHORIZATION_URL']
 
