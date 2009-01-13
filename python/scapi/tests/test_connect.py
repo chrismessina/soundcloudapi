@@ -17,11 +17,11 @@ _logger = logging.getLogger("scapi")
 RUN_INTERACTIVE_TESTS = False
 USE_OAUTH = True
 
-TOKEN  = ""
-SECRET = ""
-CONSUMER = ""
-CONSUMER_SECRET = ""
-API_HOST = ""
+TOKEN  = "FjNE9aRTg8kpxuOjzwsX8Q"
+SECRET = "NP5PGoyKcQv64E0aZgV4CRNzHfPwR4QghrWoqEgEE"
+CONSUMER = "EEi2URUfM97pAAxHTogDpQ"
+CONSUMER_SECRET = "NFYd8T3i4jVKGZ9TMy9LHaBQB3Sh8V5sxBiMeMZBow"
+API_HOST = "api.soundcloud.dev:3000"
 USER = ""
 PASSWORD = ""
 
@@ -31,10 +31,10 @@ CONNECTOR = None
 ROOT = None
 def setup():
     global CONNECTOR, ROOT
-    load_config()
+    # load_config()
     #scapi.ApiConnector(host='192.168.2.101:3000', user='tiga', password='test')
-    #scapi.ApiConnector(host='staging-api.soundcloud.com:3030', user='tiga', password='test')
-    scapi.USE_PROXY = True
+    #scapi.ApiConnector(host='sandbox-api.soundcloud.com:3030', user='tiga', password='test')
+    scapi.USE_PROXY = False
     scapi.PROXY = 'http://127.0.0.1:10000/'
 
     if USE_OAUTH:
@@ -44,6 +44,8 @@ def setup():
                                                                 SECRET)
     else:
         authenticator = scapi.authentication.BasicAuthenticator(USER, PASSWORD, CONSUMER, CONSUMER_SECRET)
+    
+    logger.debug("API_HOST: %s", API_HOST)
     CONNECTOR = scapi.ApiConnector(host=API_HOST, 
                                     authenticator=authenticator)
     ROOT = scapi.Scope(CONNECTOR)
