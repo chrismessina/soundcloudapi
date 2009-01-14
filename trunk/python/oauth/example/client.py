@@ -11,7 +11,7 @@ SERVER = '192.168.2.31'
 PORT = 3001
 
 REQUEST_TOKEN_URL = 'http://soundcloud.dev:3000/api/oauth/request_token'
-ACCESS_TOKEN_URL = 'http://soundcloud.dev:3000/api/oauth/access_tokenh'
+ACCESS_TOKEN_URL = 'http://soundcloud.dev:3000/api/oauth/access_token'
 AUTHORIZATION_URL = 'http://soundcloud.dev:3000/api/oauth/authorize'
 
 CALLBACK_URL = 'http://printer.example.com/request_token_ready'
