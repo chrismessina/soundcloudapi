@@ -5,6 +5,7 @@ import httplib
 import time
 import oauth.oauth as oauth
 import webbrowser
+from scapi import util
 
 SERVER = '192.168.2.31'
 PORT = 3001
@@ -44,6 +45,9 @@ class SimpleOAuthClient(oauth.OAuthClient):
     def fetch_access_token(self, oauth_request):
         # via headers
         # -> OAuthToken
+        
+        # This should proably be elsewhere but stays here for now
+        oauth_request.set_parameter("oauth_signature", util.escape(oauth_request.get_parameter("oauth_signature")))
         self.connection.request(oauth_request.http_method, self.access_token_url, headers=oauth_request.to_header()) 
         response = self.connection.getresponse()
         resp = response.read()
