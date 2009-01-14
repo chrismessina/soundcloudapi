@@ -121,6 +121,11 @@ class OAuthAuthenticator(object):
         if self._token is not None:
             oauth_parameters['oauth_token'] = self._token
 
+        # When we have a different encoding then urlencode, parameters should not be
+        # a part of base signature string
+        if (req.get_header("Content-Type") != "application/x-www-form-urlencoded"):  
+          parameters = None
+
         oauth_parameters['oauth_signature'] = self._signature_method.build_signature(req, 
                                                                                      parameters, 
                                                                                      self._consumer_secret, 
