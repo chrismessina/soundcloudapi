@@ -2,7 +2,7 @@
 = API use case =
 
 If you've read the [Documentation documentation] but need more guidance on how to make something with the API, here is a short upload and sharing example.
-Beware that this example only works with our sandbox. For working with our live soundcloud instance you need to use [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_test_client/soundcloud_oauth_test_client.rb oauth] for authentication.
+Beware that this example only works with our sandbox. For working with our live soundcloud instance you need to use [http://code.google.com/p/soundcloudapi/source/browse/trunk/ruby/oauth_test_client/soundcloud_oauth_test_client.rb OAuth] for authentication.
  
 This is how to do it on the sandbox:
 
@@ -18,50 +18,30 @@ You need a SoundCloud user account to be able to upload files. You're soundcloud
 
 == Here we go ==
 
-=== Create a track ===
+=== Create a private track and upload a file ===
 
-Create a track with title and description.
+Create a private track with title, description and asset data.
 
 {{{
-$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
-<track>
-	<title>Superstitious</title>
-	<description>A song about people.</description>
-</track>
-'
+$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/tracks' -F track[asset_data]=@superstitious.aif -F track[title]=Superstitious -F track[description]='A song about people.' -F track[sharing]=private
 
 < HTTP/1.1 201 Created
 < Location: http://api.sandbox-soundcloud.com/tracks/12
+<?xml version="1.0" encoding="UTF-8"?>
+<track>
+  <id type="integer">13409</id>
+  <uri>http://api.sandbox-soundcloud.com/tracks/12</uri>
+  <title>Superstitious</title>
+  <permalink-url>http://sandbox-soundcloud.com/joey/superstitious</permalink-url>
+  <description>A song about people.</description>
+  <sharing>private</sharing>
+  ...
+</track>
 }}}
 
 The track's canonical resource is given in the Location response header and in this case it is "http://api.sandbox-soundcloud.com/tracks/12".
 
 The track's id is 12.
-
-=== Upload an asset ===
-
-Upload the audio file. This should be done by posting the file to the /assets/ resource with content type "multipart/form-data". The file should be added to the request body accordingly. curl does this with the -F switch.
-
-{{{
-$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/assets' -F asset[filedata]=@superstitious.wav
-
-< HTTP/1.1 201 Created
-< Location: http://api.sandbox-soundcloud.com/assets/123
-}}}
-
-The asset's canonical resource is given in the Location response header and in this case it is "http://api.sandbox-soundcloud.com/assets/123".
-
-The asset's id is 123.
-
-=== Connect the asset to the track ===
-
-Use the track's id and the asset's id to connect them.
-
-{{{
-$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/tracks/12/assets/123' -X PUT
-
-< HTTP/1.1 201 Created
-}}}
 
 === List your contacts ===
 
