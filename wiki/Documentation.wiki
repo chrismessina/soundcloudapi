@@ -13,7 +13,6 @@
    * [Documentation#User User]
    * [Documentation#Track Track]
    * [Documentation#Set Set]
-   * [Documentation#Asset Asset]
    * [Documentation#Comment Comment]
    * [Documentation#Event Event]
     * [Documentation#Comment Comment]
@@ -34,7 +33,6 @@
     * [Documentation#Sorting_by_hotness Sorting by hotness]
    * [Documentation#sets sets]
    * [Documentation#comments comments]
-   * [Documentation#assets assets]
    * [Documentation#events events]
 
 == Introduction ==
@@ -109,7 +107,7 @@ The resources can have different roles, but when processing the response data fr
 
 === User ==
 
-Users are the active object. Users are able to create Tracks, Comments, upload Assets, make other Users their contacts and make Tracks favorites. Full search, filtering and usage documentation [Documentation#users here].
+Users are the active object. Users are able to create Tracks, Comments, make other Users their contacts and make Tracks favorites. Full search, filtering and usage documentation [Documentation#users here].
 
 XML representation:
 {{{
@@ -216,23 +214,6 @@ XML representation:
     </track>
   </tracks>
 </playlist>
-}}}
-
-=== Asset ===
-
-Assets are the audio files that are heard when playing a Track. Full search, filtering and usage documentation [Documentation#assets here].
-
-
-XML representation:
-{{{
-<asset>
-  <id type="integer">1</id>
-  <track-id type="integer">1</track-id>
-  <filename>final-countdown.mp3</filename>
-  <duration type="integer">31000</duration>
-  <created-at type="datetime">2007-07-28T18:58:17+02:00</created-at>
-  <uri>http://api.soundcloud.com/assets/1</uri>
-</asset>
 }}}
 
 === Comment ===
@@ -646,7 +627,6 @@ $ curl 'http://api.soundcloud.com/users/1/favorites/3' -X DELETE
 ||  /tracks/{track_id}				          	||	GET, PUT, DELETE  ||
 ||  /tracks/{track_id}/comments		      	||	GET, POST         ||
 ||  /tracks/{track_id}/permissions  	  	||	GET, PUT          ||
-||  /tracks/{track_id}/assets/{asset_id}  ||	GET, PUT          ||
 ||  /tracks/{track_id}/stream			        ||	GET               ||
 ||  /tracks/{track_id}/waveform			      ||	GET               ||
 
@@ -813,20 +793,16 @@ Response headers:
 
 Parameters
   * *track[title ]*, string, the title of the track
+  * *track[asset_data ]*, file, the original asset file
   * track[description ], string, a description
   * track[downloadable ], true|false
   * track[sharing ], public|private
   * track[bpm ], float, beats per minute
 
-Creates a track belonging to the logged in user.
+Creates a track belonging to the logged in user. Since a file asset is attached the request must be a 'multipart/form-data' request, hence we can't send data in XML-format.
 
 {{{
-$ curl 'http://api.soundcloud.com/tracks' -X POST -H 'Content-Type: application/xml'  -d '
-<track>
-	<title>Superstitious</title>
-	<description>A song about people.</description>
-</track>
-'
+$ curl -u joey:hairspray 'http://api.sandbox-soundcloud.com/tracks' -F track[asset_data]=@superstitious.aif -F track[title]=Superstitious
 
 < HTTP/1.1 201 Created
 < Location: http://api.soundcloud.com/tracks/13
@@ -848,7 +824,7 @@ $ curl 'http://api.soundcloud.com/tracks/13'
   <permalink>superstitious</permalink>
   <title>Superstitious</title>
   ...
-  <sharing>private</sharing>
+  <sharing>public</sharing>
 </track>	
 }}}
 
@@ -1002,15 +978,6 @@ is equivalent to:
 $ curl 'http://api.soundcloud.com/tracks/12/permissions' -X PUT -d 'permissions[user_id][]=2&permissions[user_id][]=3'
 
 < HTTP/1.1 200 OK
-}}}
-
-==== PUT /tracks/{track_id}/assets/{asset_id} ====
-Associates the given asset with the given track.
-
-{{{
-$ curl 'http://api.soundcloud.com/tracks/1/assets/1' -X PUT
-
-< HTTP/1.1 201 Created
 }}}
 
 ==== GET /tracks/{track_id}/download ====
@@ -1171,68 +1138,6 @@ This is only allowed to the comment's creator or the associated track's owner.
 
 {{{
 $ curl 'http://api.soundcloud.com/comments/1' -X DELETE
-
-< HTTP/1.1 200 OK
-}}}
-
-=== assets ===
-
-||  Resource					      ||  Method      ||
-||  /assets/			      ||  GET, POST   ||
-||  /assets/{asset_id}  ||  GET, DELETE ||
-
-==== GET /assets ====
-Type: Asset
-
-Retrieves a list of the logged in user's assets.
-
-{{{
-$ curl 'http://api.soundcloud.com/assets'
-
-< HTTP/1.1 200 OK
-
-<?xml version="1.0" encoding="UTF-8"?>
-<assets type="array">
-  <asset>
-    <duration type="integer">312043</duration>
-    <id type="integer">556</id>
-    <track-id type="integer">9</track-id>
-    <created-at type="datetime">2007-07-28T18:58:17+02:00</created-at>
-    <filename>song-1.mp3</filename>
-    <uri>http://api.soundcloud.com/assets/556</uri>
-  </asset>
-  <asset>
-    <duration type="integer">302000</duration>
-    <id type="integer">557</id>
-    <track-id type="integer">10</track-id>
-    <created-at type="datetime">2007-04-08T18:53:07+02:00</created-at>
-
-    <filename>song-2.mp3</filename>
-    <uri>http://api.soundcloud.com/assets/557</uri>
-  </asset>
-</assets>
-}}}
-
-==== POST /assets ====
-Response headers:
-	Location - Canonical URI of the asset.
-	
-Parameters:
-  * *asset[filedata ]*, form-multipart-encoded-file
-
-{{{
-$ curl 'http://api.soundcloud.com/assets' -F asset[filedata]=@final_countdown.wav
-
-< HTTP/1.1 201 Created
-< Location: http://api.soundcloud.com/assets/1
-}}}
-
-
-==== DELETE /assets/{asset_id} ====
-Deletes the given asset.
-
-{{{
-$ curl 'http://api.soundcloud.com/assets/1' -X DELETE
 
 < HTTP/1.1 200 OK
 }}}
