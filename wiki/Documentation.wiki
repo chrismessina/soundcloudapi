@@ -1123,7 +1123,7 @@ Parameters
 
   * playlist[title ], string, the title of the track
   * playlist[description ], string, a description
-  * playlist[tracks ][][id], array, an ordered list track of track_ids
+  * playlist[tracks ][][id ], array, an ordered list track of track_ids
 
 The example below updates the playlist with a new title and reorders the tracks from the GET /playlists/{playlist_id} example.
 
