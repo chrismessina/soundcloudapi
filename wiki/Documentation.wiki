@@ -171,7 +171,7 @@ XML representation:
 
 === Playlist (Set) ===
 
-Playlists are collections of tracks created by the owner of the tracks. Full search, filtering and usage documentation [Documentation#playlists here].
+Playlists are collections of tracks created by the owner of the tracks. Full search, filtering and usage documentation [http://code.google.com/p/soundcloudapi/wiki/Documentation#playlists_(sets) here].
 
 XML representation:
 
