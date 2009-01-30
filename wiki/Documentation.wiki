@@ -2,7 +2,6 @@
 = !SoundCloud API = 
 
 == Table of Contents ==
-
   * [Documentation#Introduction Introduction]
    * [Documentation#Getting_Started Getting Started]
    * [Documentation#Simple_Use_Case Simple Use Case]
@@ -12,7 +11,7 @@
   * [Documentation#Resource_Types Resource Types]
    * [Documentation#User User]
    * [Documentation#Track Track]
-   * [Documentation#Set Set]
+   * [http://code.google.com/p/soundcloudapi/wiki/Documentation#Playlist_(Set) Playlist (Set)]
    * [Documentation#Comment Comment]
    * [Documentation#Event Event]
     * [Documentation#Comment Comment]
@@ -31,7 +30,7 @@
    * [Documentation#tracks tracks]
     * [Documentation#Downloading_tracks Downloading tracks]
     * [Documentation#Sorting_by_hotness Sorting by hotness]
-   * [Documentation#sets sets]
+   * [http://code.google.com/p/soundcloudapi/wiki/Documentation#playlists_(sets) playlists (sets)]
    * [Documentation#comments comments]
    * [Documentation#events events]
 
@@ -170,10 +169,9 @@ XML representation:
 }}}
 
 
-=== Set ===
+=== Playlist (Set) ===
 
-Sets are collections of tracks created by the owner of the tracks. Full search, filtering and usage documentation [Documentation#sets here].
-
+Playlists are collections of tracks created by the owner of the tracks. Full search, filtering and usage documentation [Documentation#playlists here].
 
 XML representation:
 
@@ -1022,15 +1020,15 @@ $ curl 'http://api.soundcloud.com/tracks/1/waveform'
 < Content-Type: image/png
 }}}
 
-=== sets ===
+=== playlists (sets) ===
 
-IMPORTANT: Sets are internally called *playlists* due to naming restrictions and will therefore be named thereafter in the rest of this document.
+Sets are internally called *playlists* due to naming restrictions and will therefore be named thereafter in the rest of this document.
 
-IMPORTANT 2: For now it's only possible to read sets. Creating, updating and deleting will be implemented shortly.
+It's only possible to read and update sets. Creating, and deleting will be implemented shortly.
 
 ||  *Resource*								                  ||	*Method*  ||
 ||  /playlists					                	      ||	GET       ||
-||  /playlists/{playlist_id}				          	||	GET       ||
+||  /playlists/{playlist_id}				          	||	GET, PUT  ||
 
 ==== GET /playlists ====
 Type: Collection of Sets
@@ -1100,8 +1098,52 @@ $ curl 'http://api.soundcloud.com/playlists/315'
   <id type="integer">315</id>
   ...
   <duration>538320</duration>
+	<tracks>
+	  <track>
+	    <id>12</id>
+	    ...
+	  </track>
+	  <track>
+	    <id>13</id>
+	    ...
+	  </track>
+	  <track>
+	    <id>14</id>
+	    ...
+	  </track>
+	</track>
 </playlist>
 
+}}}
+
+==== PUT /playlist/{playlist_id} ====
+Updates the given playlist.
+
+Parameters
+
+  * playlist[title ], string, the title of the track
+  * playlist[description ], string, a description
+  * playlist[tracks ][][id], array, an ordered list track of track_ids
+
+The example below updates the playlist with a new title and reorders the tracks from the GET /playlists/{playlist_id} example.
+
+{{{
+$ curl 'http://api.soundcloud.com/playlist/315' -X PUT -H 'Content-Type: application/xml'  -d '
+<playlist>
+	<title>Best of Bach</title>
+	<tracks>
+	  <track>
+	    <id>14</id>
+	  </track>
+	  <track>
+	    <id>13</id>
+	  </track>
+	  <track>
+	    <id>12</id>
+	  </track>
+	</track>
+</playlist>
+'
 }}}
 
 === comments ===
