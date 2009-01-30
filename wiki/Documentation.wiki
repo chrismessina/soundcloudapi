@@ -1128,7 +1128,7 @@ Parameters
 The example below updates the playlist with a new title and reorders the tracks from the GET /playlists/{playlist_id} example.
 
 {{{
-$ curl 'http://api.soundcloud.com/playlist/315' -X PUT -H 'Content-Type: application/xml'  -d '
+$ curl 'http://api.soundcloud.com/playlists/315' -X PUT -H 'Content-Type: application/xml'  -d '
 <playlist>
 	<title>Best of Bach</title>
 	<tracks>
