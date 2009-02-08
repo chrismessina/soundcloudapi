@@ -4,6 +4,13 @@
 =Applications=
 
 
+===[http://www.listentoblogs.com Listen To Blogs]===
+
+
+[http://www.listentoblogs.com/ http://a1.soundcloud.com/images/api/featured-listen-to-blogs.png]
+
+The user driven podcasting site Listen To Blogs released their site in the beginning of 2009 and are using SoundCloud as host for all audio. They have implemented full OAuth support and built their own branded player. 
+
 ===[http://blog.soundcloud.com/2008/12/08/thecloudplayer/ The Cloud Player]===
 
 
