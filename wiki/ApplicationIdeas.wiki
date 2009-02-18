@@ -1,24 +1,2 @@
 #labels Featured
-Here we'll put in a bunch of API ideas that we've been thinking about while developing SoundCloud and the API for it. Of course, feel free to edit, add, comment.. Here are a few quick ones:
-
-= Desktop Applications =
-  * An uploader app that let's you drag'n'drop any sound file to push it to the cloud & decide who has access to it.
-  * A file system plugin (fuse?) that lets you mount your SoundCloud account and add files to it by dragging and dropping.
-  * A little radio cloud that sits on your desktop (or maybe it's a dashboard widget) and plays music from your dashboard and the hotlist. It could show comments popping up while music is being played.
-  * A plugin for an audio editor to be able to "bounce-to-web" and share with friends straight from within the editor.
-  * Notifier that lets you know when your uploaded track has been processed and is available.
-  * A feed style app similar to Twhirl for Twitter where you can monitor your dashboard and listen to tracks right from your desktop.
-
-= Web apps / mash-ups =
-  * "The world music map". A nice world map visualization where you can zoom in and listen to music that was created in that part of the world or tracks are are listened to a lot in this region.
-  * Audio visualizer that uses the timed comments for textual-based artistic visualization at the right point in the track.
- * Export and/or sync to MySpace: login with your myspace account on the app, which then syncs your latest tracks to the myspace artist-profile player in the background
- * "SoundCards": Moocards+SoundCloud, invite codes for tracks with waveform displays for the track on the card, with comments about it
- * A app that let's a limited amount of people discuss a track without the author seeing it. Ideal for a label that want to discuss the future of a track (release or not).
-= iPhone / Mobile =
-
-  * Iphone app. Jiggy could be nice to play around with for that. While on wifi the app could sync the latest tracks on your dashboard for playback on the go.
-  * Player app that synchs heard/unheard marker & playcounts & allows one-tap favoriting and commenting.
-  * Native app for sampling audio and posting to SC
-  * Add-ons to pocket guitar, iAno etc to let you record audio and post to SC
-  * Webapp for adding priviliges to a soundcloud user or email address on a private track (e.g. I'm at a concert where I meet an interesting producer and can directly give him/her access to a private track of mine)
+This page has moved to [http://wiki.github.com/soundcloud/api/application-ideas GitHub].
