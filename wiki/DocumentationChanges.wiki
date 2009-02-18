@@ -1,12 +1,2 @@
-#summary List of changes made to the documentation
 #labels Featured
-
-== April 4th 2008 ==
-
- * Deprecation of sandbox.soundcloud.com, please use the production server api.soundcloud.com for testing
- * Changed URL-namespace from soundcloud.com/api`*` to api.soundcloud.com`*`
- * [Documentation#Basic_HTTP Consumer Key and Secret are now required when using HTTP Basic Auth]
- * [Documentation#Event Resource type Event added]
- * [http://code.google.com/p/soundcloudapi/wiki/Documentation#/events Resource events added]
- * [Documentation#Partitions Collection "Chunking" renamed to "Partitions"]
- * [Documentation#Sorting_by_hotness Hot tracks interval description changed]
+This page has [http://wiki.github.com/soundcloud/api/documentation-changes moved to Github].
