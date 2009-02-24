@@ -37,6 +37,14 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         return 'HMAC-SHA1'
 
     def build_signature(self, request, parameters, consumer_secret, token_secret, oauth_parameters):
+        if logger.level == logging.DEBUG:
+            logger.debug("request: %r", request)
+            logger.debug("parameters: %r", parameters)
+            logger.debug("consumer_secret: %r", consumer_secret)
+            logger.debug("token_secret: %r", token_secret)
+            logger.debug("oauth_parameters: %r", oauth_parameters)
+
+            
         temp = {}
         temp.update(oauth_parameters)
         for p in self.FORBIDDEN:
@@ -55,14 +63,17 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
             key += token_secret
         raw = '&'.join(sig)
         logger.debug("raw basestring: %s", raw)
+        logger.debug("key: %s", key)
         # hmac object
         hashed = hmac.new(key, raw, hashlib.sha1)
         # calculate the digest base 64
         signature = escape(base64.b64encode(hashed.digest()))
         return signature
 
+
     def get_normalized_http_method(self, request):
         return request.get_method().upper()
+
 
     # parses the url and rebuilds it to be scheme://host/path
     def get_normalized_http_url(self, request):
@@ -70,6 +81,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         parts = urlparse.urlparse(url)
         url_string = '%s://%s%s' % (parts.scheme, parts.netloc, parts.path)
         return url_string
+
 
     def get_normalized_parameters(self, params):
         if params is None:
@@ -99,6 +111,7 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
         # combine key value pairs in string
         return escape('&').join(key_values)
 
+
 class OAuthAuthenticator(object):
     OAUTH_API_VERSION = '1.0'
     AUTHORIZATION_HEADER = "Authorization"
@@ -108,6 +121,7 @@ class OAuthAuthenticator(object):
         self._consumer_secret = consumer_secret
         self._signature_method = signature_method
         random.seed()
+
 
     def augment_request(self, req, parameters):
         oauth_parameters = {
@@ -141,6 +155,7 @@ class OAuthAuthenticator(object):
 
     def generate_nonce(self, length=8):
         return ''.join(str(random.randint(0, 9)) for i in range(length))
+
 
 class BasicAuthenticator(object):
     

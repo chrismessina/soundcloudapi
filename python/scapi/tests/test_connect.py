@@ -1,40 +1,60 @@
 from __future__ import with_statement
+
 import os
 import tempfile
 import itertools
 from ConfigParser import SafeConfigParser
 import pkg_resources
-import scapi
-import scapi.authentication
 import logging
 import webbrowser
+from unittest import TestCase
+
+import scapi
+import scapi.authentication
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 _logger = logging.getLogger("scapi")
-#_logger.setLevel(logging.DEBUG)
+_logger.setLevel(logging.DEBUG)
 
-RUN_INTERACTIVE_TESTS = False
+RUN_INTERACTIVE_TESTS = True
 USE_OAUTH = True
 
-TOKEN  = "FjNE9aRTg8kpxuOjzwsX8Q"
-SECRET = "NP5PGoyKcQv64E0aZgV4CRNzHfPwR4QghrWoqEgEE"
-CONSUMER = "EEi2URUfM97pAAxHTogDpQ"
-CONSUMER_SECRET = "NFYd8T3i4jVKGZ9TMy9LHaBQB3Sh8V5sxBiMeMZBow"
-API_HOST = "api.soundcloud.dev:3000"
-USER = ""
-PASSWORD = ""
+TOKEN  = None
+SECRET = None
 
-CONFIG_NAME = "soundcloud.cfg"
+CONSUMER = None
+CONSUMER_SECRET = None
+
+
+API_HOST = None
+
+USER = None
+PASSWORD = None
+
+CONFIG_NAME = "test.ini"
+CONFIG_SECTION = "api"
 
 CONNECTOR = None
+"""
+The api connector to use, is created in setup.
+"""
+
 ROOT = None
+"""
+The root-scope, createt in setup.
+"""
+
+
+
+
+#class SCAPITests(TestCase)
 def setup():
     global CONNECTOR, ROOT
-    # load_config()
+    load_config()
     #scapi.ApiConnector(host='192.168.2.101:3000', user='tiga', password='test')
     #scapi.ApiConnector(host='sandbox-api.soundcloud.com:3030', user='tiga', password='test')
-    scapi.USE_PROXY = False
+    scapi.USE_PROXY = True
     scapi.PROXY = 'http://127.0.0.1:10000/'
 
     if USE_OAUTH:
@@ -50,23 +70,28 @@ def setup():
                                     authenticator=authenticator)
     ROOT = scapi.Scope(CONNECTOR)
 
+
 def load_config(config_name=None):
     global TOKEN, SECRET, CONSUMER_SECRET, CONSUMER, API_HOST, USER, PASSWORD
     if config_name is None:
         config_name = CONFIG_NAME
     parser = SafeConfigParser()
-    current = os.getcwd()
+    current = os.path.dirname(__file__)
     while current:
         name = os.path.join(current, config_name)
         if os.path.exists(name):
             parser.read([name])
-            TOKEN = parser.get('global', 'accesstoken')
-            SECRET = parser.get('global', 'accesstoken_secret')
-            CONSUMER = parser.get('global', 'consumer')
-            CONSUMER_SECRET = parser.get('global', 'consumer_secret')
-            API_HOST = parser.get('global', 'host')
-            USER = parser.get('global', 'user')
-            PASSWORD = parser.get('global', 'password')
+            TOKEN = parser.get(CONFIG_SECTION, 'token')
+            SECRET = parser.get(CONFIG_SECTION, 'secret')
+            CONSUMER = parser.get(CONFIG_SECTION, 'consumer')
+            CONSUMER_SECRET = parser.get(CONFIG_SECTION, 'consumer_secret')
+            API_HOST = parser.get(CONFIG_SECTION, 'api_host')
+            USER = parser.get(CONFIG_SECTION, 'user', None)
+            PASSWORD = parser.get(CONFIG_SECTION, 'password', None)
+            scapi.AUTHORIZATION_URL = "http://%s/oauth/authorize" % API_HOST
+            scapi.REQUEST_TOKEN_URL = 'http://%s/oauth/request_token' % API_HOST
+            scapi.ACCESS_TOKEN_URL = 'http://%s/oauth/access_token' % API_HOST
+
             logger.debug("token: %s", TOKEN)
             logger.debug("secret: %s", SECRET)
             logger.debug("consumer: %s", CONSUMER)
@@ -88,7 +113,7 @@ def test_load_config():
     os.mkdir(cdir)
     os.chdir(cdir)
     test_config = """
-[global]
+[%s]
 host=host
 consumer=consumer
 consumer_secret=consumer_secret
@@ -96,7 +121,7 @@ accesstoken=accesstoken
 accesstoken_secret=accesstoken_secret
 user=user
 password=password
-"""
+""" % CONFIG_SECTION
     with open(os.path.join(base, CONFIG_NAME), "w") as cf:
         cf.write(test_config)
     load_config()
@@ -130,6 +155,7 @@ def test_access_token_acquisition():
     """
     This test is commented out because it needs user-interaction.
     """
+    global ROOT
     if not RUN_INTERACTIVE_TESTS:
         return
     oauth_authenticator = scapi.authentication.OAuthAuthenticator(CONSUMER, 
@@ -156,13 +182,16 @@ def test_access_token_acquisition():
                                                                   token, 
                                                                   secret)
 
-    sca = scapi.ApiConnector(API_HOST, authenticator=oauth_authenticator)
+    connector = scapi.ApiConnector(API_HOST, authenticator=oauth_authenticator)
+    ROOT = scapi.Scope(connector)
     test_track_creation()
+
 
 def test_track_creation():
     sca = ROOT
     track = sca.Track.new(title='bar')
     assert isinstance(track, scapi.Track)
+
 
 def test_track_update():
     sca = ROOT
@@ -172,11 +201,13 @@ def test_track_update():
     track = sca.Track.get(track.id)
     assert track.title == "baz"
 
+
 def test_scoped_track_creation():
     sca = ROOT
     user = sca.me()
     track = user.tracks.new(title="bar")
     assert isinstance(track, scapi.Track)
+
 
 def test_upload():
     assert pkg_resources.resource_exists("scapi.tests.test_connect", "knaster.mp3")
@@ -191,12 +222,14 @@ def test_upload():
     track = tracks[0]
     track.assets.append(asset)
 
+
 def test_contact_list():
     sca = ROOT
     user = sca.me()
     contacts = list(user.contacts())
     assert isinstance(contacts, list)
     assert isinstance(contacts[0], scapi.User)
+
 
 def test_permissions():
     sca = ROOT
@@ -209,6 +242,7 @@ def test_permissions():
         if permissions:
             assert isinstance(permissions[0], scapi.User)
 
+
 def test_setting_permissions():
     sca = ROOT
     me = sca.me()
@@ -219,6 +253,7 @@ def test_setting_permissions():
     assert users_to_set, "Didn't find any suitable users"
     track.permissions = users_to_set
     assert set(track.permissions()) == set(users_to_set)
+
 
 def test_setting_comments():
     sca = ROOT
@@ -235,6 +270,7 @@ def test_setting_comments_the_way_shawn_says_its_correct():
     cbody = "This is the body of my comment"
     track.comments.new(body=cbody, timestamp=10)
     assert list(track.comments())[0].body == cbody
+
 
 def test_contact_add_and_removal():
     sca = ROOT
@@ -285,6 +321,7 @@ def test_favorites():
     favorites = list(me.favorites())
     assert track not in favorites
 
+
 def test_large_list():
     sca = ROOT
     tracks = list(sca.tracks())
@@ -302,11 +339,13 @@ def test_events():
     assert isinstance(events, list)
     assert isinstance(events[0], scapi.Event)
 
+
 def test_me_having_stress():
     sca = ROOT
     for _ in xrange(20):
         setup()
         sca.me()
+
 
 def test_non_global_api():
     root = scapi.Scope(CONNECTOR)
@@ -316,6 +355,7 @@ def test_non_global_api():
     # now get something *from* that user
     favorites = list(me.favorites())
     assert favorites
+
 
 def test_playlists():
     sca = ROOT

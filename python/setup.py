@@ -8,6 +8,6 @@ setup(
     description = "This is an implementation of the SoundCloud RESTful API",
     license = "LGPL",
     keywords = "Soundcloud client API REST",
-    url = "http://code.google.com/p/soundcloudapi/"
-
+    url = "http://code.google.com/p/soundcloudapi/",
+    install_requires = ['simplejson'],
 )
