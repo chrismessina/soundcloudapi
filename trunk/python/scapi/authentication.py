@@ -19,13 +19,23 @@
 ##    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import base64
-import urllib2
 import time, random
 import urlparse
 import hmac
 import hashlib
 from scapi.util import escape
 import logging
+
+
+USE_DOUBLE_ESCAPE_HACK = True
+"""
+There seems to be an uncertainty on the way
+parameters are to be escaped. For now, this
+variable switches between two escaping mechanisms.
+
+If True, the passed parameters - GET or POST - are
+escaped *twice*.
+"""
 
 logger = logging.getLogger(__name__)
 
@@ -102,9 +112,16 @@ class OAuthSignatureMethod_HMAC_SHA1(object):
                 values = [str(v) for v in values]
             if isinstance(values, basestring):
                 values = [values]
+            if USE_DOUBLE_ESCAPE_HACK and not key.startswith("ouath"):
+                key = escape(key)                
             for v in values:
                 v = v.encode("utf-8")
                 key = key.encode("utf-8")
+                if USE_DOUBLE_ESCAPE_HACK and not key.startswith("oauth"):
+                    # this is a dirty hack to make the
+                    # thing work with the current server-side
+                    # implementation. Or is it by spec? 
+                    v = escape(v)
                 key_values.append(escape("%s=%s" % (key, v)))
         # sort lexicographically, first after key, then after value
         key_values.sort()
@@ -123,7 +140,7 @@ class OAuthAuthenticator(object):
         random.seed()
 
 
-    def augment_request(self, req, parameters):
+    def augment_request(self, req, parameters, use_multipart=False):
         oauth_parameters = {
             'oauth_consumer_key': self._consumer,
             'oauth_timestamp': self.generate_timestamp(),
@@ -135,10 +152,10 @@ class OAuthAuthenticator(object):
         if self._token is not None:
             oauth_parameters['oauth_token'] = self._token
 
-        # When we have a different encoding then urlencode, parameters should not be
-        # a part of base signature string
-        if (req.get_header("Content-Type") != "application/x-www-form-urlencoded"):  
-          parameters = None
+        # in case we upload large files, we don't
+        # sign the request over the parameters
+        if use_multipart:
+            parameters = None
 
         oauth_parameters['oauth_signature'] = self._signature_method.build_signature(req, 
                                                                                      parameters, 
