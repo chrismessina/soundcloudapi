@@ -1,0 +1,1 @@
+This page has moved to [GitHub](http://wiki.github.com/soundcloud/api/apps-and-kits).

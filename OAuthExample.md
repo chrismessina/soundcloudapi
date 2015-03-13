@@ -1,0 +1,1 @@
+The documentation has moved to [GitHub](http://wiki.github.com/soundcloud/api/oauth-example).

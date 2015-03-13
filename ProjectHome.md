@@ -1,0 +1,1 @@
+The SoundCloud API has [moved to Github](http://wiki.github.com/soundcloud/api)

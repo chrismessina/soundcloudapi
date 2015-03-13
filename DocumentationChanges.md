@@ -1,0 +1,1 @@
+This page has [moved to Github](http://wiki.github.com/soundcloud/api/documentation-changes).
